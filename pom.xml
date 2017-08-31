@@ -72,10 +72,11 @@
           <groupId>org.wildfly.plugins</groupId>
           <artifactId>wildfly-maven-plugin</artifactId>
           <version>1.2.0.Final</version>
-          <inherited>true</inherited>
+          <!-- <inherited>true</inherited>-->
           <configuration>
             <id>${jbossServerId}</id>
             <hostname>${jbossHostname}</hostname>
+            <name>liontrail.war</name>
             <skip>true</skip>
           </configuration>
         </plugin>
@@ -100,4 +101,14 @@
       </plugins>
     </pluginManagement>
   </build>
+  
+  <profiles>
+    <profile>
+      <id>wildfly-localhost</id>
+      <properties>
+        <jbossServerId>wildfly-localhost</jbossServerId>
+        <jbossHostname>localhost</jbossHostname>
+      </properties>
+    </profile>
+  </profiles>
 </project>

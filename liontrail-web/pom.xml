@@ -33,6 +33,20 @@
 
   <build>
     <finalName>${project.parent.artifactId}</finalName>
+    <plugins>
+      <plugin>
+        <groupId>org.wildfly.plugins</groupId>
+        <artifactId>wildfly-maven-plugin</artifactId>
+        <version>1.2.0.Final</version>
+        <!-- <inherited>true</inherited> -->
+        <configuration>
+          <id>${jbossServerId}</id>
+          <hostname>${jbossHostname}</hostname>
+          <name>liontrail.war</name>
+          <skip>false</skip>
+        </configuration>
+      </plugin>
+    </plugins>
   </build>
 
 </project>
