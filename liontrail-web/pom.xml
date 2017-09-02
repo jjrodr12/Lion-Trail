@@ -23,6 +23,11 @@
       <artifactId>liontrail-common</artifactId>
       <version>${project.version}</version>
     </dependency>
+    <dependency>
+      <groupId>org.flywaydb</groupId>
+      <artifactId>flyway-core</artifactId>
+    </dependency>
+
 
     <dependency>
       <groupId>junit</groupId>
@@ -46,6 +51,49 @@
           <skip>false</skip>
         </configuration>
       </plugin>
+      <plugin>
+        <groupId>org.flywaydb</groupId>
+        <artifactId>flyway-maven-plugin</artifactId>
+
+        <configuration>
+          <skip>false</skip>
+        </configuration>
+        <!-- <executions>
+          <execution>
+            <id>liontrail-tables</id>
+            <phase>compile</phase> whatever phase you need
+            <goals>
+              <goal>migrate</goal>
+            </goals>
+            <configuration>
+              <serverId>flyway</serverId>
+              <configFile>flyway.properties</configFile>
+              <locations>
+                <location>
+                  filesystem:src/main/resources/db/liontrail/
+                </location>
+              </locations>
+            </configuration>
+          </execution>
+          <execution>
+            <id>liontrail-users-tables</id>
+            <phase>compile</phase> whatever phase you need
+            <goals>
+              <goal>migrate</goal>
+            </goals>
+            <configuration>
+              <serverId>flyway</serverId>
+              <configFile>flyway.properties</configFile>
+              <locations>
+                <location>
+                  filesystem:src/main/resources/db/users/
+                </location>
+              </locations>
+            </configuration>
+          </execution>
+        </executions> -->
+      </plugin>
+
     </plugins>
   </build>
 

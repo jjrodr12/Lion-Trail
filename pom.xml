@@ -5,12 +5,12 @@
   <artifactId>liontrail</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
-  
+
   <modules>
     <module>liontrail-common</module>
     <module>liontrail-web</module>
   </modules>
-  
+
 
   <properties>
     <java.version>1.8</java.version>
@@ -72,7 +72,7 @@
           <groupId>org.wildfly.plugins</groupId>
           <artifactId>wildfly-maven-plugin</artifactId>
           <version>1.2.0.Final</version>
-          <!-- <inherited>true</inherited>-->
+          <!-- <inherited>true</inherited> -->
           <configuration>
             <id>${jbossServerId}</id>
             <hostname>${jbossHostname}</hostname>
@@ -84,11 +84,43 @@
           <groupId>org.flywaydb</groupId>
           <artifactId>flyway-maven-plugin</artifactId>
           <version>4.1.2</version>
-          <inherited>true</inherited>
           <configuration>
             <skip>true</skip>
-            <cleanDisabled>true</cleanDisabled>
           </configuration>
+          <!-- <executions>
+          <execution>
+            <id>liontrail-tables</id>
+            <phase>compile</phase> whatever phase you need
+            <goals>
+              <goal>migrate</goal>
+            </goals>
+            <configuration>
+              <serverId>flyway</serverId>
+              <configFile>flyway.properties</configFile>
+              <locations>
+                <location>
+                  filesystem:src/main/resources/db/liontrail/
+                </location>
+              </locations>
+            </configuration>
+          </execution>
+          <execution>
+            <id>liontrail-users-tables</id>
+            <phase>compile</phase> whatever phase you need
+            <goals>
+              <goal>migrate</goal>
+            </goals>
+            <configuration>
+              <serverId>flyway</serverId>
+              <configFile>flyway.properties</configFile>
+              <locations>
+                <location>
+                  filesystem:src/main/resources/db/users/
+                </location>
+              </locations>
+            </configuration>
+          </execution>
+        </executions> -->
           <dependencies>
             <dependency>
               <groupId>postgresql</groupId>
@@ -101,7 +133,7 @@
       </plugins>
     </pluginManagement>
   </build>
-  
+
   <profiles>
     <profile>
       <id>wildfly-localhost</id>
