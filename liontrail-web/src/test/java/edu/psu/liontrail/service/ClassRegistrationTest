@@ -7,20 +7,54 @@ public class ClassRegistrationTest {
   
   @Test
   @Ignore
-  public void testClassRegsitration() {
-    //Setup application data
-    //
-    //
-    //
+  public void testClassRegistration() {
+    //Setup application data.
+    //Student register to the class.
+    //Verify that the student is part of the class.
+    //Verify that the student can drop the class.
   }
   
   @Test
   @Ignore
   public void testRejectClassRegistration() {
-    //
-    //
-    //
-    //
+    //Setup application data.
+    //Student register to the class.
+    //Verify that the student got rejected from being part of the class.
+    
   }
-
+  @Test
+  @Ignore
+  public void testStudentWaitList() {
+    //Setup application data.
+    //Student is part of the wailist.
+    //Verify that the student is on the wait list.
+    //Verify that the student can register after the class is open.
+    //Verify that the student can drop his class registration from the waiting list.
+    //Verify that the student gets inform when he/she can register to the class.
+  }
+  
+  @Test
+  @Ignore
+  public void testInstructor() {
+    //Setup application data.
+    //Intructor can see the new students and the ones waiting on the waitlist.
+    //Verify that the instructor can see the waitlist.
+    //Verify that the instructor can see the students leaving the waitlist.
+  }
+  
+  @Test
+  @Ignore
+  public void testStudentClassSchedule() {
+    //Setup application data.
+    //Student schedule.
+    //Verify that the student can be notified if hi/she has conflits with other classes.
+  }
+  
+  @Test
+  @Ignore
+  public void testAdministractor() {
+    //Setup application data.
+    //Administractor.
+    //Verify that the administrator provides accurate courses offering to student based on the current semester.
+  }
 }
