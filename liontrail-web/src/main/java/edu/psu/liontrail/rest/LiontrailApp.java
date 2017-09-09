@@ -1,4 +1,4 @@
-package edu.psu.lionltrail.rest;
+package edu.psu.liontrail.rest;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -11,7 +11,8 @@ public class LiontrailApp extends Application {
 
   public Set<Class<?>> getClasses() {
     Set<Class<?>> classes = new HashSet<Class<?>>();
-    classes.add(TestResourceImpl.class);
+    //classes.add(TestResourceImpl.class);
+    classes.add(SemesterResourceImpl.class);
     
     return classes;
   }

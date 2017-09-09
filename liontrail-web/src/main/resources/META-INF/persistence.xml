@@ -1,19 +1,21 @@
 <persistence xmlns="http://java.sun.com/xml/ns/persistence"
-             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
-             version="2.0">
-        <persistence-unit name="liontrail-ds" transaction-type="JTA">
-		<jta-data-source>java:jboss/datasources/liontrail-ds</jta-data-source>
-        <!-- <class>edu.psu.swe.ecommerce.model.AsynchronousTransaction</class> -->
-        <class>edu.psu.liontrail.model.ChildEntity</class>
-        <class>edu.psu.liontrail.model.ParentEntity</class>
-        <class>edu.psu.liontrail.model.SomeEntity</class>
-        <exclude-unlisted-classes>true</exclude-unlisted-classes>
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+  version="2.0">
+  <persistence-unit name="liontrail-ds"
+    transaction-type="JTA">
+    <jta-data-source>java:jboss/datasources/liontrail-ds</jta-data-source>
+    <!-- <class>edu.psu.swe.ecommerce.model.AsynchronousTransaction</class> -->
+    <!-- <class>edu.psu.liontrail.model.ChildEntity</class> <class>edu.psu.liontrail.model.ParentEntity</class> 
+      <class>edu.psu.liontrail.model.SomeEntity</class> -->
 
-        <properties>
-        	<property name="hibernate.show_sql" value="false" />
-        	<property name="hibernate.hbm2ddl.auto" value="validate" />
-     	</properties>
-	</persistence-unit>
+    <class>edu.psu.liontrail.model.Semester</class>
+    <exclude-unlisted-classes>true</exclude-unlisted-classes>
+
+    <properties>
+      <property name="hibernate.show_sql" value="false" />
+      <property name="hibernate.hbm2ddl.auto" value="validate" />
+    </properties>
+  </persistence-unit>
 </persistence>
 
