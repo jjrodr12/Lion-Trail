@@ -56,5 +56,6 @@ public class ClassRegistrationTest {
     //Setup application data.
     //Administractor.
     //Verify that the administrator provides accurate courses offering to student based on the current semester.
+    //
   }
 }
