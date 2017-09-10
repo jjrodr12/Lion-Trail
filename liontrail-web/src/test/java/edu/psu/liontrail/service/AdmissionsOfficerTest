@@ -1,0 +1,34 @@
+package edu.psu.liontrail.service;
+
+import org.junit.Ignore;
+import org.junit.Test;
+
+public class AdmissionsOfficerTest{
+  
+  @Test
+  @Ignore
+  public void testAdmissionApplication () {
+    //Setup data.
+    //Admission Application.
+    //Verify that the admission office can view the student's application.
+    //Verify that the admission office can search for an specific student application.
+    //Verify that the admission office do not want to accept more than the intended number of students into a program. 
+   }
+  
+  @Test
+  @Ignore
+  public void testApprovedApplication () {
+    //Setup data.
+    //Admission Application.
+    //Verify that the admission office can approved an application.
+   
+  }
+  @Test
+  @Ignore
+  public void testDeniedApplication () {
+    //Setup data.
+    //Admission Application.
+    //Verify that the admission office can denied an application.
+   
+  }
+}
