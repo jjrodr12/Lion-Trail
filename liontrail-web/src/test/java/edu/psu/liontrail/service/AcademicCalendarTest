@@ -1,0 +1,26 @@
+package edu.psu.liontrail.service;
+
+import org.junit.Ignore;
+import org.junit.Test;
+
+public class AcademicCalendarTest {
+  
+  @Test
+  @Ignore
+  public void testAdministractorSetDates() {
+    //Setup data.
+    //Administrator is setting dates.
+    //Verify that the Administractor set the start date of the semester.
+    //Verify that the Administractor set the end date of the semester.
+    //Verify that the Administractor set the holidays of the semester.
+  }
+  
+  @Test
+  @Ignore
+  public void testStudentDropDates() {
+    //Setup data.
+    //Student is able to drop a class in a certain date.
+    //Verify that the student is able to see the dates for dropping classes.
+    
+  }
+}
