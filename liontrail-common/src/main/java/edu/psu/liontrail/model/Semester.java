@@ -20,7 +20,9 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import edu.psu.liontrail.adapter.LocalDateAdapter;
 import edu.psu.liontrail.enumeration.SemesterSeason;
 
 @Entity
@@ -63,30 +65,36 @@ public class Semester implements Serializable {
   @Column(name = "first_class_date")
   @NotNull
   @XmlElement
+  @XmlJavaTypeAdapter(LocalDateAdapter.class)
   private LocalDate firstClassDate;
 
   @Column(name = "last_class_date")
   @NotNull
   @XmlElement
+  @XmlJavaTypeAdapter(LocalDateAdapter.class)
   private LocalDate lastClassDate;
   
   @Column(name="first_exam_date")
   @NotNull
   @XmlElement
+  @XmlJavaTypeAdapter(LocalDateAdapter.class)
   private LocalDate firstExamDate;
   
   @Column(name="last_exam_date")
   @NotNull
+  @XmlJavaTypeAdapter(LocalDateAdapter.class)
   private LocalDate lastExamDate;
 
   @Column(name = "class_registration_date")
   @NotNull
   @XmlElement
+  @XmlJavaTypeAdapter(LocalDateAdapter.class)
   private LocalDate classRegistrationDate;
 
   @Column(name = "drop_add_deadline_date")
   @NotNull
   @XmlElement
+  @XmlJavaTypeAdapter(LocalDateAdapter.class)
   private LocalDate dropAddDeadlineDate;
 
   public int getId() {
