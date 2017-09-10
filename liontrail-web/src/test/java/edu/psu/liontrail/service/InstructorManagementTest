@@ -1,0 +1,25 @@
+package edu.psu.liontrail.service;
+
+import org.junit.Ignore;
+import org.junit.Test;
+
+public class InstructorManagementTest {
+  
+  @Test
+  @Ignore
+  public void testInstructorProfile() {
+    //Setup data.
+    //Instructor profile.
+    //Verify that the instructor can update his/her profile.
+    
+  }
+  
+  @Test
+  @Ignore
+  public void testInstructorRecords() {
+    //Setup data.
+    //Instructor records.
+    //Verify that the administractor can create a record for an instructor new hire.
+    
+  }
+}
