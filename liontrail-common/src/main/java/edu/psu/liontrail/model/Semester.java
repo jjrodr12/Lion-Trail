@@ -43,6 +43,8 @@ public class Semester implements Serializable {
   public static final String ALL = "Semester.findAll";
   public static final String BY_YEAR = "Semester.findByYear";
   public static final String BY_SEASON_AND_YEAR = "Semester.findBySeasonAndYear";
+  
+  public static final int FIRST_YEAR= 1855;
 
   @Id
   @Column(name = "id")

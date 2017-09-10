@@ -34,6 +34,11 @@
       <artifactId>junit</artifactId>
       <scope>test</scope>
     </dependency>
+    <dependency>
+        <groupId>org.mockito</groupId>
+        <artifactId>mockito-all</artifactId>
+        <scope>test</scope>
+      </dependency>
   </dependencies>
 
   <build>
@@ -58,10 +63,10 @@
         <configuration>
           <skip>false</skip>
         </configuration>
-        <!-- <executions>
+        <executions>
           <execution>
             <id>liontrail-tables</id>
-            <phase>compile</phase> whatever phase you need
+            <!-- <phase>pre-integration-test</phase> -->
             <goals>
               <goal>migrate</goal>
             </goals>
@@ -75,7 +80,7 @@
               </locations>
             </configuration>
           </execution>
-          <execution>
+          <!--<execution>
             <id>liontrail-users-tables</id>
             <phase>compile</phase> whatever phase you need
             <goals>
@@ -90,8 +95,8 @@
                 </location>
               </locations>
             </configuration>
-          </execution>
-        </executions> -->
+          </execution> -->
+        </executions>
       </plugin>
 
     </plugins>
