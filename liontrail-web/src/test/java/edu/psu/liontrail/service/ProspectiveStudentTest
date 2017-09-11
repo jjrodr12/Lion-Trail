@@ -1,0 +1,52 @@
+package edu.psu.liontrail.service;
+
+import org.junit.Ignore;
+import org.junit.Test;
+
+public class ProspectiveStudentTest {
+  
+  @Test
+  @Ignore
+  public void testSubmitAppliction() {
+    //Setup application data.
+    //Submit application to admissions.
+    //Verify that the student can apply to a specific program.
+    //Verify that the application for the specif program is approved.
+    //Verify that the application for the specif program is denied.
+  }
+  
+  @Test
+  @Ignore
+  public void testStatusApplication() {
+    //Setup application data.
+    //StatusApplication.
+    //Verify that the student can see the the status of the application.
+    //Verify that the student can make modifications about his/her application.
+  }
+
+  @Test
+  @Ignore
+  public void testApprovedApplication() {
+    //Setup application data.
+    //ApprovedApplication.
+    //Verify that the student gets a approved notification into the program.
+    //Verify that the student can accept the offer.
+  }
+  
+  @Test
+  @Ignore
+  public void testRejectApplication() {
+    //Setup application data.
+    //RejectApplication.
+    //Verify that the student can reject the application into the program. 
+  }
+  
+  @Test
+  @Ignore
+  public void testGetInformation() {
+    //Setup data.
+    //Get information about programs.
+    //Verify that the student can get infomration about a specifict program.
+    //
+  }
+}

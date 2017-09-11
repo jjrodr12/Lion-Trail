@@ -1,0 +1,32 @@
+package edu.psu.liontrail.service;
+
+import org.junit.Ignore;
+import org.junit.Test;
+
+public class CurrentStudentInfoTest {
+  
+  @Test
+  @Ignore
+  public void testSearchStudents() {
+    //Setup data.
+    //Student is searching for other students.
+    //Verify that the student search for other students.
+  }
+  
+  @Test
+  @Ignore
+  public void testUpdateContactInfo() {
+    //Setup data.
+    //Student can update his/her contact information.
+    //Verify that the student can update his/her contact information.
+  }
+  @Test
+  @Ignore
+  public void testAdministratorUpdateStudentInfo() {
+    //Setup data.
+    //Administrator is making updates in the student contact information.
+    //Verify that the administrator can update student contact information.
+    //Verify that the administrator can create new contact information for new students. 
+    //Verify that the administrator can delete student contact information.
+  }
+}

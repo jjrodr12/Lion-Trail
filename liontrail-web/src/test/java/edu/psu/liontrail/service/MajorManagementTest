@@ -1,0 +1,36 @@
+package edu.psu.liontrail.service;
+
+import org.junit.Ignore;
+import org.junit.Test;
+
+public class MajorManagementTest {
+  
+  @Test
+  @Ignore
+  public void testNewMajor() {
+    //Setup data.
+    //Create a new Major.
+    //Verify that the dean can create a new major.
+    
+  }
+  
+  @Test
+  @Ignore
+  public void testAddEditDeleteClasses() {
+    //Setup data.
+    //Add, Edit and Delete classes.
+    //Verify that the dean can add classes to the major.
+    //Verify that the dean can edit classes to the major.
+    //Verify that the dean can delete classes from the major.
+    
+  }
+  
+  @Test
+  @Ignore
+  public void testBuildingRoadMap() {
+    //Setup data.
+    //Building a roadmap for students.
+    //Verify that the student can can create a road map for student.
+    
+  }
+}
