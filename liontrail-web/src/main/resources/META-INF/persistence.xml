@@ -5,16 +5,26 @@
   <persistence-unit name="liontrail-ds"
     transaction-type="JTA">
     <jta-data-source>java:jboss/datasources/liontrail-ds</jta-data-source>
-    <!-- <class>edu.psu.swe.ecommerce.model.AsynchronousTransaction</class> -->
-    <!-- <class>edu.psu.liontrail.model.ChildEntity</class> <class>edu.psu.liontrail.model.ParentEntity</class> 
-      <class>edu.psu.liontrail.model.SomeEntity</class> -->
 
+    <class>edu.psu.liontrail.model.AuthUser</class>
+    <class>edu.psu.liontrail.model.UserRole</class>
+    
+
+    <class>edu.psu.liontrail.model.Admission</class>
+    <class>edu.psu.liontrail.model.Application</class>
+    <class>edu.psu.liontrail.model.Class</class>
+    <class>edu.psu.liontrail.model.Course</class>
+    <class>edu.psu.liontrail.model.Department</class>
+    <class>edu.psu.liontrail.model.Instructor</class>
+    <class>edu.psu.liontrail.model.Major</class>
     <class>edu.psu.liontrail.model.Semester</class>
+    <class>edu.psu.liontrail.model.Student</class>
+    <class>edu.psu.liontrail.model.User</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
 
     <properties>
       <property name="hibernate.show_sql" value="false" />
-      <property name="hibernate.hbm2ddl.auto" value="validate" />
+      <property name="hibernate.hbm2ddl.auto" value="create-drop" />
     </properties>
   </persistence-unit>
 </persistence>
