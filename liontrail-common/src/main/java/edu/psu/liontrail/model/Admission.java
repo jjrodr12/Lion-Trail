@@ -21,6 +21,8 @@ import javax.validation.constraints.NotNull;
 @Table(name="admission")
 public class Admission implements Serializable {
 
+  private static final long serialVersionUID = 7876124618829632052L;
+
   @Id
   @Column(name="cohort_id")
   @GeneratedValue(strategy = GenerationType.AUTO, generator = "cohort_seq_gen")
@@ -45,4 +47,77 @@ public class Admission implements Serializable {
   joinColumns=@JoinColumn(name="cohort", referencedColumnName="cohort_id"),
   inverseJoinColumns=@JoinColumn(name="student", referencedColumnName="user_id"))
   private List<Student> students;
+
+  public int getCohortId() {
+    return cohortId;
+  }
+
+  public void setCohortId(int cohortId) {
+    this.cohortId = cohortId;
+  }
+
+  public Major getMajor() {
+    return major;
+  }
+
+  public void setMajor(Major major) {
+    this.major = major;
+  }
+
+  public Semester getSemeser() {
+    return semeser;
+  }
+
+  public void setSemeser(Semester semeser) {
+    this.semeser = semeser;
+  }
+
+  public int getCohortSize() {
+    return cohortSize;
+  }
+
+  public void setCohortSize(int cohortSize) {
+    this.cohortSize = cohortSize;
+  }
+
+  public List<Student> getStudents() {
+    return students;
+  }
+
+  public void setStudents(List<Student> students) {
+    this.students = students;
+  }
+
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + ((major == null) ? 0 : major.hashCode());
+    result = prime * result + ((semeser == null) ? 0 : semeser.hashCode());
+    return result;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    if (obj == null)
+      return false;
+    if (getClass() != obj.getClass())
+      return false;
+    Admission other = (Admission) obj;
+    if (major == null) {
+      if (other.major != null)
+        return false;
+    } else if (!major.equals(other.major))
+      return false;
+    if (semeser == null) {
+      if (other.semeser != null)
+        return false;
+    } else if (!semeser.equals(other.semeser))
+      return false;
+    return true;
+  }
+  
+  
 }

@@ -79,6 +79,12 @@ public class SemesterService {
     }
     
     //Null Checks
+    if (semester.getAdmissionStart() == null) {
+      exception.addMessage("Admission Start Date cannot be null");
+    }
+    if (semester.getAdmissionStop() == null) {
+      exception.addMessage("Admission Stop Date cannot be null");
+    }
     if (semester.getClassRegistrationDate() == null) {
       exception.addMessage("Class Registration Date cannot be null");
     }
@@ -105,6 +111,14 @@ public class SemesterService {
     }
     
     //Date Order Checks
+    if (ValidationUtil.allNotNull(semester.getAdmissionStart(), semester.getAdmissionStop()) &&
+        semester.getAdmissionStop().isBefore(semester.getAdmissionStart())) {
+      exception.addMessage("Admission State Date must be before Admission Stop Date");
+    }
+    if (ValidationUtil.allNotNull(semester.getAdmissionStop(), semester.getClassRegistrationDate()) &&
+        semester.getClassRegistrationDate().isBefore(semester.getAdmissionStop())) {
+      exception.addMessage("Admission Stop Date must be before Class Registration Date");
+    }
     if (ValidationUtil.allNotNull(semester.getClassRegistrationDate(), semester.getFirstClassDate()) &&
         semester.getFirstClassDate().isBefore(semester.getClassRegistrationDate())) {
       exception.addMessage("Class Registration Date must be before First Class Date");

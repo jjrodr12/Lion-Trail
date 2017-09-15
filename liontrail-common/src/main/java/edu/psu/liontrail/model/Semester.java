@@ -63,6 +63,18 @@ public class Semester implements Serializable {
   @NotNull
   @XmlElement
   private int year;
+  
+  @Column(name="adminssion_start")
+  @NotNull
+  @XmlElement
+  @XmlJavaTypeAdapter(LocalDateAdapter.class)
+  private LocalDate admissionStart;
+  
+  @Column(name="adminssion_stop")
+  @NotNull
+  @XmlElement
+  @XmlJavaTypeAdapter(LocalDateAdapter.class)
+  private LocalDate admissionStop;
 
   @Column(name = "first_class_date")
   @NotNull
@@ -170,7 +182,46 @@ public class Semester implements Serializable {
   public void setDropAddDeadlineDate(LocalDate dropAddDeadlineDate) {
     this.dropAddDeadlineDate = dropAddDeadlineDate;
   }
-  
-  
+
+  public LocalDate getAdmissionStart() {
+    return admissionStart;
+  }
+
+  public void setAdmissionStart(LocalDate admissionStart) {
+    this.admissionStart = admissionStart;
+  }
+
+  public LocalDate getAdmissionStop() {
+    return admissionStop;
+  }
+
+  public void setAdmissionStop(LocalDate admissionStop) {
+    this.admissionStop = admissionStop;
+  }
+
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + ((season == null) ? 0 : season.hashCode());
+    result = prime * result + year;
+    return result;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    if (obj == null)
+      return false;
+    if (getClass() != obj.getClass())
+      return false;
+    Semester other = (Semester) obj;
+    if (season != other.season)
+      return false;
+    if (year != other.year)
+      return false;
+    return true;
+  }
 
 }

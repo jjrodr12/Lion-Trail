@@ -127,6 +127,8 @@ public class SemesterServiceTest {
   private static Semester createDefaultSemester() {
     Semester semester = new Semester();
     semester.setId(1);
+    semester.setAdmissionStart(LocalDate.of(2016, 1, 1));
+    semester.setAdmissionStop(LocalDate.of(2016, 5, 31));
     semester.setClassRegistrationDate(LocalDate.of(2016, 10, 20));
     semester.setFirstClassDate(LocalDate.of(2017, 1, 9));
     semester.setDropAddDeadlineDate(LocalDate.of(2017, 1, 20));

@@ -1,5 +1,7 @@
 CREATE TABLE semester (
     id integer NOT NULL,
+    adminssion_start date NOT NULL,
+    adminssion_stop date NOT NULL,
     class_registration_date date NOT NULL,
     drop_add_deadline_date date NOT NULL,
     first_class_date date NOT NULL,
@@ -22,12 +24,3 @@ ALTER TABLE ONLY semester
     
 ALTER TABLE ONLY semester
     ADD CONSTRAINT semester_unique UNIQUE (season, year);
-    
-    
-insert into semester(id,class_registration_date,drop_add_deadline_date,first_class_date,first_exam_date,last_class_date,
-last_exam_date,season,year) values (nextval('semester_id_seq'),'2017-07-20','2017-09-08','2017-08-21',
-'2017-12-11','2017-12-08','2017-12-15','FALL',2017);
-
-insert into semester(id,class_registration_date,drop_add_deadline_date,first_class_date,first_exam_date,last_class_date,
-last_exam_date,season,year) values (nextval('semester_id_seq'),'2017-11-20','2017-01-08','2018-01-22',
-'2018-05-07','2018-05-04','2018-05-11','SPRING',2018);

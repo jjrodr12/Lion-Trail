@@ -12,19 +12,22 @@
 
     <class>edu.psu.liontrail.model.Admission</class>
     <class>edu.psu.liontrail.model.Application</class>
+    <class>edu.psu.liontrail.model.Building</class>
     <class>edu.psu.liontrail.model.Class</class>
     <class>edu.psu.liontrail.model.Course</class>
     <class>edu.psu.liontrail.model.Department</class>
     <class>edu.psu.liontrail.model.Instructor</class>
     <class>edu.psu.liontrail.model.Major</class>
+    <class>edu.psu.liontrail.model.MajorGroup</class>
     <class>edu.psu.liontrail.model.Semester</class>
+    <class>edu.psu.liontrail.model.Room</class>
     <class>edu.psu.liontrail.model.Student</class>
     <class>edu.psu.liontrail.model.User</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
 
     <properties>
       <property name="hibernate.show_sql" value="false" />
-      <property name="hibernate.hbm2ddl.auto" value="create-drop" />
+      <property name="hibernate.hbm2ddl.auto" value="validate" />
     </properties>
   </persistence-unit>
 </persistence>

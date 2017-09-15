@@ -2,6 +2,7 @@ package edu.psu.liontrail.model;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -56,6 +58,7 @@ public class Major implements Serializable {
   inverseJoinColumns=@JoinColumn(name="course_id", referencedColumnName="id"))
   private List<Course> requiredCourses;
   
-  //TODO: figure out how to model take 3 of the 9 classes
+  @OneToMany(mappedBy="major")
+  private Set<MajorGroup> group;
 
 }
