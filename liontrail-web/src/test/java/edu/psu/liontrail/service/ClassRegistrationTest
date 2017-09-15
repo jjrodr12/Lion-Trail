@@ -1,0 +1,26 @@
+package edu.psu.liontrail.service;
+
+import org.junit.Ignore;
+import org.junit.Test;
+
+public class ClassRegistrationTest {
+  
+  @Test
+  @Ignore
+  public void testClassRegsitration() {
+    //Setup application data
+    //
+    //
+    //
+  }
+  
+  @Test
+  @Ignore
+  public void testRejectClassRegistration() {
+    //
+    //
+    //
+    //
+  }
+
+}
