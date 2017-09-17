@@ -76,6 +76,21 @@ CREATE SEQUENCE cohort_id_seq
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
+    
+CREATE TABLE class_enrollment (
+    id integer NOT NULL,
+    grade character varying(5) NOT NULL,
+    class_id integer NOT NULL,
+    student_id integer NOT NULL
+);
+
+CREATE SEQUENCE class_enrollment_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
 
 CREATE TABLE course (
     id integer NOT NULL,
@@ -198,6 +213,9 @@ ALTER TABLE ONLY building
 
 ALTER TABLE ONLY class
     ADD CONSTRAINT class_pkey PRIMARY KEY (id);
+    
+ALTER TABLE ONLY class_enrollment
+    ADD CONSTRAINT class_enrollment_pkey PRIMARY KEY (id);
 
 ALTER TABLE ONLY course
     ADD CONSTRAINT course_pkey PRIMARY KEY (id);
@@ -237,6 +255,9 @@ ALTER TABLE ONLY major
 
 ALTER TABLE ONLY liontrail_user
     ADD CONSTRAINT unique_liontrail_user UNIQUE (username);
+    
+ALTER TABLE ONLY class_enrollment
+    ADD CONSTRAINT fk_class_enrollment_unique UNIQUE (class_id, student_id);
 
 ALTER TABLE ONLY course
     ADD CONSTRAINT unique_course UNIQUE (department, number);
@@ -249,6 +270,12 @@ ALTER TABLE ONLY building
 
 ALTER TABLE ONLY class
     ADD CONSTRAINT fk_class_to_semester FOREIGN KEY (semester_id) REFERENCES semester(id);
+
+ALTER TABLE ONLY class_enrollment
+    ADD CONSTRAINT fk_class_enrollment_to_class FOREIGN KEY (class_id) REFERENCES class(id);
+    
+ALTER TABLE ONLY class_enrollment
+    ADD CONSTRAINT fk_class_enrollement_to_student FOREIGN KEY (student_id) REFERENCES student(user_id);
 
 ALTER TABLE ONLY major_course
     ADD CONSTRAINT fk_major_course_to_major FOREIGN KEY (major_id) REFERENCES major(id);
