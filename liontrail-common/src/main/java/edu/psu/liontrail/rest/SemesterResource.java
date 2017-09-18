@@ -24,7 +24,7 @@ public interface SemesterResource {
   
   @GET
   @Path("all")
-  @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+  @Produces({ MediaType.APPLICATION_JSON })
   Response getAllSemesters();
   
   @GET
