@@ -25,10 +25,10 @@ import { ScheduleModule } from './schedule/schedule.module';
     CoreModule,
     SharedModule,
     HomeModule,
+    ScheduleModule,
     AboutModule,
     LoginModule,
-    AppRoutingModule,
-    ScheduleModule
+    AppRoutingModule
   ],
   declarations: [AppComponent],
   providers: [

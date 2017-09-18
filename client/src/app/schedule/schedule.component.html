@@ -1,3 +1,20 @@
-<p>
-  schedule works!
-</p>
+<div class="container-fluid">
+  <table class="table">
+      <thead>
+          <tr>
+              <th>Season</th>
+              <th>Year</th>
+              <th>Registration Date</th>
+              <th>Add/Drop Deadline</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor="let semester of semesters" >
+            <td>{{semester.season}}</td>
+            <td>{{semester.year}}</td>
+            <td>{{semester.classRegistrationDate}}</td>
+            <td>{{semester.dropAddDeadlineDate}}</td>
+          </tr>
+      </tbody>
+  </table>
+</div>

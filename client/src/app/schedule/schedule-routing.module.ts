@@ -6,7 +6,6 @@ import { extract } from '../core/i18n.service';
 import { ScheduleComponent } from './schedule.component';
 
 const routes: Routes = Route.withShell([
-  { path: '', redirectTo: '/schedule', pathMatch: 'full' },
   { path: 'schedule', component: ScheduleComponent, data: { title: extract('Schedule') } }
 ]);
 
