@@ -1,0 +1,10 @@
+edu/psu/liontrail/model/RoomEntity.class
+edu/psu/liontrail/rest/TestResource.class
+edu/psu/liontrail/enumeration/SomeEnum.class
+edu/psu/liontrail/model/SomeEntity.class
+edu/psu/liontrail/model/ParentEntity.class
+edu/psu/liontrail/model/SemesterEntity.class
+edu/psu/liontrail/rest/SemesterResource.class
+edu/psu/liontrail/model/BuildingEntity.class
+edu/psu/liontrail/model/ChildEntity.class
+edu/psu/liontrail/data/SomeDTO.class

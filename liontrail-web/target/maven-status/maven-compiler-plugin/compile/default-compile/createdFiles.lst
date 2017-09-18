@@ -1,0 +1,6 @@
+edu/psu/liontrail/store/ParentEntityStore.class
+edu/psu/lionltrail/rest/LiontrailApp.class
+edu/psu/liontrail/store/SemesterStore.class
+edu/psu/lionltrail/rest/SemesterResourceImpl.class
+edu/psu/liontrail/store/SomeEntityStore.class
+edu/psu/lionltrail/rest/TestResourceImpl.class
