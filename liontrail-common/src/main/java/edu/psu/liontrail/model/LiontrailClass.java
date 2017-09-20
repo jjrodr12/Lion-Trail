@@ -21,7 +21,7 @@ import edu.psu.liontrail.enumeration.ClassFrequency;
 
 @Entity
 @Table(name="class")
-public class Class implements Serializable {
+public class LiontrailClass implements Serializable {
   
   private static final long serialVersionUID = 3642657966915293123L;
   
@@ -175,7 +175,7 @@ public class Class implements Serializable {
       return false;
     if (getClass() != obj.getClass())
       return false;
-    Class other = (Class) obj;
+    LiontrailClass other = (LiontrailClass) obj;
     if (course == null) {
       if (other.course != null)
         return false;

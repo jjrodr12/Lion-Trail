@@ -13,7 +13,7 @@
     <class>edu.psu.liontrail.model.Admission</class>
     <class>edu.psu.liontrail.model.Application</class>
     <class>edu.psu.liontrail.model.Building</class>
-    <class>edu.psu.liontrail.model.Class</class>
+    <class>edu.psu.liontrail.model.LiontrailClass</class>
     <class>edu.psu.liontrail.model.ClassEnrollment</class>
     <class>edu.psu.liontrail.model.Course</class>
     <class>edu.psu.liontrail.model.Department</class>

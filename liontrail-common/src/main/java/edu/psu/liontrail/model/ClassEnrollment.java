@@ -46,7 +46,7 @@ public class ClassEnrollment implements Serializable {
   @OneToOne
   @JoinColumn(name="class_id")
   @NotNull
-  private Class enrolledClass;
+  private LiontrailClass enrolledClass;
 
   //@Column(name="student_id")
   @OneToOne
@@ -59,6 +59,70 @@ public class ClassEnrollment implements Serializable {
   @Convert(converter=GradeConverter.class)
   private Grade grade;
 
+  public int getId() {
+    return id;
+  }
+
+  public void setId(int id) {
+    this.id = id;
+  }
+
+  public LiontrailClass getEnrolledClass() {
+    return enrolledClass;
+  }
+
+  public void setEnrolledClass(LiontrailClass enrolledClass) {
+    this.enrolledClass = enrolledClass;
+  }
+
+  public Student getStudent() {
+    return student;
+  }
+
+  public void setStudent(Student student) {
+    this.student = student;
+  }
+
+  public Grade getGrade() {
+    return grade;
+  }
+
+  public void setGrade(Grade grade) {
+    this.grade = grade;
+  }
+
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + ((enrolledClass == null) ? 0 : enrolledClass.hashCode());
+    result = prime * result + ((student == null) ? 0 : student.hashCode());
+    return result;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    if (obj == null)
+      return false;
+    if (getClass() != obj.getClass())
+      return false;
+    ClassEnrollment other = (ClassEnrollment) obj;
+    if (enrolledClass == null) {
+      if (other.enrolledClass != null)
+        return false;
+    } else if (!enrolledClass.equals(other.enrolledClass))
+      return false;
+    if (student == null) {
+      if (other.student != null)
+        return false;
+    } else if (!student.equals(other.student))
+      return false;
+    return true;
+  }
+
+  
   
   
 }
