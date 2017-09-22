@@ -1,14 +1,22 @@
 package edu.psu.liontrail.model;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.Convert;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
+
+import edu.psu.liontrail.converters.RoleConverter;
+import edu.psu.liontrail.enumeration.Role;
 
 @Entity
 @Table(name="auth_user")
@@ -37,6 +45,12 @@ public class AuthUser implements Serializable {
   @Column(name="password")
   @Size(max=255)
   private String password;
+  
+  @ElementCollection
+  @CollectionTable(name="auth_user_role", joinColumns=@JoinColumn(name="username"))
+  @Column(name="role")
+  @Convert(converter=RoleConverter.class)
+  private List<Role> roles;
 
   public String getUserName() {
     return userName;
@@ -52,6 +66,14 @@ public class AuthUser implements Serializable {
 
   public void setPassword(String password) {
     this.password = password;
+  }
+
+  public List<Role> getRoles() {
+    return roles;
+  }
+
+  public void setRoles(List<Role> roles) {
+    this.roles = roles;
   }
 
   @Override
