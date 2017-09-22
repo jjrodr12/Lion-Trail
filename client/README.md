@@ -20,7 +20,7 @@ The project comes with a basic unit test for the "Home" component. That is a goo
  sudo apt-get install -y nodejs
  ```
 
-2. Go to project folder and install dependencies:
+2. Go to project folder (/client/) and install dependencies:
  ```bash
  npm install
  ```
