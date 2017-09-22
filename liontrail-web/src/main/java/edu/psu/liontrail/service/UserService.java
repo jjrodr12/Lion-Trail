@@ -4,6 +4,8 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -14,6 +16,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
+import edu.psu.liontrail.enumeration.Role;
+import edu.psu.liontrail.exception.UserNotFoundException;
 import edu.psu.liontrail.model.AuthUser;
 import edu.psu.liontrail.model.Name;
 
@@ -38,6 +42,43 @@ public class UserService {
   
   private void persistUser(AuthUser user) {
     em.persist(user);
+  }
+  
+  public void addRoles(String username, Collection<Role> roles) throws UserNotFoundException {
+    if (roles != null) {
+      AuthUser user = em.find(AuthUser.class, username);
+      if (user == null) {
+        throw new UserNotFoundException("Unable to find user with usernmae: "+username);
+      }
+      if (user.getRoles() != null) {
+        user.getRoles().addAll(roles);
+      } else {
+        user.setRoles(new HashSet<>(roles));
+      }
+      em.merge(user);
+    }
+  }
+  
+  public void removeRoles(String username, Collection<Role> roles) throws UserNotFoundException {
+    if (roles != null) {
+      AuthUser user = em.find(AuthUser.class, username);
+      if (user == null) {
+        throw new UserNotFoundException("Unable to find user with usernmae: "+username);
+      }
+      if (user.getRoles() != null) {
+        user.getRoles().removeIf(r -> roles.contains(r));
+        em.merge(user);
+      }
+    }
+  }
+  
+  public void updatePassword(String username, String password) throws UserNotFoundException, NoSuchAlgorithmException {
+    AuthUser user = em.find(AuthUser.class, username);
+    if (user == null) {
+      throw new UserNotFoundException("Unable to find user with usernmae: "+username);
+    }
+    user.setPassword(hash(password));
+    em.merge(user);
   }
   
   private String getUserNameBase(Name name) {
@@ -76,5 +117,10 @@ public class UserService {
     MessageDigest digest = MessageDigest.getInstance("SHA-256");
     digest.update(input.getBytes());
     return encoder.encodeToString(digest.digest());
+  }
+  
+  public static void main(String[] args) throws NoSuchAlgorithmException {
+    String password = "admin";
+    System.out.println("Password: "+UserService.hash(password));
   }
 }

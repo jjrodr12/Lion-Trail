@@ -2,6 +2,7 @@ package edu.psu.liontrail.model;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
@@ -50,7 +51,7 @@ public class AuthUser implements Serializable {
   @CollectionTable(name="auth_user_role", joinColumns=@JoinColumn(name="username"))
   @Column(name="role")
   @Convert(converter=RoleConverter.class)
-  private List<Role> roles;
+  private Set<Role> roles;
 
   public String getUserName() {
     return userName;
@@ -68,11 +69,11 @@ public class AuthUser implements Serializable {
     this.password = password;
   }
 
-  public List<Role> getRoles() {
+  public Set<Role> getRoles() {
     return roles;
   }
 
-  public void setRoles(List<Role> roles) {
+  public void setRoles(Set<Role> roles) {
     this.roles = roles;
   }
 

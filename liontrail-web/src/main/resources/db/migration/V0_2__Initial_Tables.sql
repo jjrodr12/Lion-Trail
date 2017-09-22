@@ -206,7 +206,7 @@ ALTER TABLE ONLY auth_user
     ADD CONSTRAINT auth_user_pkey PRIMARY KEY (username);
 
 ALTER TABLE ONLY auth_user_role
-    ADD CONSTRAINT auth_user_role_pkey PRIMARY KEY (username);
+    ADD CONSTRAINT auth_user_role_pkey PRIMARY KEY (username, role);
 
 ALTER TABLE ONLY building
     ADD CONSTRAINT building_pkey PRIMARY KEY (id);
