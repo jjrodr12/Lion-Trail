@@ -1,20 +1,34 @@
 <div class="container-fluid">
-  <table class="table">
-      <thead>
-          <tr>
-              <th>Season</th>
-              <th>Year</th>
-              <th>Registration Date</th>
-              <th>Add/Drop Deadline</th>
-          </tr>
-      </thead>
-      <tbody>
-          <tr *ngFor="let semester of semesters" >
-            <td>{{semester.season}}</td>
-            <td>{{semester.year}}</td>
-            <td>{{semester.classRegistrationDate}}</td>
-            <td>{{semester.dropAddDeadlineDate}}</td>
-          </tr>
-      </tbody>
-  </table>
+  <h3>Semester</h3>
+  <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
+    <ngb-panel *ngFor="let semester of semesters" id="semseter-{{semester.id}}" class="test">
+      <ng-template ngbPanelTitle>
+        {{semester.season}}&nbsp;{{semester.year}}
+      </ng-template>
+      <ng-template ngbPanelContent>
+        <table class="table">
+          <thead>
+              <tr>
+                  <th>First Class Date</th>
+                  <th>Last Class Date</th>
+                  <th>First Exam Date</th>
+                  <th>Last Exam Date</th>
+                  <th>Registration Date</th>
+                  <th>Add/Drop Deadline</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr>
+                <td>{{semester.firstClassDate}}</td>
+                <td>{{semester.lastClassDate}}</td>
+                <td>{{semester.firstExamDate}}</td>
+                <td>{{semester.lastExamDate}}</td>
+                <td>{{semester.classRegistrationDate}}</td>
+                <td>{{semester.dropAddDeadlineDate}}</td>
+              </tr>
+          </tbody>
+        </table>
+      </ng-template>
+    </ngb-panel>
+  </ngb-accordion>
 </div>
