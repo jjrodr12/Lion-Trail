@@ -126,9 +126,9 @@ CREATE TABLE instructor (
 
 CREATE TABLE liontrail_user (
     user_id integer NOT NULL,
-    first_name character varying(255),
-    last_name character varying(255),
-    middle_name character varying(255),
+    first_name character varying(255) NOT NULL,
+    last_name character varying(255) NOT NULL,
+    middle_name character varying(255) NOT NULL,
     username character varying(50) NOT NULL
 );
 

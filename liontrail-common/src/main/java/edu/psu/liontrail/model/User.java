@@ -3,6 +3,7 @@ package edu.psu.liontrail.model;
 import java.io.Serializable;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -35,17 +36,8 @@ public abstract class User implements Serializable {
   @Size(max=50)
   private String username;
   
-  @Column(name="first_name")
-  @Size(max=255)
-  private String firstName;
-  
-  @Column(name="middle_name")
-  @Size(max=255)
-  private String middleName;
-
-  @Column(name="last_name")
-  @Size(max=255)
-  private String lastName;
+  @Embedded
+  private Name name;
 
   public int getId() {
     return id;
@@ -63,34 +55,19 @@ public abstract class User implements Serializable {
     this.username = username;
   }
 
-  public String getFirstName() {
-    return firstName;
+  public Name getName() {
+    return name;
   }
 
-  public void setFirstName(String firstName) {
-    this.firstName = firstName;
-  }
-
-  public String getMiddleName() {
-    return middleName;
-  }
-
-  public void setMiddleName(String middleName) {
-    this.middleName = middleName;
-  }
-
-  public String getLastName() {
-    return lastName;
-  }
-
-  public void setLastName(String lastName) {
-    this.lastName = lastName;
+  public void setName(Name name) {
+    this.name = name;
   }
 
   @Override
   public int hashCode() {
     final int prime = 31;
     int result = 1;
+    result = prime * result + ((name == null) ? 0 : name.hashCode());
     result = prime * result + ((username == null) ? 0 : username.hashCode());
     return result;
   }
@@ -104,6 +81,11 @@ public abstract class User implements Serializable {
     if (getClass() != obj.getClass())
       return false;
     User other = (User) obj;
+    if (name == null) {
+      if (other.name != null)
+        return false;
+    } else if (!name.equals(other.name))
+      return false;
     if (username == null) {
       if (other.username != null)
         return false;
