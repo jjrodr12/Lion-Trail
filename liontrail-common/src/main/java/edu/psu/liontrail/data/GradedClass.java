@@ -17,7 +17,8 @@ public class GradedClass {
   }
   public void setGrade(Grade grade) {
     this.grade = grade;
+  } 
+  public Double getGradeVal() {
+    return grade.getValue();
   }
-  
-  
 }
