@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgFor } from '@angular/common';
 
 // Services
-import { ScheduleService } from './schedule.service';
+import { ScheduleService } from '../schedule.service';
 
 @Component({
   selector: 'app-schedule',

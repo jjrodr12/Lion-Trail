@@ -2,21 +2,23 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { ScheduleRoutingModule } from './schedule-routing.module';
-import { ScheduleComponent } from './schedule.component';
+import { GradesRoutingModule } from './grades-routing.module';
+import { GradesComponent } from './grades.component';
+import { GradesService } from '../grades.service';
 import { ScheduleService } from '../schedule.service';
 
 @NgModule({
   imports: [
     CommonModule,
     NgbModule,
-    ScheduleRoutingModule
+    GradesRoutingModule
   ],
   declarations: [
-    ScheduleComponent
+    GradesComponent
   ],
   providers: [
+    GradesService,
     ScheduleService
   ]
 })
-export class ScheduleModule { }
+export class GradesModule { }

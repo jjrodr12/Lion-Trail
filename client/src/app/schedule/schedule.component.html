@@ -1,34 +1,49 @@
 <div class="container-fluid">
-  <h3>Semester</h3>
-  <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
-    <ngb-panel *ngFor="let semester of semesters" id="semseter-{{semester.id}}" class="test">
-      <ng-template ngbPanelTitle>
-        {{semester.season}}&nbsp;{{semester.year}}
+  <ngb-tabset>
+    <ngb-tab title="Semesters">
+      <ng-template ngbTabContent>
+        <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
+          <ngb-panel *ngFor="let semester of semesters" id="semseter-{{semester.id}}" class="test">
+            <ng-template ngbPanelTitle>
+              {{semester.season}}&nbsp;{{semester.year}}
+            </ng-template>
+            <ng-template ngbPanelContent>
+              <table class="table">
+                <thead>
+                    <tr>
+                        <th>First Class Date</th>
+                        <th>Last Class Date</th>
+                        <th>First Exam Date</th>
+                        <th>Last Exam Date</th>
+                        <th>Registration Date</th>
+                        <th>Add/Drop Deadline</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                      <td>{{semester.firstClassDate}}</td>
+                      <td>{{semester.lastClassDate}}</td>
+                      <td>{{semester.firstExamDate}}</td>
+                      <td>{{semester.lastExamDate}}</td>
+                      <td>{{semester.classRegistrationDate}}</td>
+                      <td>{{semester.dropAddDeadlineDate}}</td>
+                    </tr>
+                </tbody>
+              </table>
+            </ng-template>
+          </ngb-panel>
+        </ngb-accordion>
       </ng-template>
-      <ng-template ngbPanelContent>
-        <table class="table">
-          <thead>
-              <tr>
-                  <th>First Class Date</th>
-                  <th>Last Class Date</th>
-                  <th>First Exam Date</th>
-                  <th>Last Exam Date</th>
-                  <th>Registration Date</th>
-                  <th>Add/Drop Deadline</th>
-              </tr>
-          </thead>
-          <tbody>
-              <tr>
-                <td>{{semester.firstClassDate}}</td>
-                <td>{{semester.lastClassDate}}</td>
-                <td>{{semester.firstExamDate}}</td>
-                <td>{{semester.lastExamDate}}</td>
-                <td>{{semester.classRegistrationDate}}</td>
-                <td>{{semester.dropAddDeadlineDate}}</td>
-              </tr>
-          </tbody>
-        </table>
+    </ngb-tab>
+    <ngb-tab title="Calendar">
+      <ng-template ngbTabContent>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid.
+        <p>Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table
+        craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl
+        cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar helvetica VHS salvia
+        yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes anderson 8-bit, sustainable jean
+        shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party scenester stumptown, tumblr butcher vero
+        sint qui sapiente accusamus tattooed echo park.</p>
       </ng-template>
-    </ngb-panel>
-  </ngb-accordion>
+    </ngb-tab>
+  </ngb-tabset>
 </div>

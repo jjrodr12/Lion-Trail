@@ -14,6 +14,7 @@ import { HomeModule } from './home/home.module';
 import { AboutModule } from './about/about.module';
 import { LoginModule } from './login/login.module';
 import { ScheduleModule } from './schedule/schedule.module';
+import { GradesModule } from './grades/grades.module';
 
 @NgModule({
   imports: [
@@ -26,6 +27,7 @@ import { ScheduleModule } from './schedule/schedule.module';
     SharedModule,
     HomeModule,
     ScheduleModule,
+    GradesModule,
     AboutModule,
     LoginModule,
     AppRoutingModule
