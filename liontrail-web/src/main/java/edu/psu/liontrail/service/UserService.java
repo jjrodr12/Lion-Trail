@@ -7,6 +7,8 @@ import java.util.Base64;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -18,8 +20,12 @@ import javax.persistence.TypedQuery;
 
 import edu.psu.liontrail.enumeration.Role;
 import edu.psu.liontrail.exception.UserNotFoundException;
+import edu.psu.liontrail.exception.ValidationException;
 import edu.psu.liontrail.model.AuthUser;
+import edu.psu.liontrail.model.Employee;
 import edu.psu.liontrail.model.Name;
+import edu.psu.liontrail.model.Student;
+import edu.psu.liontrail.model.User;
 
 @Stateless
 public class UserService {
@@ -27,7 +33,43 @@ public class UserService {
   @PersistenceContext(unitName = "liontrail-ds")
   EntityManager em;
   
-  public AuthUser registerUser(Name name, String password) throws NoSuchAlgorithmException {
+  public Optional<User> getUserByUserName(String username) {
+    TypedQuery<User> query = em.createNamedQuery(User.BY_USERNAME, User.class);
+    query.setParameter("username", username);
+    
+    //TODO: look up possible runtime exceptions when acce
+    User user = query.getSingleResult();
+    return Optional.ofNullable(user);
+  }
+  
+  public Optional<User> getUser(int id) {
+    User user = em.find(User.class, id);
+    return Optional.ofNullable(user);
+  }
+  
+  public User createUser(Name name, String password, Set<Role> roles) throws ValidationException {
+    
+    try {
+      AuthUser user = registerUser(name, password, roles);
+      if (!roles.contains(Role.STUDENT) ) {
+        Employee employee = new Employee();
+        employee.setName(name);
+        employee.setUsername(user.getUserName());
+        em.persist(employee);
+        return employee;
+      } else {
+        Student student = new Student();
+        student.setName(name);
+        student.setUsername(user.getUserName());
+        em.persist(student);
+        return student;
+      }
+    } catch (NoSuchAlgorithmException e) {
+      throw new ValidationException(e.getMessage());
+    }
+  }
+  
+  public AuthUser registerUser(Name name, String password, Set<Role> roles) throws NoSuchAlgorithmException {
     String userBase = getUserNameBase(name);
     List<String> likeUsers = findUserNamesWithBase(userBase);
     int userNumber = likeUsers.stream()
@@ -35,7 +77,7 @@ public class UserService {
                     .mapToInt(u -> Integer.parseInt(u))
                     .max().orElse(0) + 1;
     String userName = userBase + userNumber;
-    AuthUser user = new AuthUser(userName, hash(password));
+    AuthUser user = new AuthUser(userName, hash(password), roles);
     persistUser(user);
     return user;
   }

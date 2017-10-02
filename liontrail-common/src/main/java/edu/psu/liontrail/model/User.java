@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -21,9 +23,14 @@ import javax.validation.constraints.Size;
     @UniqueConstraint(columnNames= {"username"})
 })
 @Inheritance(strategy=InheritanceType.JOINED)
+@NamedQueries({
+  @NamedQuery(name=User.BY_USERNAME, query="SELECT u FROM User u WHERE u.username = :username")
+})
 public abstract class User implements Serializable {
   
   private static final long serialVersionUID = -9175115358960589823L;
+  
+  public static final String BY_USERNAME = "User.findByUserName";
 
   @Id
   @Column(name = "user_id")

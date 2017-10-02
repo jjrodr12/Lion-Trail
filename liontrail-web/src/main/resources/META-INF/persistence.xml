@@ -7,7 +7,7 @@
     <jta-data-source>java:jboss/datasources/liontrail-ds</jta-data-source>
 
     <class>edu.psu.liontrail.model.AuthUser</class>
-    <class>edu.psu.liontrail.model.UserRole</class>
+    <!-- <class>edu.psu.liontrail.model.UserRole</class> -->
     
 
     <class>edu.psu.liontrail.model.Admission</class>
@@ -17,7 +17,7 @@
     <class>edu.psu.liontrail.model.ClassEnrollment</class>
     <class>edu.psu.liontrail.model.Course</class>
     <class>edu.psu.liontrail.model.Department</class>
-    <class>edu.psu.liontrail.model.Instructor</class>
+    <class>edu.psu.liontrail.model.Employee</class>
     <class>edu.psu.liontrail.model.Major</class>
     <class>edu.psu.liontrail.model.MajorGroup</class>
     <class>edu.psu.liontrail.model.Semester</class>

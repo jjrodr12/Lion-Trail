@@ -6,8 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="instructor")
-public class Instructor extends User implements Serializable {
+@Table(name="employee")
+public class Employee extends User implements Serializable {
 
   private static final long serialVersionUID = -8116317226465534690L;
 

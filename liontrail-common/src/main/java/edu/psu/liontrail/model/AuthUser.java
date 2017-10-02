@@ -32,10 +32,11 @@ public class AuthUser implements Serializable {
   
   public AuthUser() {}
 
-  public AuthUser(String userName, String password) {
+  public AuthUser(String userName, String password, Set<Role> roles) {
     super();
     this.userName = userName;
     this.password = password;
+    this.roles = roles;
   }
 
   @Id

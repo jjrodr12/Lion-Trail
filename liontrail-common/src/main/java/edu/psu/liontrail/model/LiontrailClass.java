@@ -44,7 +44,7 @@ public class LiontrailClass implements Serializable {
   @OneToOne(fetch=FetchType.EAGER)
   @JoinColumn(name="instructor_id")
   @NotNull
-  private Instructor instructor;
+  private Employee instructor;
   
   @Column(name="frequency", length=50)
   @Enumerated(EnumType.STRING)
@@ -96,11 +96,11 @@ public class LiontrailClass implements Serializable {
     this.course = course;
   }
 
-  public Instructor getInstructor() {
+  public Employee getInstructor() {
     return instructor;
   }
 
-  public void setInstructor(Instructor instructor) {
+  public void setInstructor(Employee instructor) {
     this.instructor = instructor;
   }
 

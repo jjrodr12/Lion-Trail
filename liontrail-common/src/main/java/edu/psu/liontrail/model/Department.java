@@ -37,7 +37,7 @@ public class Department implements Serializable {
   @OneToOne
   @JoinColumn(name="dean")
   @NotNull
-  private Instructor dean;
+  private Employee dean;
 
   public Departments getId() {
     return id;
@@ -55,11 +55,11 @@ public class Department implements Serializable {
     this.name = name;
   }
 
-  public Instructor getDean() {
+  public Employee getDean() {
     return dean;
   }
 
-  public void setDean(Instructor dean) {
+  public void setDean(Employee dean) {
     this.dean = dean;
   }
 

@@ -63,13 +63,13 @@ public class SemesterResourceImpl implements SemesterResource {
   }
 
   @Override
-  public Response createSemester(int id, Semester semester) {
+  public Response createSemester(Semester semester) {
     if (semester == null) {
-      ErrorMessage em = new ErrorMessage(Status.BAD_REQUEST, "smester payload was null");
+      ErrorMessage em = new ErrorMessage(Status.BAD_REQUEST, "semester payload was null");
       return em.toResponse();
     }
-    if (semester.getId() != id) {
-      ErrorMessage em = new ErrorMessage(Status.BAD_REQUEST, "id of semester does not path value");
+    if (semester.getId() != 0) {
+      ErrorMessage em = new ErrorMessage(Status.BAD_REQUEST, "id of semester cannot be defined during create");
       return em.toResponse();
     }
     
