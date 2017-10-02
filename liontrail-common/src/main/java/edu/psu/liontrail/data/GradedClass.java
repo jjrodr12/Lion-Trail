@@ -6,6 +6,8 @@ import edu.psu.liontrail.model.LiontrailClass;
 public class GradedClass {
   private LiontrailClass liontrailClass;
   private Grade grade;
+  private Double creditHours;
+  
   public LiontrailClass getLiontrailClass() {
     return liontrailClass;
   }
@@ -20,5 +22,12 @@ public class GradedClass {
   } 
   public Double getGradeVal() {
     return grade.getValue();
+  }
+  public Double getCreditHours() {
+    return creditHours; 
+  }
+  public Double setCreditHours(Double hours) {
+    this.creditHours = hours;
+    return creditHours;
   }
 }

@@ -10,18 +10,21 @@ public class GpaCalculator {
       Iterator<GradedClass> itr = classes.iterator();
       Double gradeOfClass;
       Double sumOfGrade = 0.0;
-      int counter = 0;
-      ;
+      Double creditHoursAssigned;
+      Double counter = 0.0;
+      int hoursCounter;
+      
 
       while (itr.hasNext()) {
         gradeOfClass = itr.next().getGradeVal();
-        if (gradeOfClass != null && gradeOfClass > 0.0) {
-          sumOfGrade = sumOfGrade + gradeOfClass;
-          counter++;
+        creditHoursAssigned = itr.next().getCreditHours();
+        if (gradeOfClass != null && gradeOfClass > 0.0 && creditHoursAssigned != null && creditHoursAssigned > 0.0) {
+          sumOfGrade = sumOfGrade + (gradeOfClass * creditHoursAssigned);
+          counter = counter + creditHoursAssigned;
         }
       }
-      Double average = sumOfGrade / counter;
-      return average;
+      Double calculatedGpa = sumOfGrade / counter;
+      return calculatedGpa;
     }
 
     return 0;
