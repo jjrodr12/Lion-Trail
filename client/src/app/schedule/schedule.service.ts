@@ -11,7 +11,7 @@ export class ScheduleService {
   constructor(private http: Http) { }
 
   getSemesters(): Observable<string> {
-    return this.http.get('/resources/semesters/all', { cache: true })
+    return this.http.get('/resources/semesters/all')
       .map((res: Response) => res.json())
       .catch(() => Observable.of('Error, could not load semesters'));
   }

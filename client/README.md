@@ -4,16 +4,31 @@ This project was generated with [ngX-Rocket](https://github.com/ngx-rocket/gener
 version 2.0.0
 
 # Getting started
+1. Install Node.js
+ ```bash
+ curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+ sudo apt-get install -y nodejs
+ ```
 
-1. Go to project folder and install dependencies:
+2. Go to this folder (```client/```) and install dependencies:
  ```bash
  npm install
  ```
  
-2. Launch development server, and open `localhost:4200` in your browser:
+3. Launch development server, and open `localhost:4200` in your browser:
  ```bash
  npm start
  ```
+ 
+# Learning Resources
+- Review what's included in this template [below](#whats-in-the-box).
+- Angular 4 in 60 minutes: https://www.youtube.com/watch?v=KhzGSHNhnbI
+- Use Google at your discretion for other guides/tutorials on Angular4 web apps. The links at the bottom of this README also provide helpful resources.
+
+Testing:
+- First, see the npm script alias below.
+- Review documentation of coding guidelines for unit tests and end-to-end tests below.
+- The project comes with a basic unit test for the "Home" component. That is a good starting point.
  
 # Project structure
 

@@ -1,11 +1,14 @@
+// Angular packages
 import { Component, OnInit } from '@angular/core';
+import { NgFor } from '@angular/common';
 
+// Services
 import { ScheduleService } from './schedule.service';
 
 @Component({
   selector: 'app-schedule',
   templateUrl: './schedule.component.html',
-  styleUrls: ['./schedule.component.css']
+  styleUrls: ['./schedule.component.scss']
 })
 export class ScheduleComponent implements OnInit {
 
@@ -15,14 +18,13 @@ export class ScheduleComponent implements OnInit {
 
   ngOnInit() {
     this.scheduleService.getSemesters()
-      .subscribe((semesters: any) => {
-        this.semesters = semesters;
-      });
+    .subscribe((semesters: any) => {
+      this.semesters = semesters;
+    });
   }
-
 }
 
-export interface Semester {
+interface Semester {
   id: number,
   season: string,
   year: number,
