@@ -17,7 +17,7 @@ import io.swagger.annotations.ApiOperation;
 @Api(UserResource.PATH)
 public interface UserResource {
   
-  public static final String PATH = "semesters";
+  public static final String PATH = "users";
   
   @POST
   @Path("create")
