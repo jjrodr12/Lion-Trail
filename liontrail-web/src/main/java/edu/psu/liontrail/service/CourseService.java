@@ -62,12 +62,15 @@ public class CourseService {
     if (course.getPrerequisites() == null) {
       course.setPrerequisites(new HashSet<>());
     }
+    if (preReq.getPrerequisites() != null && preReq.getPrerequisites().stream().anyMatch(c -> c.getId() == courseId)) {
+      throw new ValidationException("Unallowed circular dependency. "+courseId + " is a prerequisite of " + preReqId);
+    }
     
     if (!course.getPrerequisites().stream().anyMatch(c -> c.getId() == preReqId)) {
       course.getPrerequisites().add(preReq);
       courseStore.updateCourse(course);
     } else {
-      throw new ValidationException(preReq + " is already a prerequisite of course "+courseId);
+      throw new ValidationException(preReqId + " is already a prerequisite of course "+courseId);
     }
   }
   
@@ -90,7 +93,7 @@ public class CourseService {
       course.getPrerequisites().removeIf(c -> c.getId() == preReqId);
       courseStore.updateCourse(course);
     } else {
-      throw new ValidationException(preReq + " is not a prerequisite of course "+courseId);
+      throw new ValidationException(preReqId + " is not a prerequisite of course "+courseId);
     }
   }
   
