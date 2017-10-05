@@ -95,7 +95,7 @@ CREATE SEQUENCE class_enrollment_id_seq
 CREATE TABLE course (
     id integer NOT NULL,
     credits integer NOT NULL,
-    department character varying(15) NOT NULL,
+    major_id integer NOT NULL,
     description character varying(255) NOT NULL,
     name character varying(60) NOT NULL,
     number integer NOT NULL,
@@ -117,7 +117,7 @@ CREATE TABLE course_prerequisites (
 CREATE TABLE department (
     id character varying(60) NOT NULL,
     name character varying(60) NOT NULL,
-    dean integer NOT NULL
+    dean integer
 );
 
 CREATE TABLE employee (
@@ -134,6 +134,7 @@ CREATE TABLE liontrail_user (
 
 CREATE TABLE major (
     id integer NOT NULL,
+    abbreviation character varying(10) NOT NULL,
     degree_level character varying(5) NOT NULL,
     name character varying(50) NOT NULL,
     department_id character varying(60) NOT NULL
@@ -251,7 +252,7 @@ ALTER TABLE ONLY department
     ADD CONSTRAINT unique_department_name UNIQUE (name);
 
 ALTER TABLE ONLY major
-    ADD CONSTRAINT unique_major UNIQUE (department_id, name);
+    ADD CONSTRAINT unique_major UNIQUE (name, degree_level);
 
 ALTER TABLE ONLY liontrail_user
     ADD CONSTRAINT unique_liontrail_user UNIQUE (username);
@@ -260,7 +261,7 @@ ALTER TABLE ONLY class_enrollment
     ADD CONSTRAINT fk_class_enrollment_unique UNIQUE (class_id, student_id);
 
 ALTER TABLE ONLY course
-    ADD CONSTRAINT unique_course UNIQUE (department, number);
+    ADD CONSTRAINT unique_course UNIQUE (major_id, number);
 
 ALTER TABLE ONLY application
     ADD CONSTRAINT unique_application UNIQUE (student_id, major_id, semester_id);
@@ -285,6 +286,9 @@ ALTER TABLE ONLY student
 
 ALTER TABLE ONLY application
     ADD CONSTRAINT fk_application_to_semester FOREIGN KEY (semester_id) REFERENCES semester(id);
+    
+ALTER TABLE ONLY course
+    ADD CONSTRAINT fk_course_to_major FOREIGN KEY (major_id) REFERENCES major(id);
 
 ALTER TABLE ONLY major
     ADD CONSTRAINT fk_major_to_department FOREIGN KEY (department_id) REFERENCES department(id);

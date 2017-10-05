@@ -36,7 +36,7 @@ public class Department implements Serializable {
   
   @OneToOne
   @JoinColumn(name="dean")
-  @NotNull
+  //@NotNull
   private Employee dean;
 
   public Departments getId() {
