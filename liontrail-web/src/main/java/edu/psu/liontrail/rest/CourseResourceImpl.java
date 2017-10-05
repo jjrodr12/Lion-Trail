@@ -10,6 +10,7 @@ import javax.ws.rs.core.Response.Status;
 import edu.psu.liontrail.data.CourseDTO;
 import edu.psu.liontrail.exception.CourseNotFoundException;
 import edu.psu.liontrail.exception.ErrorMessage;
+import edu.psu.liontrail.exception.ValidationException;
 import edu.psu.liontrail.model.Course;
 import edu.psu.liontrail.service.CourseService;
 import edu.psu.liontrail.store.CourseStore;
@@ -47,7 +48,7 @@ public class CourseResourceImpl implements CourseResource {
   public Response getCoursesByMajorAbbreviation(String major) {
     List<Course> courses = courseService.getCourseByMajorAbbreviation(major);
     if (courses == null || courses.isEmpty()) {
-      ErrorMessage em = new ErrorMessage(Status.NOT_FOUND, "No course found major Abbreviation: "+major);
+      ErrorMessage em = new ErrorMessage(Status.NOT_FOUND, "No course found major abbreviation: "+major);
       return em.toResponse();
     }
     List<CourseDTO> dtos = courses.stream().map(c -> DTOConveter.toCourseDTO(c)).collect(Collectors.toList());
@@ -77,6 +78,9 @@ public class CourseResourceImpl implements CourseResource {
     } catch (CourseNotFoundException e) {
       ErrorMessage em = new ErrorMessage(Status.BAD_REQUEST, e.getMessage());
       return em.toResponse();
+    } catch (ValidationException e) {
+      ErrorMessage em = new ErrorMessage(Status.BAD_REQUEST, e.getMessages());
+      return em.toResponse();
     }
   }
 
@@ -86,7 +90,10 @@ public class CourseResourceImpl implements CourseResource {
       courseService.removePrerequisite(courseId, preReqId);
       return Response.accepted().build();
     } catch (CourseNotFoundException e) {
-      ErrorMessage em = new ErrorMessage(Status.BAD_REQUEST, e.getMessage());
+      ErrorMessage em = new ErrorMessage(Status.NOT_FOUND, e.getMessage());
+      return em.toResponse();
+    } catch (ValidationException e) {
+      ErrorMessage em = new ErrorMessage(Status.BAD_REQUEST, e.getMessages());
       return em.toResponse();
     }
   }

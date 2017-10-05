@@ -7,6 +7,7 @@ import javax.inject.Inject;
 
 import edu.psu.liontrail.data.CourseDTO;
 import edu.psu.liontrail.exception.CourseNotFoundException;
+import edu.psu.liontrail.exception.ValidationException;
 import edu.psu.liontrail.model.Course;
 import edu.psu.liontrail.model.Major;
 import edu.psu.liontrail.store.CourseStore;
@@ -47,7 +48,7 @@ public class CourseService {
     return course;
   }
   
-  public void addPrerequisite(int courseId, int preReqId) throws CourseNotFoundException {
+  public void addPrerequisite(int courseId, int preReqId) throws CourseNotFoundException, ValidationException {
     Course course = courseStore.getCourseById(courseId);
     if (course == null) {
       throw new CourseNotFoundException("No course found with id: "+courseId);
@@ -65,10 +66,12 @@ public class CourseService {
     if (!course.getPrerequisites().stream().anyMatch(c -> c.getId() == preReqId)) {
       course.getPrerequisites().add(preReq);
       courseStore.updateCourse(course);
+    } else {
+      throw new ValidationException(preReq + " is already a prerequisite of course "+courseId);
     }
   }
   
-  public void removePrerequisite(int courseId, int preReqId) throws CourseNotFoundException {
+  public void removePrerequisite(int courseId, int preReqId) throws CourseNotFoundException, ValidationException {
     Course course = courseStore.getCourseById(courseId);
     if (course == null) {
       throw new CourseNotFoundException("No course found with id: "+courseId);
@@ -86,6 +89,8 @@ public class CourseService {
     if (course.getPrerequisites().stream().anyMatch(c -> c.getId() == preReqId)) {
       course.getPrerequisites().removeIf(c -> c.getId() == preReqId);
       courseStore.updateCourse(course);
+    } else {
+      throw new ValidationException(preReq + " is not a prerequisite of course "+courseId);
     }
   }
   
