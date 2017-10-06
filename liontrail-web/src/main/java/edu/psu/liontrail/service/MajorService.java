@@ -15,4 +15,8 @@ public class MajorService {
   public Major getMajorById(int id) {
     return majorStore.getMajorById(id);
   }
+  
+  public Major getMajorByAbbreviation(String abbreviation) {
+    return majorStore.getMajorByAbbreviation(abbreviation);
+  }
 }

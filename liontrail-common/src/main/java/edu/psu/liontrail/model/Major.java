@@ -24,6 +24,9 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import edu.psu.liontrail.enumeration.DegreeLevel;
 
 @Entity
@@ -64,13 +67,15 @@ public class Major implements Serializable {
   private DegreeLevel level;
   
   @ManyToMany(fetch=FetchType.EAGER)
+  @Fetch(FetchMode.SELECT)
   @JoinTable(name="major_course",
   joinColumns=@JoinColumn(name="major_id", referencedColumnName="id"),
   inverseJoinColumns=@JoinColumn(name="course_id", referencedColumnName="id"))
   private List<Course> requiredCourses;
   
-  @OneToMany(mappedBy="major")
-  private Set<MajorGroup> group;
+  @OneToMany(mappedBy="major", fetch=FetchType.EAGER)
+  @Fetch(FetchMode.SELECT)
+  private Set<MajorGroup> groups;
 
   public int getId() {
     return id;
@@ -120,12 +125,12 @@ public class Major implements Serializable {
     this.requiredCourses = requiredCourses;
   }
 
-  public Set<MajorGroup> getGroup() {
-    return group;
+  public Set<MajorGroup> getGroups() {
+    return groups;
   }
 
-  public void setGroup(Set<MajorGroup> group) {
-    this.group = group;
+  public void setGroups(Set<MajorGroup> groups) {
+    this.groups = groups;
   }
 
   @Override

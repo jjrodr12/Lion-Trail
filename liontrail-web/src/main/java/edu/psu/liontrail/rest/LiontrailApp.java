@@ -30,6 +30,7 @@ public class LiontrailApp extends Application {
     classes.add(CourseResourceImpl.class);
     classes.add(SemesterResourceImpl.class);
     classes.add(UserResourceImpl.class);
+    classes.add(MajorResourceImpl.class);
     
     classes.add(ApiListingResource.class);
     classes.add(SwaggerSerializers.class);

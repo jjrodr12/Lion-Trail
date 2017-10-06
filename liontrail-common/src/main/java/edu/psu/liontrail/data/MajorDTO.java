@@ -8,6 +8,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import edu.psu.liontrail.enumeration.DegreeLevel;
+import edu.psu.liontrail.enumeration.Departments;
 import edu.psu.liontrail.model.Department;
 
 @XmlRootElement(name="major")
@@ -29,13 +30,13 @@ public class MajorDTO implements Serializable {
   private DegreeLevel level;
   
   @XmlElement
-  private Department department;
-  
-  @XmlElement
-  private int departmentId;
+  private Departments departmentId;
   
   @XmlElement
   private String departmentName;
+  
+  @XmlElement
+  private RequiredCourseDTO requirements;
 
   public int getId() {
     return id;
@@ -69,12 +70,28 @@ public class MajorDTO implements Serializable {
     this.level = level;
   }
 
-  public Department getDepartment() {
-    return department;
+  public Departments getDepartmentId() {
+    return departmentId;
   }
 
-  public void setDepartment(Department department) {
-    this.department = department;
+  public void setDepartmentId(Departments departmentId) {
+    this.departmentId = departmentId;
+  }
+
+  public String getDepartmentName() {
+    return departmentName;
+  }
+
+  public void setDepartmentName(String departmentName) {
+    this.departmentName = departmentName;
+  }
+
+  public RequiredCourseDTO getRequirements() {
+    return requirements;
+  }
+
+  public void setRequirements(RequiredCourseDTO requirements) {
+    this.requirements = requirements;
   }
 
   @Override
@@ -82,7 +99,6 @@ public class MajorDTO implements Serializable {
     final int prime = 31;
     int result = 1;
     result = prime * result + ((abbreviation == null) ? 0 : abbreviation.hashCode());
-    result = prime * result + ((department == null) ? 0 : department.hashCode());
     result = prime * result + id;
     result = prime * result + ((level == null) ? 0 : level.hashCode());
     result = prime * result + ((name == null) ? 0 : name.hashCode());
@@ -102,11 +118,6 @@ public class MajorDTO implements Serializable {
       if (other.abbreviation != null)
         return false;
     } else if (!abbreviation.equals(other.abbreviation))
-      return false;
-    if (department == null) {
-      if (other.department != null)
-        return false;
-    } else if (!department.equals(other.department))
       return false;
     if (id != other.id)
       return false;

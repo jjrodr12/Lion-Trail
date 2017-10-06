@@ -18,6 +18,9 @@ import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 @Entity
 @Table(name="major_group")
 public class MajorGroup implements Serializable {
@@ -40,6 +43,7 @@ public class MajorGroup implements Serializable {
   private int size;
   
   @ManyToMany(fetch=FetchType.EAGER)
+  @Fetch(FetchMode.SELECT)
   @JoinTable(name="major_group_course",
   joinColumns=@JoinColumn(name="group_id", referencedColumnName="id"),
   inverseJoinColumns=@JoinColumn(name="course_id", referencedColumnName="id"))

@@ -35,5 +35,15 @@ insert into course(id, major_id, number, credits, name, description)
 	values(nextval('course_id_seq'), 1, 210, 3, 'Object Oriented Programming',
 	'This course provides an introduction to Object Oriented Programming');
 	
+
 insert into course_prerequisites(parent_course, required_course) values(3, 2);
-	
+
+insert into major_course(major_id,course_id) values (1,2);
+insert into major_course(major_id,course_id) values (1,3);
+
+insert into major_group(id, size, major) values(nextval('major_group_id_seq'), 2, 1);
+
+insert into major_group_course(group_id,course_id) values(1,1);
+insert into major_group_course(group_id,course_id) values(1,2);
+insert into major_group_course(group_id,course_id) values(1,3);
+
