@@ -23,6 +23,7 @@
       <artifactId>liontrail-common</artifactId>
       <version>${project.version}</version>
     </dependency>
+    
     <dependency>
       <groupId>org.flywaydb</groupId>
       <artifactId>flyway-core</artifactId>
@@ -35,10 +36,30 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-        <groupId>org.mockito</groupId>
-        <artifactId>mockito-all</artifactId>
-        <scope>test</scope>
-      </dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-all</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.powermock</groupId>
+      <artifactId>powermock-reflect</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.powermock</groupId>
+      <artifactId>powermock-module-junit4</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.powermock</groupId>
+      <artifactId>powermock-api-mockito</artifactId>
+      <scope>test</scope>
+    </dependency>
+    
+    <dependency>
+      <groupId>io.swagger</groupId>
+      <artifactId>swagger-jaxrs</artifactId>
+    </dependency>
   </dependencies>
 
   <build>
@@ -63,40 +84,15 @@
         <configuration>
           <skip>false</skip>
         </configuration>
-        <!-- <executions>
-          <execution>
-            <id>liontrail-tables</id>
-            <phase>compile</phase> whatever phase you need
-            <goals>
-              <goal>migrate</goal>
-            </goals>
-            <configuration>
-              <serverId>flyway</serverId>
-              <configFile>flyway.properties</configFile>
-              <locations>
-                <location>
-                  filesystem:src/main/resources/db/liontrail/
-                </location>
-              </locations>
-            </configuration>
-          </execution>
-          <execution>
-            <id>liontrail-users-tables</id>
-            <phase>compile</phase> whatever phase you need
-            <goals>
-              <goal>migrate</goal>
-            </goals>
-            <configuration>
-              <serverId>flyway</serverId>
-              <configFile>flyway.properties</configFile>
-              <locations>
-                <location>
-                  filesystem:src/main/resources/db/users/
-                </location>
-              </locations>
-            </configuration>
-          </execution>
-        </executions> -->
+        <!-- <executions> <execution> <id>liontrail-tables</id> <phase>compile</phase> 
+          whatever phase you need <goals> <goal>migrate</goal> </goals> <configuration> 
+          <serverId>flyway</serverId> <configFile>flyway.properties</configFile> <locations> 
+          <location> filesystem:src/main/resources/db/liontrail/ </location> </locations> 
+          </configuration> </execution> <execution> <id>liontrail-users-tables</id> 
+          <phase>compile</phase> whatever phase you need <goals> <goal>migrate</goal> 
+          </goals> <configuration> <serverId>flyway</serverId> <configFile>flyway.properties</configFile> 
+          <locations> <location> filesystem:src/main/resources/db/users/ </location> 
+          </locations> </configuration> </execution> </executions> -->
       </plugin>
 
     </plugins>

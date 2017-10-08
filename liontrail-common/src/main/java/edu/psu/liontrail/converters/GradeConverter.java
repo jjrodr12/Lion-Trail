@@ -1,9 +1,11 @@
 package edu.psu.liontrail.converters;
 
 import javax.persistence.AttributeConverter;
+import javax.persistence.Converter;
 
 import edu.psu.liontrail.enumeration.Grade;
 
+@Converter(autoApply=true)
 public class GradeConverter implements AttributeConverter<Grade, String> {
 
   @Override

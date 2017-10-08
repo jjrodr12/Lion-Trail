@@ -15,6 +15,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
@@ -26,11 +28,16 @@ import edu.psu.liontrail.enumeration.DegreeLevel;
 
 @Entity
 @Table(name="major", uniqueConstraints = {
-    @UniqueConstraint(columnNames={"department_id","name"})
+    @UniqueConstraint(columnNames={"name","degree_level"})
+})
+@NamedQueries({
+  @NamedQuery(name=Major.BY_ABBREVIATION, query="SELECT m FROM Major m where m.abbreviation = :abbreviation")
 })
 public class Major implements Serializable {
   
   private static final long serialVersionUID = -1693279106463770043L;
+  
+  public static final String BY_ABBREVIATION = "Major.findByAbbreivation";
 
   @Id
   @Column(name = "id")
@@ -41,6 +48,10 @@ public class Major implements Serializable {
   @Column(name="name", length=50)
   @NotNull
   private String name;
+  
+  @Column(name="abbreviation", length=10)
+  @NotNull
+  private String abbreviation;
   
   @OneToOne(fetch=FetchType.EAGER)
   @JoinColumn(name="department_id")
@@ -60,5 +71,92 @@ public class Major implements Serializable {
   
   @OneToMany(mappedBy="major")
   private Set<MajorGroup> group;
+
+  public int getId() {
+    return id;
+  }
+
+  public void setId(int id) {
+    this.id = id;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public String getAbbreviation() {
+    return abbreviation;
+  }
+
+  public void setAbbreviation(String abbreviation) {
+    this.abbreviation = abbreviation;
+  }
+
+  public Department getDepartment() {
+    return department;
+  }
+
+  public void setDepartment(Department department) {
+    this.department = department;
+  }
+
+  public DegreeLevel getLevel() {
+    return level;
+  }
+
+  public void setLevel(DegreeLevel level) {
+    this.level = level;
+  }
+
+  public List<Course> getRequiredCourses() {
+    return requiredCourses;
+  }
+
+  public void setRequiredCourses(List<Course> requiredCourses) {
+    this.requiredCourses = requiredCourses;
+  }
+
+  public Set<MajorGroup> getGroup() {
+    return group;
+  }
+
+  public void setGroup(Set<MajorGroup> group) {
+    this.group = group;
+  }
+
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + id;
+    result = prime * result + ((level == null) ? 0 : level.hashCode());
+    result = prime * result + ((name == null) ? 0 : name.hashCode());
+    return result;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    if (obj == null)
+      return false;
+    if (getClass() != obj.getClass())
+      return false;
+    Major other = (Major) obj;
+    if (id != other.id)
+      return false;
+    if (level != other.level)
+      return false;
+    if (name == null) {
+      if (other.name != null)
+        return false;
+    } else if (!name.equals(other.name))
+      return false;
+    return true;
+  }
 
 }

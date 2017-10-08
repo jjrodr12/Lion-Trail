@@ -95,7 +95,7 @@ CREATE SEQUENCE class_enrollment_id_seq
 CREATE TABLE course (
     id integer NOT NULL,
     credits integer NOT NULL,
-    department character varying(15) NOT NULL,
+    major_id integer NOT NULL,
     description character varying(255) NOT NULL,
     name character varying(60) NOT NULL,
     number integer NOT NULL,
@@ -117,23 +117,24 @@ CREATE TABLE course_prerequisites (
 CREATE TABLE department (
     id character varying(60) NOT NULL,
     name character varying(60) NOT NULL,
-    dean integer NOT NULL
+    dean integer
 );
 
-CREATE TABLE instructor (
+CREATE TABLE employee (
     user_id integer NOT NULL
 );
 
 CREATE TABLE liontrail_user (
     user_id integer NOT NULL,
-    first_name character varying(255),
-    last_name character varying(255),
-    middle_name character varying(255),
+    first_name character varying(255) NOT NULL,
+    last_name character varying(255) NOT NULL,
+    middle_name character varying(255) NOT NULL,
     username character varying(50) NOT NULL
 );
 
 CREATE TABLE major (
     id integer NOT NULL,
+    abbreviation character varying(10) NOT NULL,
     degree_level character varying(5) NOT NULL,
     name character varying(50) NOT NULL,
     department_id character varying(60) NOT NULL
@@ -206,7 +207,7 @@ ALTER TABLE ONLY auth_user
     ADD CONSTRAINT auth_user_pkey PRIMARY KEY (username);
 
 ALTER TABLE ONLY auth_user_role
-    ADD CONSTRAINT auth_user_role_pkey PRIMARY KEY (username);
+    ADD CONSTRAINT auth_user_role_pkey PRIMARY KEY (username, role);
 
 ALTER TABLE ONLY building
     ADD CONSTRAINT building_pkey PRIMARY KEY (id);
@@ -226,8 +227,8 @@ ALTER TABLE ONLY course_prerequisites
 ALTER TABLE ONLY department
     ADD CONSTRAINT department_pkey PRIMARY KEY (id);
 
-ALTER TABLE ONLY instructor
-    ADD CONSTRAINT instructor_pkey PRIMARY KEY (user_id);
+ALTER TABLE ONLY employee
+    ADD CONSTRAINT employee_pkey PRIMARY KEY (user_id);
 
 ALTER TABLE ONLY liontrail_user
     ADD CONSTRAINT liontrail_user_pkey PRIMARY KEY (user_id);
@@ -251,7 +252,7 @@ ALTER TABLE ONLY department
     ADD CONSTRAINT unique_department_name UNIQUE (name);
 
 ALTER TABLE ONLY major
-    ADD CONSTRAINT unique_major UNIQUE (department_id, name);
+    ADD CONSTRAINT unique_major UNIQUE (name, degree_level);
 
 ALTER TABLE ONLY liontrail_user
     ADD CONSTRAINT unique_liontrail_user UNIQUE (username);
@@ -260,7 +261,7 @@ ALTER TABLE ONLY class_enrollment
     ADD CONSTRAINT fk_class_enrollment_unique UNIQUE (class_id, student_id);
 
 ALTER TABLE ONLY course
-    ADD CONSTRAINT unique_course UNIQUE (department, number);
+    ADD CONSTRAINT unique_course UNIQUE (major_id, number);
 
 ALTER TABLE ONLY application
     ADD CONSTRAINT unique_application UNIQUE (student_id, major_id, semester_id);
@@ -285,6 +286,9 @@ ALTER TABLE ONLY student
 
 ALTER TABLE ONLY application
     ADD CONSTRAINT fk_application_to_semester FOREIGN KEY (semester_id) REFERENCES semester(id);
+    
+ALTER TABLE ONLY course
+    ADD CONSTRAINT fk_course_to_major FOREIGN KEY (major_id) REFERENCES major(id);
 
 ALTER TABLE ONLY major
     ADD CONSTRAINT fk_major_to_department FOREIGN KEY (department_id) REFERENCES department(id);
@@ -296,7 +300,7 @@ ALTER TABLE ONLY admission
     ADD CONSTRAINT fk_admission_to_semester FOREIGN KEY (semetser_id) REFERENCES semester(id);
 
 ALTER TABLE ONLY class
-    ADD CONSTRAINT fk_class_to_instructor FOREIGN KEY (instructor_id) REFERENCES instructor(user_id);
+    ADD CONSTRAINT fk_class_to_employee FOREIGN KEY (instructor_id) REFERENCES employee(user_id);
 
 ALTER TABLE ONLY admission_student
     ADD CONSTRAINT fk_admission_student_to_student FOREIGN KEY (student) REFERENCES student(user_id);
@@ -337,8 +341,8 @@ ALTER TABLE ONLY major_course
 ALTER TABLE ONLY class
     ADD CONSTRAINT fk_class_to_room FOREIGN KEY (room) REFERENCES room(id);
 
-ALTER TABLE ONLY instructor
-    ADD CONSTRAINT fk_instructor_to_liontrail_user FOREIGN KEY (user_id) REFERENCES liontrail_user(user_id);
+ALTER TABLE ONLY employee
+    ADD CONSTRAINT fk_employee_to_liontrail_user FOREIGN KEY (user_id) REFERENCES liontrail_user(user_id);
 
 ALTER TABLE ONLY department
-    ADD CONSTRAINT fk_department_to_instructor FOREIGN KEY (dean) REFERENCES instructor(user_id);
+    ADD CONSTRAINT fk_department_to_employee FOREIGN KEY (dean) REFERENCES employee(user_id);
