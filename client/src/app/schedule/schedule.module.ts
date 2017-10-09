@@ -6,14 +6,21 @@ import { ScheduleRoutingModule } from './schedule-routing.module';
 import { ScheduleComponent } from './schedule.component';
 import { ScheduleService } from '../schedule.service';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CalendarModule } from 'angular-calendar';
+import { CalendarHeaderComponent } from './calendar-header.component';
+
 @NgModule({
   imports: [
     CommonModule,
     NgbModule,
-    ScheduleRoutingModule
+    ScheduleRoutingModule,
+    BrowserAnimationsModule,
+    CalendarModule.forRoot()
   ],
   declarations: [
-    ScheduleComponent
+    ScheduleComponent,
+    CalendarHeaderComponent
   ],
   providers: [
     ScheduleService

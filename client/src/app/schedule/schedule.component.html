@@ -36,14 +36,62 @@
       </ng-template>
     </ngb-tab>
     <ngb-tab title="Calendar">
-      <ng-template ngbTabContent>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid.
-        <p>Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table
-        craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl
-        cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar helvetica VHS salvia
-        yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes anderson 8-bit, sustainable jean
-        shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party scenester stumptown, tumblr butcher vero
-        sint qui sapiente accusamus tattooed echo park.</p>
+      <ng-template ngbTabContent>
+
+        <br/>
+
+        <mwl-calendar-header
+          [(view)]="view"
+          [(viewDate)]="viewDate">
+        </mwl-calendar-header>
+
+        <div [ngSwitch]="view">
+          <mwl-calendar-month-view
+            *ngSwitchCase="'month'"
+            [viewDate]="viewDate"
+            [events]="events"
+            [activeDayIsOpen]="true"
+            (eventClicked)="eventClicked($event)"
+            (dayClicked)="dayClicked($event.day)">
+          </mwl-calendar-month-view>
+          <mwl-calendar-week-view
+            *ngSwitchCase="'week'"
+            [viewDate]="viewDate"
+            [events]="events"
+            (eventClicked)="eventClicked($event)">
+          </mwl-calendar-week-view>
+          <mwl-calendar-day-view
+            *ngSwitchCase="'day'"
+            [viewDate]="viewDate"
+            [events]="events"
+            (eventClicked)="eventClicked($event)">
+          </mwl-calendar-day-view>
+        </div>
+
       </ng-template>
     </ngb-tab>
   </ngb-tabset>
 </div>
+
+
+<ng-template #modalContent let-close="close">
+  <div class="modal-header">
+    <h5 class="modal-title">Event action occurred</h5>
+    <button type="button" class="close" (click)="close()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div>
+      Action:
+      <pre>{{ modalData?.action }}</pre>
+    </div>
+    <div>
+      Event:
+      <pre>{{ modalData?.event | json }}</pre>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" (click)="close()">OK</button>
+  </div>
+</ng-template>

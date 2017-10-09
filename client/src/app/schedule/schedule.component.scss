@@ -1,4 +1,10 @@
+@import '~angular-calendar/dist/css/angular-calendar.css';
+
 :host /deep/ .card,
 :host /deep/ .card-body.show {
   margin: 10px;
+}
+
+:host /deep/ .tab-content {
+  margin-top: 12px;
 }
