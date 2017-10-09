@@ -15,8 +15,9 @@ import { HttpCacheService } from './http/http-cache.service';
 
 export function createHttpService(backend: ConnectionBackend,
                                   defaultOptions: RequestOptions,
-                                  httpCacheService: HttpCacheService) {
-  return new HttpService(backend, defaultOptions, httpCacheService);
+                                  httpCacheService: HttpCacheService,
+                                  authenticationService: AuthenticationService) {
+  return new HttpService(backend, defaultOptions, httpCacheService, authenticationService);
 }
 
 @NgModule({

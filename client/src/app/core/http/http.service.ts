@@ -2,7 +2,7 @@ import 'rxjs/add/observable/throw';
 
 import { Injectable } from '@angular/core';
 import {
-  Http, ConnectionBackend, RequestOptions, Request, Response, RequestOptionsArgs, RequestMethod, ResponseOptions
+  Http, ConnectionBackend, RequestOptions, Request, Response, RequestOptionsArgs, RequestMethod, ResponseOptions, Headers
 } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Subscriber } from 'rxjs/Subscriber';
@@ -12,8 +12,16 @@ import { environment } from '../../../environments/environment';
 import { Logger } from '../logger.service';
 import { HttpCacheService } from './http-cache.service';
 import { HttpCachePolicy } from './request-options-args';
+import { AuthenticationService } from '../authentication/authentication.service';
 
 const log = new Logger('HttpService');
+
+export interface Credentials {
+  // Customize received credentials here
+  username: string;
+  token: string;
+}
+const credentialsKey = 'credentials';
 
 /**
  * Provides a base framework for http service extension.
@@ -22,11 +30,21 @@ const log = new Logger('HttpService');
 @Injectable()
 export class HttpService extends Http {
 
+  private _credentials: Credentials;
+
   constructor(backend: ConnectionBackend,
               private defaultOptions: RequestOptions,
-              private httpCacheService: HttpCacheService) {
+              private httpCacheService: HttpCacheService,
+              private authService: AuthenticationService) {
     // Customize default options here if needed
     super(backend, defaultOptions);
+  }
+
+  // Create basic auth headers
+  createAuthorizationHeader(headers: Headers) {
+    this._credentials = JSON.parse(sessionStorage.getItem(credentialsKey) || localStorage.getItem(credentialsKey));
+    headers.append('Authorization', 'Basic ' +
+      btoa(this._credentials.username + ':' + this._credentials.token));
   }
 
   /**
@@ -36,6 +54,11 @@ export class HttpService extends Http {
   request(request: string|Request, options?: RequestOptionsArgs): Observable<Response> {
     options = options || {};
     let url: string;
+
+    // Set auth headers
+    let headers = new Headers();
+    this.createAuthorizationHeader(headers);
+    options.headers = headers;
 
     if (typeof request === 'string') {
       url = request;
