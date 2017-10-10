@@ -47,3 +47,22 @@ insert into major_group_course(group_id,course_id) values(1,1);
 insert into major_group_course(group_id,course_id) values(1,2);
 insert into major_group_course(group_id,course_id) values(1,3);
 
+insert into building(id, name, occupancy_limit, department) values (nextval('building_id_seq'), 'Hammond', 3000, 'ENGINEERING');
+insert into building(id, name, occupancy_limit, department) values (nextval('building_id_seq'), 'Willard', 5000, 'ARTS');
+insert into building(id, name, occupancy_limit, department) values (nextval('building_id_seq'), 'Business', 1500, 'BUSINESS');
+insert into building(id, name, occupancy_limit, department) values (nextval('building_id_seq'), 'Life Science', 700, 'MEDICINE');
+insert into building(id, name, occupancy_limit, department) values (nextval('building_id_seq'), 'Law', 1000, 'LAW');
+insert into building(id, name, occupancy_limit, department) values (nextval('building_id_seq'), 'McAlister', 1300, 'MATH');
+
+insert into room(id, building, number, type, capacity) values(nextval('room_id_seq'), 1, 101, 'CLASSROOM', 40);
+insert into room(id, building, number, type, capacity) values(nextval('room_id_seq'), 1, 102, 'CLASSROOM', 35);
+insert into room(id, building, number, type, capacity) values(nextval('room_id_seq'), 1, 103, 'OFFICE', 20);
+insert into room(id, building, number, type, capacity) values(nextval('room_id_seq'), 1, 104, 'BATHROOM', 20);
+insert into room(id, building, number, type, capacity) values(nextval('room_id_seq'), 1, 105, 'CLASSROOM', 250);
+insert into room(id, building, number, type, capacity) values(nextval('room_id_seq'), 1, 201, 'CLASSROOM', 500);
+
+insert into room(id, building, number, type, capacity) values(nextval('room_id_seq'), 2, 101, 'CLASSROOM', 25);
+insert into room(id, building, number, type, capacity) values(nextval('room_id_seq'), 2, 102, 'CLASSROOM', 600);
+insert into room(id, building, number, type, capacity) values(nextval('room_id_seq'), 2, 103, 'CLASSROOM', 550);
+insert into room(id, building, number, type, capacity) values(nextval('room_id_seq'), 2, 104, 'CLASSROOM', 550);
+

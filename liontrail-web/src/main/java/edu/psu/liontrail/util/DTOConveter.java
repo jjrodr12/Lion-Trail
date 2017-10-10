@@ -4,13 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import edu.psu.liontrail.data.ClassDTO;
 import edu.psu.liontrail.data.CourseDTO;
 import edu.psu.liontrail.data.MajorDTO;
 import edu.psu.liontrail.data.RequiredCourseDTO;
 import edu.psu.liontrail.data.RequiredCourseGroupDTO;
+import edu.psu.liontrail.enumeration.SemesterSeason;
+import edu.psu.liontrail.model.Building;
 import edu.psu.liontrail.model.Course;
+import edu.psu.liontrail.model.Employee;
+import edu.psu.liontrail.model.LiontrailClass;
 import edu.psu.liontrail.model.Major;
 import edu.psu.liontrail.model.MajorGroup;
+import edu.psu.liontrail.model.Room;
+import edu.psu.liontrail.model.Semester;
 
 public class DTOConveter {
   
@@ -88,6 +95,51 @@ public class DTOConveter {
     }
     
     dto.setRequirements(requirements);
+    return dto;
+  }
+  
+  public static ClassDTO toClassDTO(LiontrailClass ltClass, Building building) {
+    ClassDTO dto = new ClassDTO();
+    
+    if (building != null) {
+      dto.setBuildingId(building.getId());
+      dto.setBuildingName(building.getName());
+    }
+    
+    dto.setClassFrequency(ltClass.getFrequency());
+    
+    Course course = ltClass.getCourse();
+    if (course != null) {
+      Major major = course.getMajor();
+      dto.setCourseAbbreviation(major == null ? null : major.getAbbreviation());
+      dto.setCourseId(course.getId());
+      dto.setCourseName(course.getName());
+    }
+    
+    Employee emp = ltClass.getInstructor();
+    if (emp != null) {
+      dto.setInstructorFirstName(emp.getName().getFirstName());
+      dto.setInstructorId(emp.getId());
+      dto.setInstructorLastName(emp.getName().getLastName());
+    }
+    
+    dto.setOnline(ltClass.isOnline());
+    
+    Room room = ltClass.getRoom();
+    if (room != null) {
+      dto.setRoomId(room.getId());
+      dto.setRoomNumber(room.getNumber());
+    }
+    
+    Semester semester = ltClass.getSemester();
+    if (semester != null) {
+      dto.setSemesterSeason(semester.getSeason());
+      dto.setSemesterYear(semester.getYear());
+    }
+    
+    dto.setStartTime(ltClass.getStartTime());
+    dto.setStopTime(ltClass.getStopTime());
+    
     return dto;
   }
 

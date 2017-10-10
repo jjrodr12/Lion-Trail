@@ -13,13 +13,18 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import edu.psu.liontrail.enumeration.RoomType;
 
 @Entity
-@Table(name="room")
+@Table(name="room",
+  uniqueConstraints = {
+      @UniqueConstraint(columnNames={"building","number"})
+  }
+)
 public class Room implements Serializable {
 
   private static final long serialVersionUID = 2453041004102765519L;
@@ -32,7 +37,12 @@ public class Room implements Serializable {
   
   @ManyToOne
   @JoinColumn(name="building")
+  @NotNull
   private Building building;
+  
+  @Column(name="number")
+  @NotNull
+  private int number;
   
   @Column(name="type", length=40)
   @NotNull
@@ -73,6 +83,14 @@ public class Room implements Serializable {
 
   public void setCapacity(int capacity) {
     this.capacity = capacity;
+  }
+
+  public int getNumber() {
+    return number;
+  }
+
+  public void setNumber(int number) {
+    this.number = number;
   }
 
   @Override

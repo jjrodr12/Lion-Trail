@@ -47,6 +47,11 @@ public class UserService {
     return Optional.ofNullable(user);
   }
   
+  public Optional<Employee> getEmployee(int id) {
+    Employee emp = em.find(Employee.class, id);
+    return Optional.ofNullable(emp);
+  }
+  
   public User createUser(Name name, String password, Set<Role> roles) throws ValidationException {
     
     try {

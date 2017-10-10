@@ -1,6 +1,7 @@
 package edu.psu.liontrail.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -14,6 +15,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -22,15 +25,27 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import edu.psu.liontrail.enumeration.Departments;
 
 @Entity
 @Table(name="building", uniqueConstraints= {
     @UniqueConstraint(columnNames= {"name"})
 })
+@NamedQueries({
+  @NamedQuery(name=Building.BY_DEPARTMENT, query="SELECT b FROM Building b where b.department = :department"),
+  @NamedQuery(name=Building.BY_NAME, query="SELECT b FROM Building b where b.name = :name"),
+  @NamedQuery(name=Building.BY_ROOM_ID, query="SELECT b FROM Building b INNER JOIN b.rooms r where r.id = :roomId ")
+})
 public class Building implements Serializable {
 
   private static final long serialVersionUID = 4758332368706588625L;
+  
+  public static final String BY_DEPARTMENT = "Building.findByDepartment";
+  public static final String BY_NAME = "Building.findByName";
+  public static final String BY_ROOM_ID = "Building.findByRoomId";
   
   @Id
   @Column(name="id")
@@ -54,11 +69,12 @@ public class Building implements Serializable {
   private Departments department;
   
   @OneToMany(mappedBy="building", fetch=FetchType.EAGER, cascade=CascadeType.ALL)
-  private Set<Room> rooms;
+  @Fetch(FetchMode.SELECT)
+  private List<Room> rooms;
   
   public void addRoom(Room room) {
     if (rooms == null) {
-      rooms = new HashSet<>();
+      rooms = new ArrayList<>();
     }
     room.setBuilding(this);
     rooms.add(room);
@@ -96,11 +112,11 @@ public class Building implements Serializable {
     this.department = department;
   }
 
-  public Set<Room> getRooms() {
+  public List<Room> getRooms() {
     return rooms;
   }
 
-  public void setRooms(Set<Room> rooms) {
+  public void setRooms(List<Room> rooms) {
     this.rooms = rooms;
   }
   

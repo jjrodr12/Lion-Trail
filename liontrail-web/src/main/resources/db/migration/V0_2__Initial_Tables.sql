@@ -175,7 +175,8 @@ CREATE TABLE room (
     id integer NOT NULL,
     capacity integer,
     type character varying(40) NOT NULL,
-    building integer,
+    building integer NOT NULL,
+    number integer NOT NULL,
     CONSTRAINT room_capacity_check CHECK ((capacity >= 0))
 );
 
@@ -268,6 +269,9 @@ ALTER TABLE ONLY application
 
 ALTER TABLE ONLY building
     ADD CONSTRAINT unique_building UNIQUE (name);
+    
+ALTER TABLE ONLY room
+    ADD CONSTRAINT unique_room UNIQUE (building, number);
 
 ALTER TABLE ONLY class
     ADD CONSTRAINT fk_class_to_semester FOREIGN KEY (semester_id) REFERENCES semester(id);
