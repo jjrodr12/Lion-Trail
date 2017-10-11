@@ -9,6 +9,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import edu.psu.liontrail.adapter.LocalTimeAdapter;
 import edu.psu.liontrail.enumeration.ClassFrequency;
+import io.swagger.annotations.ApiModelProperty;
 
 public class CreateClassDTO implements Serializable {
 
@@ -31,10 +32,12 @@ public class CreateClassDTO implements Serializable {
   
   @XmlElement
   @XmlJavaTypeAdapter(LocalTimeAdapter.class)
+  @ApiModelProperty(dataType="string", example="02:30")
   private LocalTime startTime;
   
   @XmlElement
   @XmlJavaTypeAdapter(LocalTimeAdapter.class)
+  @ApiModelProperty(dataType="string", example="03:20")
   private LocalTime stopTime;
   
   @XmlElement

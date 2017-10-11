@@ -2,6 +2,7 @@ package edu.psu.liontrail.model;
 
 import java.io.Serializable;
 import java.time.LocalTime;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,6 +13,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -21,7 +25,15 @@ import edu.psu.liontrail.enumeration.ClassFrequency;
 
 @Entity
 @Table(name="class")
+@NamedQueries({
+  @NamedQuery(name=LiontrailClass.BY_SEMESTER, query = "SELECT c FROM LiontrailClass c WHERE c.semester.id = :semesterId")
+  /*@NamedQuery(name=LiontrailClass.BY_SEMESTER_STUDENT,
+    query = "SELECT c FROM LiontrailClass c WHERE c.semester.id = :semesterId and c.")*/
+})
 public class LiontrailClass implements Serializable {
+  
+  public static final String BY_SEMESTER = "LiontrailClass.findBySemester";
+  public static final String BY_SEMESTER_STUDENT = "LiontrailClass.findBySemesterAndStudent";
   
   private static final long serialVersionUID = 3642657966915293123L;
   
@@ -45,6 +57,9 @@ public class LiontrailClass implements Serializable {
   @JoinColumn(name="instructor_id")
   @NotNull
   private Employee instructor;
+  
+  @OneToMany(mappedBy="enrolledClass")
+  private List<ClassEnrollment> enrollments;
   
   @Column(name="frequency", length=50)
   @Enumerated(EnumType.STRING)
@@ -150,6 +165,14 @@ public class LiontrailClass implements Serializable {
 
   public void setSize(int size) {
     this.size = size;
+  }
+  
+  public List<ClassEnrollment> getEnrollments() {
+    return enrollments;
+  }
+
+  public void setEnrollments(List<ClassEnrollment> enrollments) {
+    this.enrollments = enrollments;
   }
 
   @Override

@@ -8,6 +8,7 @@ import javax.swing.ViewportLayout;
 import edu.psu.liontrail.data.ClassDTO;
 import edu.psu.liontrail.data.CreateClassDTO;
 import edu.psu.liontrail.enumeration.ClassFrequency;
+import edu.psu.liontrail.exception.BuildingNotFoundException;
 import edu.psu.liontrail.exception.ValidationException;
 import edu.psu.liontrail.model.Building;
 import edu.psu.liontrail.model.Course;
@@ -17,9 +18,10 @@ import edu.psu.liontrail.model.Room;
 import edu.psu.liontrail.model.Semester;
 import edu.psu.liontrail.model.User;
 import edu.psu.liontrail.store.ClassStore;
+import edu.psu.liontrail.util.DTOConveter;
 import io.swagger.annotations.License;
 
-public class ScheduleService {
+public class ClassService {
   
   @Inject
   CourseService courseSerice;
@@ -38,6 +40,23 @@ public class ScheduleService {
   
   @Inject
   ClassStore classStore;
+  
+  public LiontrailClass getClass(int id) {
+    return classStore.getClassById(id);
+  }
+  
+  public ClassDTO getClassDTOById(int id) throws ClassNotFoundException, BuildingNotFoundException {
+    LiontrailClass ltClass = classStore.getClassById(id);
+    if (ltClass == null) {
+      throw new ClassNotFoundException("No Class found with id: "+id);
+    }
+    Building building = buildingService.getBuildingByRoomId(ltClass.getRoom().getId());
+    if (building == null) {
+      throw new BuildingNotFoundException("No Building found with id: "+ltClass.getRoom().getId());
+    }
+    ClassDTO dto = DTOConveter.toClassDTO(ltClass, building);
+    return dto;
+  }
 
   public ClassDTO createClass(CreateClassDTO dto) throws ValidationException {
     
@@ -125,6 +144,8 @@ public class ScheduleService {
     
     classStore.createClass(ltClass);
     
-    return null;
+    ClassDTO responseDto = DTOConveter.toClassDTO(ltClass, building);
+    
+    return responseDto;
   }
 }

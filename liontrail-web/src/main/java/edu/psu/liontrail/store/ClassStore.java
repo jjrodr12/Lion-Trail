@@ -12,6 +12,10 @@ public class ClassStore {
   @PersistenceContext(unitName = "liontrail-ds")
   EntityManager em;
   
+  public LiontrailClass getClassById(int id) {
+    return em.find(LiontrailClass.class, id);
+  }
+  
   public void createClass(LiontrailClass ltClass) {
     em.persist(ltClass);
   }

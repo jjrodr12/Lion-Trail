@@ -16,6 +16,7 @@ public enum Role {
   
   static {
     for(Role r : Role.values()) {
+      lookup.put(r.name().toLowerCase(), r);
       lookup.put(r.getValue().toLowerCase(), r);
     }
   }

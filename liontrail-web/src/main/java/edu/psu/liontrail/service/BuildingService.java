@@ -1,9 +1,12 @@
 package edu.psu.liontrail.service;
 
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.TypedQuery;
 
+import edu.psu.liontrail.enumeration.Departments;
 import edu.psu.liontrail.exception.BuildingNotFoundException;
 import edu.psu.liontrail.model.Building;
 import edu.psu.liontrail.model.Room;
@@ -28,5 +31,13 @@ public class BuildingService {
   
   public Building getBuildingByRoomId(int roomId) {
     return buildingStore.getBuildingByRoomId(roomId);
+  }
+  
+  public List<Building> getAllBuildings() {
+    return buildingStore.getAllBuildings();
+  }
+  
+  public List<Building> getBuildingsByDepartment(Departments department) {
+    return buildingStore.getBuildingsByDepartment(department);
   }
 }

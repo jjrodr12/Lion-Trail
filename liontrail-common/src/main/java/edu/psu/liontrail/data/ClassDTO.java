@@ -15,6 +15,9 @@ public class ClassDTO implements Serializable {
   private static final long serialVersionUID = 3922457969375479203L;
   
   @XmlElement
+  private int classId;
+  
+  @XmlElement
   private int courseId;
   @XmlElement
   private String courseName;
@@ -58,6 +61,14 @@ public class ClassDTO implements Serializable {
   
   @XmlElement
   private boolean online;
+
+  public int getClassId() {
+    return classId;
+  }
+
+  public void setClassId(int classId) {
+    this.classId = classId;
+  }
 
   public int getCourseId() {
     return courseId;

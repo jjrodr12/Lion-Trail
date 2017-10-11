@@ -101,6 +101,8 @@ public class DTOConveter {
   public static ClassDTO toClassDTO(LiontrailClass ltClass, Building building) {
     ClassDTO dto = new ClassDTO();
     
+    dto.setClassId(ltClass.getId());
+    
     if (building != null) {
       dto.setBuildingId(building.getId());
       dto.setBuildingName(building.getName());

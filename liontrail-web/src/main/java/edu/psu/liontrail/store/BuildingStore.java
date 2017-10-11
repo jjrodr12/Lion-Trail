@@ -20,10 +20,15 @@ public class BuildingStore {
     return em.find(Building.class, id);
   }
   
-  public List<Building> getBuildingByDepartment(Departments department) {
+  public List<Building> getBuildingsByDepartment(Departments department) {
     TypedQuery<Building> query = em.createNamedQuery(Building.BY_DEPARTMENT, Building.class);
     query.setParameter("department", department);
     
+    return query.getResultList();
+  }
+  
+  public List<Building> getAllBuildings() {
+    TypedQuery<Building> query = em.createNamedQuery(Building.ALL, Building.class);
     return query.getResultList();
   }
   

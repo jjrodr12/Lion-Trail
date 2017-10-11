@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.SequenceGenerator;
@@ -43,7 +44,7 @@ public class ClassEnrollment implements Serializable {
   //private int studentId;
   
   //@Column(name="class_id")
-  @OneToOne
+  @ManyToOne
   @JoinColumn(name="class_id")
   @NotNull
   private LiontrailClass enrolledClass;

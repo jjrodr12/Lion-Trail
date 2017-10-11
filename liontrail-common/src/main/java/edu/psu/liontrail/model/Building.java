@@ -37,7 +37,8 @@ import edu.psu.liontrail.enumeration.Departments;
 @NamedQueries({
   @NamedQuery(name=Building.BY_DEPARTMENT, query="SELECT b FROM Building b where b.department = :department"),
   @NamedQuery(name=Building.BY_NAME, query="SELECT b FROM Building b where b.name = :name"),
-  @NamedQuery(name=Building.BY_ROOM_ID, query="SELECT b FROM Building b INNER JOIN b.rooms r where r.id = :roomId ")
+  @NamedQuery(name=Building.BY_ROOM_ID, query="SELECT b FROM Building b INNER JOIN b.rooms r where r.id = :roomId "),
+  @NamedQuery(name=Building.ALL, query="SELECT b FROM Building b")
 })
 public class Building implements Serializable {
 
@@ -46,6 +47,7 @@ public class Building implements Serializable {
   public static final String BY_DEPARTMENT = "Building.findByDepartment";
   public static final String BY_NAME = "Building.findByName";
   public static final String BY_ROOM_ID = "Building.findByRoomId";
+  public static final String ALL = "Building.findAll";
   
   @Id
   @Column(name="id")
