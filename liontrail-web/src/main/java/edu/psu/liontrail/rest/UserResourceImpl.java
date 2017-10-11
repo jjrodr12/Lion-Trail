@@ -13,6 +13,7 @@ import edu.psu.liontrail.data.CreateUserDTO;
 import edu.psu.liontrail.enumeration.Role;
 import edu.psu.liontrail.exception.ErrorMessage;
 import edu.psu.liontrail.exception.UserNotFoundException;
+import edu.psu.liontrail.exception.ValidationException;
 import edu.psu.liontrail.model.AuthUser;
 import edu.psu.liontrail.model.User;
 import edu.psu.liontrail.service.UserService;
@@ -26,11 +27,14 @@ public class UserResourceImpl implements UserResource {
   public Response createUser(CreateUserDTO userDto) {
     try {
       Set<Role> roles = Stream.of(userDto.getRole()).collect(Collectors.toSet());
-      AuthUser authUser = userService.registerUser(userDto.getName(), userDto.getPassword(), roles);
-      return Response.ok().entity(authUser.getUserName()).build();
-    } catch (NoSuchAlgorithmException e) {
-      ErrorMessage em = new ErrorMessage();
-      em.addErrorMessage("Error Creating User");
+      //AuthUser authUser = userService.registerUser(userDto.getName(), userDto.getPassword(), roles);
+      User user = userService.createUser(userDto.getName(), userDto.getPassword(), roles);
+      return Response.ok().entity(user.getUsername()).build();
+    /*} catch (NoSuchAlgorithmException e) {
+      ErrorMessage em = new ErrorMessage(Status.INTERNAL_SERVER_ERROR, "Error Creating User");
+      return em.toResponse();*/
+    } catch (ValidationException e) {
+      ErrorMessage em = new ErrorMessage(Status.BAD_REQUEST, e.getMessages());
       return em.toResponse();
     }
 
