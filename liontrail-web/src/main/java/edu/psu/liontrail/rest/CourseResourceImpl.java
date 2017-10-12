@@ -28,7 +28,7 @@ public class CourseResourceImpl implements CourseResource {
       ErrorMessage em = new ErrorMessage(Status.NOT_FOUND, "No course found with id: "+id);
       return em.toResponse();
     }
-    CourseDTO dto = DTOConveter.toCourseDTO(course);
+    CourseDTO dto = DTOConveter.toCourseDTO(course, true);
     return Response.ok().entity(dto).build();
   }
 
@@ -40,7 +40,7 @@ public class CourseResourceImpl implements CourseResource {
       return em.toResponse();
     }
     
-    List<CourseDTO> dtos = courses.stream().map(c -> DTOConveter.toCourseDTO(c)).collect(Collectors.toList());
+    List<CourseDTO> dtos = courses.stream().map(c -> DTOConveter.toCourseDTO(c, true)).collect(Collectors.toList());
     return Response.ok().entity(dtos).build();
   }
 
@@ -51,7 +51,7 @@ public class CourseResourceImpl implements CourseResource {
       ErrorMessage em = new ErrorMessage(Status.NOT_FOUND, "No course found major abbreviation: "+major);
       return em.toResponse();
     }
-    List<CourseDTO> dtos = courses.stream().map(c -> DTOConveter.toCourseDTO(c)).collect(Collectors.toList());
+    List<CourseDTO> dtos = courses.stream().map(c -> DTOConveter.toCourseDTO(c, true)).collect(Collectors.toList());
     return Response.ok().entity(dtos).build();
   }
 
@@ -66,7 +66,7 @@ public class CourseResourceImpl implements CourseResource {
     }
     
     Course course = courseService.createCourse(dto);
-    CourseDTO respDto = DTOConveter.toCourseDTO(course); 
+    CourseDTO respDto = DTOConveter.toCourseDTO(course, true); 
     return Response.ok().entity(respDto).build();
   }
 

@@ -21,7 +21,7 @@ import edu.psu.liontrail.model.Semester;
 
 public class DTOConveter {
   
-  public static CourseDTO toCourseDTO(Course course) {
+  public static CourseDTO toCourseDTO(Course course, boolean includePrereq) {
     CourseDTO dto = new CourseDTO();
     dto.setId(course.getId());
     dto.setCredits(course.getCredits());
@@ -34,7 +34,7 @@ public class DTOConveter {
       dto.setMajorAbr(course.getMajor().getAbbreviation());
       dto.setMajorLevel(course.getMajor().getLevel());
     }
-    if (course.getPrerequisites() != null) {
+    if (includePrereq && course.getPrerequisites() != null) {
       List<CourseDTO> preReqs = new ArrayList<>();
       for(Course c : course.getPrerequisites()) {
         CourseDTO preReq = new CourseDTO();
@@ -70,7 +70,7 @@ public class DTOConveter {
       requirements = new RequiredCourseDTO();
       
       requirements.setRequiredClasses(major.getRequiredCourses().stream()
-        .map(c -> DTOConveter.toCourseDTO(c))
+        .map(c -> DTOConveter.toCourseDTO(c, false))
         .sorted((a,b) -> ((Integer)a.getNumber()).compareTo(b.getNumber()))
         .collect(Collectors.toList()));
     }
@@ -83,7 +83,7 @@ public class DTOConveter {
         RequiredCourseGroupDTO group = new RequiredCourseGroupDTO();
         group.setNumberOfClasses(g.getSize());
         List<CourseDTO> courses = g.getCourses().stream()
-            .map(c -> DTOConveter.toCourseDTO(c))
+            .map(c -> DTOConveter.toCourseDTO(c, false))
             .sorted((a,b) -> ((Integer)a.getNumber()).compareTo(b.getNumber()))
             .collect(Collectors.toList());
         group.setCourses(courses);

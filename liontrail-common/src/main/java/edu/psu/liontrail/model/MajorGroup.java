@@ -1,6 +1,7 @@
 package edu.psu.liontrail.model;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -47,7 +48,7 @@ public class MajorGroup implements Serializable {
   @JoinTable(name="major_group_course",
   joinColumns=@JoinColumn(name="group_id", referencedColumnName="id"),
   inverseJoinColumns=@JoinColumn(name="course_id", referencedColumnName="id"))
-  private Set<Course> courses;
+  private List<Course> courses;
 
   public int getId() {
     return id;
@@ -73,11 +74,11 @@ public class MajorGroup implements Serializable {
     this.size = size;
   }
 
-  public Set<Course> getCourses() {
+  public List<Course> getCourses() {
     return courses;
   }
 
-  public void setCourses(Set<Course> courses) {
+  public void setCourses(List<Course> courses) {
     this.courses = courses;
   }
 

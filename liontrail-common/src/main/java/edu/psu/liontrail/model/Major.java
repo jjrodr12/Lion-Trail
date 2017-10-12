@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -34,13 +35,15 @@ import edu.psu.liontrail.enumeration.DegreeLevel;
     @UniqueConstraint(columnNames={"name","degree_level"})
 })
 @NamedQueries({
-  @NamedQuery(name=Major.BY_ABBREVIATION, query="SELECT m FROM Major m where m.abbreviation = :abbreviation")
+  @NamedQuery(name=Major.BY_ABBREVIATION, query="SELECT m FROM Major m where m.abbreviation = :abbreviation"),
+  @NamedQuery(name=Major.BY_DEPARTMENT, query="SELECT m FROM Major m where m.department.id = :department")
 })
 public class Major implements Serializable {
   
   private static final long serialVersionUID = -1693279106463770043L;
   
   public static final String BY_ABBREVIATION = "Major.findByAbbreivation";
+  public static final String BY_DEPARTMENT = "Major.findByDepartment";
 
   @Id
   @Column(name = "id")
@@ -59,6 +62,7 @@ public class Major implements Serializable {
   @OneToOne(fetch=FetchType.EAGER)
   @JoinColumn(name="department_id")
   @NotNull
+  @Enumerated(EnumType.STRING)
   private Department department;
   
   @Column(name="degree_level", length=5)
@@ -73,9 +77,9 @@ public class Major implements Serializable {
   inverseJoinColumns=@JoinColumn(name="course_id", referencedColumnName="id"))
   private List<Course> requiredCourses;
   
-  @OneToMany(mappedBy="major", fetch=FetchType.EAGER)
+  @OneToMany(mappedBy="major", fetch=FetchType.EAGER, cascade=CascadeType.ALL)
   @Fetch(FetchMode.SELECT)
-  private Set<MajorGroup> groups;
+  private List<MajorGroup> groups;
 
   public int getId() {
     return id;
@@ -125,11 +129,11 @@ public class Major implements Serializable {
     this.requiredCourses = requiredCourses;
   }
 
-  public Set<MajorGroup> getGroups() {
+  public List<MajorGroup> getGroups() {
     return groups;
   }
 
-  public void setGroups(Set<MajorGroup> groups) {
+  public void setGroups(List<MajorGroup> groups) {
     this.groups = groups;
   }
 

@@ -13,78 +13,12 @@ import edu.psu.liontrail.model.Department;
 
 @XmlRootElement(name="major")
 @XmlAccessorType(XmlAccessType.NONE)
-public class MajorDTO implements Serializable {
+public class MajorDTO extends BaseMajorDTO implements Serializable {
   
   private static final long serialVersionUID = -1290614874783290926L;
-
-  @XmlElement
-  private int id;
-  
-  @XmlElement
-  private String abbreviation;
-  
-  @XmlElement
-  private String name;
-  
-  @XmlElement
-  private DegreeLevel level;
-  
-  @XmlElement
-  private Departments departmentId;
-  
-  @XmlElement
-  private String departmentName;
   
   @XmlElement
   private RequiredCourseDTO requirements;
-
-  public int getId() {
-    return id;
-  }
-
-  public void setId(int id) {
-    this.id = id;
-  }
-
-  public String getAbbreviation() {
-    return abbreviation;
-  }
-
-  public void setAbbreviation(String abbreviation) {
-    this.abbreviation = abbreviation;
-  }
-
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  public DegreeLevel getLevel() {
-    return level;
-  }
-
-  public void setLevel(DegreeLevel level) {
-    this.level = level;
-  }
-
-  public Departments getDepartmentId() {
-    return departmentId;
-  }
-
-  public void setDepartmentId(Departments departmentId) {
-    this.departmentId = departmentId;
-  }
-
-  public String getDepartmentName() {
-    return departmentName;
-  }
-
-  public void setDepartmentName(String departmentName) {
-    this.departmentName = departmentName;
-  }
 
   public RequiredCourseDTO getRequirements() {
     return requirements;
