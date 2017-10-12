@@ -53,7 +53,14 @@ insert into major(id, abbreviation, degree_level, name, department_id)
     values(nextval('major_id_seq'), 'ARTS', 'MA', 'Teaching Art', 'ARTS');
 
 /* Major Table: Business*/
-
+insert into major(id, abbreviation, degree_level, name, department_id)
+    values(nextval('major_id_seq'), 'BUSINESS', 'BA', 'Accounting', 'BUSINESS');
+insert into major(id, abbreviation, degree_level, name, department_id)
+    values(nextval('major_id_seq'), 'BUSINESS', 'BA', 'Finance', 'BUSINESS');
+insert into major(id, abbreviation, degree_level, name, department_id)
+    values(nextval('major_id_seq'), 'BUSINESS', 'BA', 'Information Systems', 'BUSINESS');
+insert into major(id, abbreviation, degree_level, name, department_id)
+    values(nextval('major_id_seq'), 'BUSINESS', 'MBA', 'Business Administration', 'BUSINESS');
 /* Major Table: Medicine*/
 
 /* Major Table: Law*/
