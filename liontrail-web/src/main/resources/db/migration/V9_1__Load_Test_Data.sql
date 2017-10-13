@@ -61,13 +61,37 @@ insert into major(id, abbreviation, degree_level, name, department_id)
     values(nextval('major_id_seq'), 'BUSINESS', 'BA', 'Information Systems', 'BUSINESS');
 insert into major(id, abbreviation, degree_level, name, department_id)
     values(nextval('major_id_seq'), 'BUSINESS', 'MBA', 'Business Administration', 'BUSINESS');
+
 /* Major Table: Medicine*/
+insert into major(id, abbreviation, degree_level, name, department_id)
+    values(nextval('major_id_seq'), 'MEDICINE', 'MD', 'Anaesthetics', 'MEDICINE');
+insert into major(id, abbreviation, degree_level, name, department_id)
+    values(nextval('major_id_seq'), 'MEDICINE', 'MD', 'Radiology', 'MEDICINE');
+insert into major(id, abbreviation, degree_level, name, department_id)
+    values(nextval('major_id_seq'), 'MEDICINE', 'MD', 'Paediatrics', 'MEDICINE');
+insert into major(id, abbreviation, degree_level, name, department_id)
+    values(nextval('major_id_seq'), 'MEDICINE', 'MD', 'Ophthalmology', 'MEDICINE');
 
 /* Major Table: Law*/
-
+insert into major(id, abbreviation, degree_level, name, department_id)
+    values(nextval('major_id_seq'), 'LAW', 'JD', 'Juris Doctor', 'LAW');
+insert into major(id, abbreviation, degree_level, name, department_id)
+    values(nextval('major_id_seq'), 'LAW', 'LL.M', 'Master of Law', 'LAW');
+insert into major(id, abbreviation, degree_level, name, department_id)
+    values(nextval('major_id_seq'), 'LAW', 'S.D.J', 'Doctor of Juridical Sciences', 'LAW');
+    
 /* Major Table: Math*/
+insert into major(id, abbreviation, degree_level, name, department_id)
+    values(nextval('major_id_seq'), 'MATH', 'BS', 'Mathematics', 'MATH');
+insert into major(id, abbreviation, degree_level, name, department_id)
+    values(nextval('major_id_seq'), 'MATH', 'BS', 'Applied Mathematics', 'MATH');
+insert into major(id, abbreviation, degree_level, name, department_id)
+    values(nextval('major_id_seq'), 'MATH', 'BS', 'Teaching Mathematics', 'MATH');
+insert into major(id, abbreviation, degree_level, name, department_id)
+    values(nextval('major_id_seq'), 'MATH', 'MS', 'Mathematics', 'MATH');
 
 
+/* */
 insert into course_prerequisites(parent_course, required_course) values(3, 2);
 
 insert into major_course(major_id,course_id) values (1,2);
