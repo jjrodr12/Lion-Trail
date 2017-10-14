@@ -21,6 +21,20 @@ insert into department(id, name) values('MEDICINE','Hershey College of Medicine'
 insert into department(id, name) values('LAW','Dickson Law School');
 insert into department(id, name) values('MATH','College of Math');
 
+/* building Table*/
+insert into building(id, department, name, occupancy_limit)
+	values('101', 'ENGINEERING', 'Newton Building', '25');
+insert into building(id, department, name, occupancy_limit)
+	values('102', 'ARTS', 'Picasso Building', '30');
+insert into building(id, department, name, occupancy_limit)
+	values('103', 'BUSINESS', 'MCcoy Building', '30');
+insert into building(id, department, name, occupancy_limit)
+	values('104', 'MEDICINE', 'Medical Center Building', '25');	
+insert into building(id, department, name, occupancy_limit)
+	values('105', 'LAW', 'LAW Center Building', '30');
+insert into building(id, department, name, occupancy_limit)
+	values('106', 'MATH', 'Mathematics Building', '30');	
+
 /* Major Table: Engineering*/
 insert into major(id, abbreviation, degree_level, name, department_id)
     values(nextval('major_id_seq'), 'SWENG', 'BS', 'Software Engineering', 'ENGINEERING');
