@@ -75,6 +75,7 @@ public class DTOConveter {
         .collect(Collectors.toList()));
     }
     if (major.getGroups() != null) {
+      //System.out.println("Major Groups size: "+major.getGroups().size());
       if (requirements == null) {
         requirements = new RequiredCourseDTO();
       }
@@ -90,8 +91,8 @@ public class DTOConveter {
         groups.add(group);
       }
       requirements.setGroup(groups);
-     
-      
+    } else {
+      System.out.println("Major Groups is NULLs");
     }
     
     dto.setRequirements(requirements);

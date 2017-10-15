@@ -9,6 +9,7 @@ import javax.persistence.TypedQuery;
 
 import edu.psu.liontrail.enumeration.Departments;
 import edu.psu.liontrail.model.Major;
+import edu.psu.liontrail.model.MajorGroup;
 
 @Stateless
 public class MajorStore {
@@ -39,5 +40,9 @@ public class MajorStore {
   
   public void updateMajor(Major major) {
     em.merge(major);
+  }
+  
+  public void deleteMajorGroup(MajorGroup group) {
+    em.remove(group);
   }
 }

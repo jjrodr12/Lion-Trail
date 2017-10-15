@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -43,7 +44,7 @@ public class MajorGroup implements Serializable {
   @Min(value=0)
   private int size;
   
-  @ManyToMany(fetch=FetchType.EAGER)
+  @ManyToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
   @Fetch(FetchMode.SELECT)
   @JoinTable(name="major_group_course",
   joinColumns=@JoinColumn(name="group_id", referencedColumnName="id"),

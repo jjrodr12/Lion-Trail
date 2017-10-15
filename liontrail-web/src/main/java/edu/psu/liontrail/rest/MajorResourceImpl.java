@@ -58,8 +58,13 @@ public class MajorResourceImpl implements MajorResource {
 
   @Override
   public Response updateMajorData(int id, BaseMajorDTO dto) {
-    // TODO Auto-generated method stub
-    return null;
+    try {
+      majorService.updateMajorData(id, dto);
+      return Response.accepted().build();
+    } catch (ValidationException e) {
+      ErrorMessage em = new ErrorMessage(Status.BAD_REQUEST, e.getMessages());
+      return em.toResponse();
+    }
   }
 
   @Override
@@ -98,14 +103,24 @@ public class MajorResourceImpl implements MajorResource {
 
   @Override
   public Response updateMajorGroup(int majorId, int groupId, CreateMajorGroupDTO dto) {
-    // TODO Auto-generated method stub
-    return null;
+    try {
+      majorService.updateMajorGroup(majorId, groupId, dto);
+      return Response.accepted().build();
+    } catch (ValidationException e) {
+      ErrorMessage em = new ErrorMessage(Status.BAD_REQUEST, e.getMessages());
+      return em.toResponse();
+    }
   }
 
   @Override
   public Response deleteMajorGroup(int majorId, int groupId) {
-    // TODO Auto-generated method stub
-    return null;
+    try {
+      majorService.deleteMajorGroup(majorId, groupId);
+      return Response.accepted().build();
+    } catch (ValidationException e) {
+      ErrorMessage em = new ErrorMessage(Status.BAD_REQUEST, e.getMessages());
+      return em.toResponse();
+    }
   }
 
   

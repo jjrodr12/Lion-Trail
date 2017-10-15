@@ -70,7 +70,7 @@ public class Major implements Serializable {
   @Enumerated(EnumType.STRING)
   private DegreeLevel level;
   
-  @ManyToMany(fetch=FetchType.EAGER)
+  @ManyToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
   @Fetch(FetchMode.SELECT)
   @JoinTable(name="major_course",
   joinColumns=@JoinColumn(name="major_id", referencedColumnName="id"),
