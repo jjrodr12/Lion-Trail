@@ -29,7 +29,7 @@ public class GradeStore {
     return em.find(Grade.class, id);
   }
   
-  public List<Grade> getGradeBySemester(int id, Semester semester) {
+  public List<Grade> getGradeBySemester(SemesterSeason season, Integer year) {
     // Under Construction
     // TypedQuery<Grade> query = em.createNamedQuery();
     // return query.getResultList();
@@ -41,6 +41,26 @@ public class GradeStore {
     query.setParameter("season", season);
     query.setParameter("year", year);
     return query.getSingleResult();*/
+    return null;
+  }
+
+  public Semester getSemesterById(int id) {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  public List<Semester> getAllSemesters() {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  public List<Grade> getAllGrades() {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  public Grade getGradeBySemester(Object season, Object year) {
+    // TODO Auto-generated method stub
     return null;
   }
 }

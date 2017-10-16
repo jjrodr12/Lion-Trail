@@ -54,4 +54,19 @@ public enum Grade {
     return Optional.ofNullable(lookup.get(str.toUpperCase()));
   }
 
+  public int getId() {
+    // TODO Auto-generated method stub
+    return 0;
+  }
+
+  public Object getSeason() {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  public Object getYear() {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
 }
