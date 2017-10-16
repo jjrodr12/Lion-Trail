@@ -23,6 +23,7 @@ import {
 
 // Services
 import { ScheduleService } from '../schedule.service';
+import { CourseService } from '../course.service';
 
 // angular-calendar
 import {
@@ -55,6 +56,7 @@ export class ScheduleComponent implements OnInit {
   @ViewChild('modalContent') modalContent: TemplateRef<any>;
 
   semesters: Semester[];
+  courses: Course[];
 
   view: string = 'month';
 
@@ -70,6 +72,7 @@ export class ScheduleComponent implements OnInit {
 
   constructor(
     private scheduleService: ScheduleService,
+    private courseService: CourseService,
     private modal: NgbModal
   ) { }
 
@@ -133,8 +136,23 @@ export class ScheduleComponent implements OnInit {
         );
       });
     });
-  }
 
+    this.courseService.getCourses()
+    .subscribe((courses: any) => {
+      console.log(courses);
+      this.courses = courses;
+      this.courses.forEach(course => {
+        // Fake it for now, we may have to readjust anyway later on
+        this.events.push(
+          {
+            title: course.id,
+            color: colors.blue,
+            start: new Date()
+          }
+        );
+      });
+    });
+  }
 }
 
 interface Semester {
@@ -147,4 +165,13 @@ interface Semester {
   lastExamDate: string,
   classRegistrationDate: string,
   dropAddDeadlineDate: string
+}
+
+interface Course {
+  id: string,
+  semesterSeason: string,
+  semesterYear: number,
+  days: string[],
+  startTime: string,
+  endTime: string
 }

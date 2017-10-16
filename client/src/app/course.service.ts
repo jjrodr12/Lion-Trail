@@ -6,7 +6,7 @@ import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()
-export class GradesService {
+export class CourseService {
 
   constructor(private http: Http) { }
 
@@ -14,26 +14,27 @@ export class GradesService {
     return Observable.of([
       {
         id: 'SWENG123',
-        curGrade: 'A',
         semesterSeason: 'FALL',
         semesterYear: '2017',
-        finalGrade: 'A',
-        days: ['MO', 'WE']
+        days: ['MO', 'WE'],
+        startTime: '13:00',
+        endTime: '14:00'
       },
       {
         id: 'PHIL456',
-        curGrade: 'B',
         semesterSeason: 'FALL',
         semesterYear: '2017',
-        finalGrade: 'B',
-        days: ['MO', 'WE']
+        days: ['MO', 'WE'],
+        startTime: '13:00',
+        endTime: '14:00'
       },
       {
         id: 'ENG789',
-        curGrade: 'C',
         semesterSeason: 'SPRING',
         semesterYear: '2018',
-        days: ['MO', 'WE']
+        days: ['MO', 'WE'],
+        startTime: '13:00',
+        endTime: '14:00'
       }
     ]);
   }

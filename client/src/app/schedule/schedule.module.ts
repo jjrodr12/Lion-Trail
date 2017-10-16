@@ -5,6 +5,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ScheduleRoutingModule } from './schedule-routing.module';
 import { ScheduleComponent } from './schedule.component';
 import { ScheduleService } from '../schedule.service';
+import { CourseService } from '../course.service';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CalendarModule } from 'angular-calendar';
@@ -23,7 +24,8 @@ import { CalendarHeaderComponent } from './calendar-header.component';
     CalendarHeaderComponent
   ],
   providers: [
-    ScheduleService
+    ScheduleService,
+    CourseService
   ]
 })
 export class ScheduleModule { }

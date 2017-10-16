@@ -12,6 +12,7 @@
                   <th>Course</th>
                   <th>Current Grade</th>
                   <th>Final Grade</th>
+                  <th>Predicted Grade</th>
               </tr>
           </thead>
           <tbody>
@@ -20,6 +21,9 @@
                 <td>{{course.id}}</td>
                 <td>{{course.curGrade}}</td>
                 <td>{{course.finalGrade}}</td>
+                <td>
+                  <input type="text" class="form-control input-grade"/>
+                </td>
               </tr>
             </ng-container>
           </tbody>
