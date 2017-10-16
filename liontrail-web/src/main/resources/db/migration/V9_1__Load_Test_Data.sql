@@ -118,13 +118,6 @@ insert into liontrail_user(user_id, first_name, last_name, middle_name, username
 	values('202', 'John', 'Gaspar', 'Mike', 'mike_g');
 
 
-
-
-
-
-
-
-
 insert into course_prerequisites(parent_course, required_course) values(3, 2);
 
 insert into major_course(major_id,course_id) values (1,2);
