@@ -105,7 +105,26 @@ insert into major(id, abbreviation, degree_level, name, department_id)
     values(nextval('major_id_seq'), 'MATH', 'MS', 'Mathematics', 'MATH');
 
 
-/* */
+/* Add users to the liontrail_user*/
+insert into liontrail_user(user_id, first_name, last_name, middle_name, username)
+	values('101', 'Arlith', 'Reyna', 'Tibursia', 'arlith_reyna');
+insert into liontrail_user(user_id, first_name, last_name, middle_name, username)
+	values('102', 'Benito', 'Juarez', 'Joaquin', 'benito_123');
+insert into liontrail_user(user_id, first_name, last_name, middle_name, username)
+	values('103', 'Jesus', 'Pena', 'Enrique', 'enrique_pena');
+insert into liontrail_user(user_id, first_name, last_name, middle_name, username)
+	values('201', 'Maria', 'Magdalena', 'Josefa', 'mj_21');
+insert into liontrail_user(user_id, first_name, last_name, middle_name, username)
+	values('202', 'John', 'Gaspar', 'Mike', 'mike_g');
+
+
+
+
+
+
+
+
+
 insert into course_prerequisites(parent_course, required_course) values(3, 2);
 
 insert into major_course(major_id,course_id) values (1,2);
