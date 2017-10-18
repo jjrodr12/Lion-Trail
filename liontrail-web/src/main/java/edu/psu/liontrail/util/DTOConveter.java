@@ -109,7 +109,8 @@ public class DTOConveter {
       dto.setBuildingName(building.getName());
     }
     
-    dto.setClassFrequency(ltClass.getFrequency());
+    dto.setDays(ltClass.getDays());
+    //dto.setClassFrequency(ltClass.getFrequency());
     
     Course course = ltClass.getCourse();
     if (course != null) {

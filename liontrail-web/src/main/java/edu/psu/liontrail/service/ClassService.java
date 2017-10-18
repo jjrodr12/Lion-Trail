@@ -112,8 +112,8 @@ public class ClassService {
       //TODO: verify that user has instructor role
     }
     
-    if (dto.getFrequency() == null) {
-      ex.addMessage("frequency is required");
+    if (dto.getDays() == null || dto.getDays().isEmpty()) {
+      ex.addMessage("frequency is required and cannot be empty");
     }
     if (dto.getStartTime() == null) {
       ex.addMessage("startTime is required");
@@ -131,7 +131,8 @@ public class ClassService {
     
     LiontrailClass ltClass = new LiontrailClass();
     ltClass.setCourse(course);
-    ltClass.setFrequency(dto.getFrequency());
+    //ltClass.setFrequency(dto.getFrequency());
+    ltClass.setDays(dto.getDays());
     ltClass.setInstructor(emp);
     ltClass.setOnline(dto.isOnline());
     ltClass.setRoom(room);

@@ -4,7 +4,10 @@ import java.io.Serializable;
 import java.time.LocalTime;
 import java.util.List;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.Convert;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -21,7 +24,10 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import edu.psu.liontrail.converters.DayConverter;
+import edu.psu.liontrail.converters.RoleConverter;
 import edu.psu.liontrail.enumeration.ClassFrequency;
+import edu.psu.liontrail.enumeration.Day;
 
 @Entity
 @Table(name="class")
@@ -61,10 +67,16 @@ public class LiontrailClass implements Serializable {
   @OneToMany(mappedBy="enrolledClass")
   private List<ClassEnrollment> enrollments;
   
-  @Column(name="frequency", length=50)
+  /*@Column(name="frequency", length=50)
   @Enumerated(EnumType.STRING)
   @NotNull
-  private ClassFrequency frequency;
+  private ClassFrequency frequency;*/
+  
+  @ElementCollection
+  @CollectionTable(name="class_day", joinColumns=@JoinColumn(name="class_id"))
+  @Column(name="day")
+  @Convert(converter=DayConverter.class)
+  private List<Day> days;
   
   @Column(name="start_time")
   @NotNull
@@ -119,16 +131,24 @@ public class LiontrailClass implements Serializable {
     this.instructor = instructor;
   }
 
-  public ClassFrequency getFrequency() {
+  /*public ClassFrequency getFrequency() {
     return frequency;
   }
 
   public void setFrequency(ClassFrequency frequency) {
     this.frequency = frequency;
-  }
+  }*/
 
   public LocalTime getStartTime() {
     return startTime;
+  }
+
+  public List<Day> getDays() {
+    return days;
+  }
+
+  public void setDays(List<Day> days) {
+    this.days = days;
   }
 
   public void setStartTime(LocalTime startTime) {
@@ -180,7 +200,7 @@ public class LiontrailClass implements Serializable {
     final int prime = 31;
     int result = 1;
     result = prime * result + ((course == null) ? 0 : course.hashCode());
-    result = prime * result + ((frequency == null) ? 0 : frequency.hashCode());
+    result = prime * result + ((days == null) ? 0 : days.hashCode());
     result = prime * result + ((instructor == null) ? 0 : instructor.hashCode());
     result = prime * result + (online ? 1231 : 1237);
     result = prime * result + ((room == null) ? 0 : room.hashCode());
@@ -204,7 +224,7 @@ public class LiontrailClass implements Serializable {
         return false;
     } else if (!course.equals(other.course))
       return false;
-    if (frequency != other.frequency)
+    if (days != other.days)
       return false;
     if (instructor == null) {
       if (other.instructor != null)
