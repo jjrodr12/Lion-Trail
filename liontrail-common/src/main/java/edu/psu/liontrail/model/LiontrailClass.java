@@ -24,6 +24,9 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import edu.psu.liontrail.converters.DayConverter;
 import edu.psu.liontrail.converters.RoleConverter;
 import edu.psu.liontrail.enumeration.ClassFrequency;
@@ -64,7 +67,8 @@ public class LiontrailClass implements Serializable {
   @NotNull
   private Employee instructor;
   
-  @OneToMany(mappedBy="enrolledClass")
+  @OneToMany(mappedBy="enrolledClass", fetch=FetchType.EAGER)
+  @Fetch(FetchMode.SELECT)
   private List<ClassEnrollment> enrollments;
   
   /*@Column(name="frequency", length=50)
@@ -72,7 +76,8 @@ public class LiontrailClass implements Serializable {
   @NotNull
   private ClassFrequency frequency;*/
   
-  @ElementCollection
+  @ElementCollection(fetch=FetchType.EAGER)
+  @Fetch(FetchMode.SELECT)
   @CollectionTable(name="class_day", joinColumns=@JoinColumn(name="class_id"))
   @Column(name="day")
   @Convert(converter=DayConverter.class)

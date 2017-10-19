@@ -104,6 +104,10 @@ public class DTOConveter {
     
     dto.setClassId(ltClass.getId());
     
+    if (ltClass.getEnrollments() != null) {
+      dto.setEnrollmentCount(ltClass.getEnrollments().size());
+    }
+    
     if (building != null) {
       dto.setBuildingId(building.getId());
       dto.setBuildingName(building.getName());
