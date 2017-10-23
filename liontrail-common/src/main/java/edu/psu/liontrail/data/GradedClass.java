@@ -22,4 +22,8 @@ public class GradedClass {
   public Double getGradeVal() {
     return grade.getValue();
   }
+  public Double getCreditHours() {
+    // TODO Auto-generated method stub
+    return null;
+  }
 }

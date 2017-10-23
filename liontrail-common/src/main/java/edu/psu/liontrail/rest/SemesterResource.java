@@ -23,6 +23,12 @@ public interface SemesterResource {
   Response getSemesterById(@PathParam("id") int id);
   
   @GET
+  @Path("grades/{studentId}")
+  @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+  Response getGrades(@PathParam("studentId") int studentId);
+
+  
+  @GET
   @Path("all")
   @Produces({ MediaType.APPLICATION_JSON })
   Response getAllSemesters();

@@ -82,4 +82,10 @@ public class SemesterResourceImpl implements SemesterResource {
     }
   }
 
+  @Override
+  public Response getGrades(int studentId) {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
 }
