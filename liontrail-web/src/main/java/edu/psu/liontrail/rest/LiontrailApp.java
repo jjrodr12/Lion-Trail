@@ -13,7 +13,7 @@ public class LiontrailApp extends Application {
     Set<Class<?>> classes = new HashSet<Class<?>>();
     //classes.add(TestResourceImpl.class);
     classes.add(SemesterResourceImpl.class);
-    
+    //classes.add(arg0)
     return classes;
   }
 }
