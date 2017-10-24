@@ -4,7 +4,11 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import edu.psu.liontrail.enumeration.Grade;
+import edu.psu.liontrail.exception.ValidationException;
+import edu.psu.liontrail.model.ClassEnrollment;
 import edu.psu.liontrail.model.LiontrailClass;
+import edu.psu.liontrail.model.Student;
 
 @Stateless
 public class ClassStore {
@@ -21,6 +25,29 @@ public class ClassStore {
   }
   
   public void updateClass(LiontrailClass ltClass) {
+    em.merge(ltClass);
+  }
+  
+  public void addEnrollment(LiontrailClass ltClass, Student student) {
+    ClassEnrollment enrollment = new ClassEnrollment();
+    enrollment.setEnrolledClass(ltClass);
+    enrollment.setGrade(Grade.IN_PROGRESS);
+    enrollment.setStudent(student);
+    ltClass.getEnrollments().add(enrollment);
+    em.persist(enrollment);
+    em.merge(ltClass);
+  }
+  
+  public void deleteEnrollment(LiontrailClass ltClass, int enrollmentId) throws ValidationException {
+    if (ltClass.getEnrollments() == null || ltClass.getEnrollments().isEmpty()) {
+      throw new ValidationException("Class does not contain enrollments");
+    }
+    ClassEnrollment enrollment = em.find(ClassEnrollment.class, enrollmentId);
+    if (enrollment == null) {
+      throw new ValidationException("Could not find enrollment");
+    }
+    ltClass.getEnrollments().remove(enrollment);
+    em.remove(enrollment);
     em.merge(ltClass);
   }
 }

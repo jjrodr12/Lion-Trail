@@ -24,6 +24,9 @@ public class ClassDTO implements Serializable {
   private int enrollmentCount;
   
   @XmlElement
+  private int size;
+  
+  @XmlElement
   private int courseId;
   @XmlElement
   private String courseName;
@@ -94,6 +97,14 @@ public class ClassDTO implements Serializable {
 
   public void setEnrollmentCount(int enrollmentCount) {
     this.enrollmentCount = enrollmentCount;
+  }
+
+  public int getSize() {
+    return size;
+  }
+
+  public void setSize(int size) {
+    this.size = size;
   }
 
   public String getCourseName() {

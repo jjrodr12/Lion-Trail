@@ -103,6 +103,7 @@ public class DTOConveter {
     ClassDTO dto = new ClassDTO();
     
     dto.setClassId(ltClass.getId());
+    dto.setSize(ltClass.getSize());
     
     if (ltClass.getEnrollments() != null) {
       dto.setEnrollmentCount(ltClass.getEnrollments().size());

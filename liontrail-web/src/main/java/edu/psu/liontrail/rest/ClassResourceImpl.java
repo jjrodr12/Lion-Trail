@@ -49,4 +49,26 @@ public class ClassResourceImpl implements ClassResource {
     }
   }
 
+  @Override
+  public Response addStudentToClass(int classId, int studentId) {
+    try {
+      classService.addStudentToClass(classId, studentId);
+      return Response.accepted().build();
+    } catch (ValidationException e) {
+      ErrorMessage em = new ErrorMessage(Status.BAD_REQUEST, e.getMessages());
+      return em.toResponse();
+    }
+  }
+
+  @Override
+  public Response removeStudentFromClass(int classId, int studentId) {
+    try {
+      classService.removeStaudentFromClass(classId, studentId);
+      return Response.accepted().build();
+    } catch (ValidationException e) {
+      ErrorMessage em = new ErrorMessage(Status.BAD_REQUEST, e.getMessages());
+      return em.toResponse();
+    }
+  }
+
 }
