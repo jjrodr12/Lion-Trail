@@ -1,8 +1,11 @@
 package edu.psu.liontrail.store;
 
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 import edu.psu.liontrail.enumeration.Grade;
 import edu.psu.liontrail.exception.ValidationException;
@@ -49,5 +52,12 @@ public class ClassStore {
     ltClass.getEnrollments().remove(enrollment);
     em.remove(enrollment);
     em.merge(ltClass);
+  }
+  
+  public List<LiontrailClass> getClassByStudent(int studentId) {
+    TypedQuery<LiontrailClass> query = em.createNamedQuery(LiontrailClass.BY_STUDENT, LiontrailClass.class);
+    query.setParameter("studentId", studentId);
+    
+    return query.getResultList();
   }
 }

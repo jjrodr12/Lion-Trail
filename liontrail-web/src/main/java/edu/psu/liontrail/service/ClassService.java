@@ -2,6 +2,8 @@ package edu.psu.liontrail.service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 import javax.swing.ViewportLayout;
@@ -213,5 +215,13 @@ public class ClassService {
     }
     
     classStore.deleteEnrollment(ltClass, enrollment.getId());
+  }
+  
+  public List<ClassDTO> getClassesForStudent(int studentId) {
+    List<LiontrailClass> classes = classStore.getClassByStudent(studentId);
+    List<ClassDTO> dtos = classes.stream()
+                            .map(c -> DTOConveter.toClassDTO(c, null))
+                            .collect(Collectors.toList());
+    return dtos;
   }
 }

@@ -40,10 +40,10 @@ public interface ClassResource {
   Response removeStudentFromClass(@PathParam("classId") int classId, @PathParam("studentId") int studentId);
   
   @GET
-  //@Path("")
+  @Path("student/{studentId}")
   @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
   @ApiOperation(value = "Get Class for student", code=200, response=CourseDTO.class)
-  Response getClassesForStudent(@QueryParam("studentId") int studentId, @QueryParam("semesterId") int semesterId);
+  Response getClassesForStudent(@PathParam("studentId") int studentId);
   
   @POST
   @Path("create")
