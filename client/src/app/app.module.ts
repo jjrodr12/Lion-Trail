@@ -15,6 +15,7 @@ import { AboutModule } from './about/about.module';
 import { LoginModule } from './login/login.module';
 import { ScheduleModule } from './schedule/schedule.module';
 import { GradesModule } from './grades/grades.module';
+import { RegistrarModule } from './registrar/registrar.module';
 
 @NgModule({
   imports: [
@@ -28,6 +29,7 @@ import { GradesModule } from './grades/grades.module';
     HomeModule,
     ScheduleModule,
     GradesModule,
+    RegistrarModule,
     AboutModule,
     LoginModule,
     AppRoutingModule

@@ -11,7 +11,7 @@ const routes = {
 };
 
 @Injectable()
-export class CourseService {
+export class RegistrarService {
 
   constructor(private http: Http) { }
 
