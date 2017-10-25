@@ -1,5 +1,6 @@
 package edu.psu.liontrail.rest;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -32,6 +33,18 @@ public class MajorResourceImpl implements MajorResource {
     }
     MajorDTO dto = DTOConveter.toMajorDTO(major);
     return Response.ok().entity(dto).build();
+  }
+  
+  @Override
+  public Response getAllMajors() {
+    List<Major> majors = majorService.getAllMajors();
+    if (majors == null) {
+      majors = new ArrayList<>();
+    }
+    List<MajorDTO> dtos = majors.stream()
+        .map(m -> DTOConveter.toMajorDTO(m))
+        .collect(Collectors.toList());
+    return Response.ok().entity(dtos).build();
   }
 
   @Override
@@ -122,7 +135,4 @@ public class MajorResourceImpl implements MajorResource {
       return em.toResponse();
     }
   }
-
-  
-
 }

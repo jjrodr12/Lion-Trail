@@ -32,7 +32,8 @@ import edu.psu.liontrail.enumeration.Departments;
 })
 @NamedQueries({
   @NamedQuery(name=Course.BY_MAJOR_ID, query="SELECT c FROM Course c where major.id = :majorId"),
-  @NamedQuery(name=Course.BY_MAJOR_ABRV, query="SELECT c FROM Course c where major.abbreviation = :abbreviation")
+  @NamedQuery(name=Course.BY_MAJOR_ABRV, query="SELECT c FROM Course c where major.abbreviation = :abbreviation"),
+  @NamedQuery(name=Course.ALL, query="SELECT c FROM Course c")
 })
 public class Course implements Serializable {
 
@@ -40,6 +41,7 @@ public class Course implements Serializable {
   
   public static final String BY_MAJOR_ID = "Course.findByMajorId";
   public static final String BY_MAJOR_ABRV = "Course.findByMajorAbbreviation";
+  public static final String ALL = "Course.all";
   
   @Id
   @Column(name = "id")

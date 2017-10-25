@@ -26,6 +26,12 @@ public interface MajorResource {
   public static final String PATH = "majors";
   
   @GET
+  @Path("all")
+  @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+  @ApiOperation(value = "Get all Majors", code=200, response=MajorDTO.class, responseContainer="list")
+  Response getAllMajors();
+  
+  @GET
   @Path("id/{id}")
   @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
   @ApiOperation(value = "Get Major By Id", code=200, response=MajorDTO.class)

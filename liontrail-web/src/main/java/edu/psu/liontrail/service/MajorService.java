@@ -35,6 +35,10 @@ public class MajorService {
     return majorStore.getMajorById(id);
   }
   
+  public List<Major> getAllMajors() {
+    return majorStore.getAllMajors();
+  }
+  
   public List<Major> getMajorByAbbreviation(String abbreviation) {
     return majorStore.getMajorByAbbreviation(abbreviation);
   }

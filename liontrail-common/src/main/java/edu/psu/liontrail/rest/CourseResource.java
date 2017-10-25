@@ -23,6 +23,12 @@ public interface CourseResource {
   public static final String PATH = "courses";
   
   @GET
+  @Path("all")
+  @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+  @ApiOperation(value = "Get Coursees", code=200, response=CourseDTO.class, responseContainer="list")
+  Response getAllCourses();
+  
+  @GET
   @Path("id/{id}")
   @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
   @ApiOperation(value = "Get Course By Id", code=200, response=CourseDTO.class)

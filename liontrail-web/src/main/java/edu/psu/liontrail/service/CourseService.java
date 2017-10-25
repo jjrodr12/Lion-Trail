@@ -24,6 +24,10 @@ public class CourseService {
     return courseStore.getCourseById(id);
   }
   
+  public List<Course> getAllCourses() {
+    return courseStore.getAllCourses();
+  }
+  
   public List<Course> getCourseByMajorId(int id) {
     return courseStore.getCourseByMajorId(id);
   }
