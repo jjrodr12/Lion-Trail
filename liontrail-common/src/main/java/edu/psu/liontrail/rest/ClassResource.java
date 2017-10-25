@@ -50,5 +50,11 @@ public interface ClassResource {
   @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
   @ApiOperation(value = "Create a new Class", code=202, response=CourseDTO.class)
   Response createClass(CreateClassDTO dto);
+  
+  @PUT
+  @Path("/id/{id}")
+  @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+  @ApiOperation(value = "Create a new Class", code=202)
+  Response updateClass(@PathParam("id") int classId, CreateClassDTO dto);
 
 }

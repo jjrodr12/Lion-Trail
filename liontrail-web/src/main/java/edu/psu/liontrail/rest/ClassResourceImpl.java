@@ -11,7 +11,6 @@ import edu.psu.liontrail.data.CreateClassDTO;
 import edu.psu.liontrail.exception.BuildingNotFoundException;
 import edu.psu.liontrail.exception.ErrorMessage;
 import edu.psu.liontrail.exception.ValidationException;
-import edu.psu.liontrail.model.LiontrailClass;
 import edu.psu.liontrail.service.BuildingService;
 import edu.psu.liontrail.service.ClassService;
 
@@ -66,6 +65,17 @@ public class ClassResourceImpl implements ClassResource {
   public Response removeStudentFromClass(int classId, int studentId) {
     try {
       classService.removeStaudentFromClass(classId, studentId);
+      return Response.accepted().build();
+    } catch (ValidationException e) {
+      ErrorMessage em = new ErrorMessage(Status.BAD_REQUEST, e.getMessages());
+      return em.toResponse();
+    }
+  }
+
+  @Override
+  public Response updateClass(int classId, CreateClassDTO dto) {
+    try {
+      classService.updateClass(classId, dto);
       return Response.accepted().build();
     } catch (ValidationException e) {
       ErrorMessage em = new ErrorMessage(Status.BAD_REQUEST, e.getMessages());

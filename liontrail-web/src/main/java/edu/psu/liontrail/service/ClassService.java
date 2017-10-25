@@ -66,9 +66,8 @@ public class ClassService {
     ClassDTO dto = DTOConveter.toClassDTO(ltClass, building);
     return dto;
   }
-
-  public ClassDTO createClass(CreateClassDTO dto) throws ValidationException {
-    
+  
+  private LiontrailClass fromDto(CreateClassDTO dto) throws ValidationException {
     ValidationException ex = new ValidationException();
     Course course = null;
     Semester semester = null;
@@ -150,10 +149,31 @@ public class ClassService {
     ltClass.setStartTime(dto.getStartTime());
     ltClass.setStopTime(dto.getStopTime());
     
+    return ltClass;
+  }
+
+  public ClassDTO createClass(CreateClassDTO dto) throws ValidationException {
     
+    LiontrailClass ltClass = fromDto(dto);
+    Building building = buildingService.getBuildingByRoomId(dto.getRoomId());
     
     classStore.createClass(ltClass);
+    ClassDTO responseDto = DTOConveter.toClassDTO(ltClass, building);
     
+    return responseDto;
+  }
+  
+public ClassDTO updateClass(int classId, CreateClassDTO dto) throws ValidationException {
+    LiontrailClass existing = classStore.getClassById(classId);
+    if (existing == null) {
+      throw new ValidationException("No class found with id: "+classId);
+    }
+  
+    LiontrailClass ltClass = fromDto(dto);
+    ltClass.setId(classId);
+    Building building = buildingService.getBuildingByRoomId(dto.getRoomId());
+    
+    classStore.updateClass(ltClass);
     ClassDTO responseDto = DTOConveter.toClassDTO(ltClass, building);
     
     return responseDto;
