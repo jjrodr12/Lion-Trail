@@ -12,7 +12,10 @@ CREATE TABLE admission_student (
 
 CREATE TABLE application (
     id integer NOT NULL,
-    status integer NOT NULL,
+    essay text NOT NULL,
+    gpa double precision NOT NULL,
+    highschool character varying(255) NOT NULL,
+    status character varying(25) NOT NULL,
     major_id integer NOT NULL,
     semester_id integer NOT NULL,
     student_id integer NOT NULL

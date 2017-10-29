@@ -27,6 +27,7 @@ public class LiontrailApp extends Application {
   public Set<Class<?>> getClasses() {
     Set<Class<?>> classes = new HashSet<Class<?>>();
     
+    classes.add(ApplicationResourceImpl.class);
     classes.add(CourseResourceImpl.class);
     classes.add(SemesterResourceImpl.class);
     classes.add(UserResourceImpl.class);
