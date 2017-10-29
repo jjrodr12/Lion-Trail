@@ -19,6 +19,11 @@ public class CourseStore {
     return em.find(Course.class, id);
   }
   
+  public List<Course> getAllCourses() {
+    TypedQuery<Course> query = em.createNamedQuery(Course.ALL, Course.class);
+    return query.getResultList();
+  }
+  
   public List<Course> getCourseByMajorId(int id) {
     TypedQuery<Course> query = em.createNamedQuery(Course.BY_MAJOR_ID, Course.class);
     query.setParameter("majorId", id);

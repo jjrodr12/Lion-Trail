@@ -1,5 +1,7 @@
 package edu.psu.liontrail.rest;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
@@ -33,9 +35,9 @@ public class ClassResourceImpl implements ClassResource {
   }
 
   @Override
-  public Response getClassesForStudent(int studentId, int semesterId) {
-    // TODO Auto-generated method stub
-    return null;
+  public Response getClassesForStudent(int studentId) {
+    List<ClassDTO> dtos = classService.getClassesForStudent(studentId);
+    return Response.ok().entity(dtos).build();
   }
 
   @Override
@@ -43,6 +45,28 @@ public class ClassResourceImpl implements ClassResource {
     try {
       ClassDTO responseDto = classService.createClass(dto);
       return Response.ok().entity(responseDto).build();
+    } catch (ValidationException e) {
+      ErrorMessage em = new ErrorMessage(Status.BAD_REQUEST, e.getMessages());
+      return em.toResponse();
+    }
+  }
+
+  @Override
+  public Response addStudentToClass(int classId, int studentId) {
+    try {
+      classService.addStudentToClass(classId, studentId);
+      return Response.accepted().build();
+    } catch (ValidationException e) {
+      ErrorMessage em = new ErrorMessage(Status.BAD_REQUEST, e.getMessages());
+      return em.toResponse();
+    }
+  }
+
+  @Override
+  public Response removeStudentFromClass(int classId, int studentId) {
+    try {
+      classService.removeStaudentFromClass(classId, studentId);
+      return Response.accepted().build();
     } catch (ValidationException e) {
       ErrorMessage em = new ErrorMessage(Status.BAD_REQUEST, e.getMessages());
       return em.toResponse();

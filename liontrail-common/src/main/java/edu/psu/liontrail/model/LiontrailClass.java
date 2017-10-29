@@ -4,7 +4,10 @@ import java.io.Serializable;
 import java.time.LocalTime;
 import java.util.List;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.Convert;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -21,19 +24,24 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
+import edu.psu.liontrail.converters.DayConverter;
+import edu.psu.liontrail.converters.RoleConverter;
 import edu.psu.liontrail.enumeration.ClassFrequency;
+import edu.psu.liontrail.enumeration.Day;
 
 @Entity
 @Table(name="class")
 @NamedQueries({
-  @NamedQuery(name=LiontrailClass.BY_SEMESTER, query = "SELECT c FROM LiontrailClass c WHERE c.semester.id = :semesterId")
-  /*@NamedQuery(name=LiontrailClass.BY_SEMESTER_STUDENT,
-    query = "SELECT c FROM LiontrailClass c WHERE c.semester.id = :semesterId and c.")*/
+  @NamedQuery(name=LiontrailClass.BY_SEMESTER, query = "SELECT c FROM LiontrailClass c WHERE c.semester.id = :semesterId"),
+  @NamedQuery(name=LiontrailClass.BY_STUDENT, query = "SELECT c FROM LiontrailClass c INNER JOIN c.enrollments e WHERE e.student.id = :studentId")
 })
 public class LiontrailClass implements Serializable {
   
   public static final String BY_SEMESTER = "LiontrailClass.findBySemester";
-  public static final String BY_SEMESTER_STUDENT = "LiontrailClass.findBySemesterAndStudent";
+  public static final String BY_STUDENT = "LiontrailClass.findByStudent";
   
   private static final long serialVersionUID = 3642657966915293123L;
   
@@ -58,13 +66,21 @@ public class LiontrailClass implements Serializable {
   @NotNull
   private Employee instructor;
   
-  @OneToMany(mappedBy="enrolledClass")
+  @OneToMany(mappedBy="enrolledClass", fetch=FetchType.EAGER)
+  @Fetch(FetchMode.SELECT)
   private List<ClassEnrollment> enrollments;
   
-  @Column(name="frequency", length=50)
+  /*@Column(name="frequency", length=50)
   @Enumerated(EnumType.STRING)
   @NotNull
-  private ClassFrequency frequency;
+  private ClassFrequency frequency;*/
+  
+  @ElementCollection(fetch=FetchType.EAGER)
+  @Fetch(FetchMode.SELECT)
+  @CollectionTable(name="class_day", joinColumns=@JoinColumn(name="class_id"))
+  @Column(name="day")
+  @Convert(converter=DayConverter.class)
+  private List<Day> days;
   
   @Column(name="start_time")
   @NotNull
@@ -119,16 +135,24 @@ public class LiontrailClass implements Serializable {
     this.instructor = instructor;
   }
 
-  public ClassFrequency getFrequency() {
+  /*public ClassFrequency getFrequency() {
     return frequency;
   }
 
   public void setFrequency(ClassFrequency frequency) {
     this.frequency = frequency;
-  }
+  }*/
 
   public LocalTime getStartTime() {
     return startTime;
+  }
+
+  public List<Day> getDays() {
+    return days;
+  }
+
+  public void setDays(List<Day> days) {
+    this.days = days;
   }
 
   public void setStartTime(LocalTime startTime) {
@@ -180,7 +204,7 @@ public class LiontrailClass implements Serializable {
     final int prime = 31;
     int result = 1;
     result = prime * result + ((course == null) ? 0 : course.hashCode());
-    result = prime * result + ((frequency == null) ? 0 : frequency.hashCode());
+    result = prime * result + ((days == null) ? 0 : days.hashCode());
     result = prime * result + ((instructor == null) ? 0 : instructor.hashCode());
     result = prime * result + (online ? 1231 : 1237);
     result = prime * result + ((room == null) ? 0 : room.hashCode());
@@ -204,7 +228,7 @@ public class LiontrailClass implements Serializable {
         return false;
     } else if (!course.equals(other.course))
       return false;
-    if (frequency != other.frequency)
+    if (days != other.days)
       return false;
     if (instructor == null) {
       if (other.instructor != null)

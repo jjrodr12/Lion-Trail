@@ -3,12 +3,15 @@ package edu.psu.liontrail.data;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import edu.psu.liontrail.adapter.DayAdapter;
 import edu.psu.liontrail.adapter.LocalTimeAdapter;
 import edu.psu.liontrail.enumeration.ClassFrequency;
+import edu.psu.liontrail.enumeration.Day;
 import io.swagger.annotations.ApiModelProperty;
 
 public class CreateClassDTO implements Serializable {
@@ -28,7 +31,9 @@ public class CreateClassDTO implements Serializable {
   private int roomId;
   
   @XmlElement
-  private ClassFrequency frequency;
+  @XmlJavaTypeAdapter(DayAdapter.class)
+  //private ClassFrequency frequency;
+  private List<Day> days;
   
   @XmlElement
   @XmlJavaTypeAdapter(LocalTimeAdapter.class)
@@ -78,16 +83,26 @@ public class CreateClassDTO implements Serializable {
     this.roomId = roomId;
   }
 
-  public ClassFrequency getFrequency() {
+  /*public ClassFrequency getFrequency() {
     return frequency;
   }
 
   public void setFrequency(ClassFrequency frequency) {
     this.frequency = frequency;
-  }
+  }*/
 
+  
+  
   public LocalTime getStartTime() {
     return startTime;
+  }
+
+  public List<Day> getDays() {
+    return days;
+  }
+
+  public void setDays(List<Day> days) {
+    this.days = days;
   }
 
   public void setStartTime(LocalTime startTime) {
@@ -123,7 +138,7 @@ public class CreateClassDTO implements Serializable {
     final int prime = 31;
     int result = 1;
     result = prime * result + courseId;
-    result = prime * result + ((frequency == null) ? 0 : frequency.hashCode());
+    result = prime * result + ((days == null) ? 0 : days.hashCode());
     result = prime * result + instructorId;
     result = prime * result + (online ? 1231 : 1237);
     result = prime * result + roomId;
@@ -145,7 +160,7 @@ public class CreateClassDTO implements Serializable {
     CreateClassDTO other = (CreateClassDTO) obj;
     if (courseId != other.courseId)
       return false;
-    if (frequency != other.frequency)
+    if (days != other.days)
       return false;
     if (instructorId != other.instructorId)
       return false;

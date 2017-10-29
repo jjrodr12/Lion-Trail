@@ -52,7 +52,6 @@ CREATE SEQUENCE building_id_seq
 
 CREATE TABLE class (
     id integer NOT NULL,
-    frequency character varying(50) NOT NULL,
     online boolean NOT NULL,
     size integer NOT NULL,
     start_time time without time zone NOT NULL,
@@ -61,6 +60,11 @@ CREATE TABLE class (
     instructor_id integer NOT NULL,
     room integer NOT NULL,
     semester_id integer NOT NULL
+);
+
+CREATE TABLE class_day (
+	class_id integer NOT NULL,
+	day varchar(10) NOT NULL
 );
 
 CREATE SEQUENCE class_id_seq
@@ -215,6 +219,9 @@ ALTER TABLE ONLY building
 
 ALTER TABLE ONLY class
     ADD CONSTRAINT class_pkey PRIMARY KEY (id);
+    
+ALTER TABLE ONLY class_day
+    ADD CONSTRAINT class_day_pkey PRIMARY KEY (class_id, day);
     
 ALTER TABLE ONLY class_enrollment
     ADD CONSTRAINT class_enrollment_pkey PRIMARY KEY (id);

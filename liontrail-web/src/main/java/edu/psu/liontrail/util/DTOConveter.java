@@ -103,13 +103,19 @@ public class DTOConveter {
     ClassDTO dto = new ClassDTO();
     
     dto.setClassId(ltClass.getId());
+    dto.setSize(ltClass.getSize());
+    
+    if (ltClass.getEnrollments() != null) {
+      dto.setEnrollmentCount(ltClass.getEnrollments().size());
+    }
     
     if (building != null) {
       dto.setBuildingId(building.getId());
       dto.setBuildingName(building.getName());
     }
     
-    dto.setClassFrequency(ltClass.getFrequency());
+    dto.setDays(ltClass.getDays());
+    //dto.setClassFrequency(ltClass.getFrequency());
     
     Course course = ltClass.getCourse();
     if (course != null) {

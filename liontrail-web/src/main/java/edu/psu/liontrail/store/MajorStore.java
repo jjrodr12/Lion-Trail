@@ -21,6 +21,11 @@ public class MajorStore {
     return em.find(Major.class, id);
   }
   
+  public List<Major> getAllMajors() {
+    TypedQuery<Major> query = em.createNamedQuery(Major.ALL, Major.class);
+    return query.getResultList();
+  }
+  
   public List<Major> getMajorByAbbreviation(String abbreviation) {
     TypedQuery<Major> query = em.createNamedQuery(Major.BY_ABBREVIATION, Major.class);
     query.setParameter("abbreviation", abbreviation);

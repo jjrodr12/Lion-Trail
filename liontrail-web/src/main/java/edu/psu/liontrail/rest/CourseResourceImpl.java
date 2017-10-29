@@ -1,5 +1,6 @@
 package edu.psu.liontrail.rest;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,6 +32,19 @@ public class CourseResourceImpl implements CourseResource {
     CourseDTO dto = DTOConveter.toCourseDTO(course, true);
     return Response.ok().entity(dto).build();
   }
+  
+  @Override
+  public Response getAllCourses() {
+    List<Course> courses = courseService.getAllCourses();
+    if (courses == null) {
+      courses = new ArrayList<>();
+    }
+    List<CourseDTO> dtos = courses.stream()
+        .map(c -> DTOConveter.toCourseDTO(c, true))
+        .collect(Collectors.toList());
+    return Response.ok().entity(dtos).build();
+  }
+  
 
   @Override
   public Response getCoursesByMajor(int major) {
@@ -109,7 +123,5 @@ public class CourseResourceImpl implements CourseResource {
     courseService.updateCourse(dto);
     return null;
   }
-  
-  
 
 }

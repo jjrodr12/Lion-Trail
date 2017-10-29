@@ -2,12 +2,15 @@ package edu.psu.liontrail.data;
 
 import java.io.Serializable;
 import java.time.LocalTime;
+import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import edu.psu.liontrail.adapter.DayAdapter;
 import edu.psu.liontrail.adapter.LocalTimeAdapter;
 import edu.psu.liontrail.enumeration.ClassFrequency;
+import edu.psu.liontrail.enumeration.Day;
 import edu.psu.liontrail.enumeration.SemesterSeason;
 
 public class ClassDTO implements Serializable {
@@ -16,6 +19,12 @@ public class ClassDTO implements Serializable {
   
   @XmlElement
   private int classId;
+  
+  @XmlElement
+  private int enrollmentCount;
+  
+  @XmlElement
+  private int size;
   
   @XmlElement
   private int courseId;
@@ -38,8 +47,12 @@ public class ClassDTO implements Serializable {
   @XmlElement
   private String instructorLastName;
   
+  /*@XmlElement
+  private ClassFrequency classFrequency;*/
+  
   @XmlElement
-  private ClassFrequency classFrequency;
+  @XmlJavaTypeAdapter(DayAdapter.class)
+  private List<Day> days;
   
   @XmlElement
   @XmlJavaTypeAdapter(LocalTimeAdapter.class)
@@ -76,6 +89,22 @@ public class ClassDTO implements Serializable {
 
   public void setCourseId(int courseId) {
     this.courseId = courseId;
+  }
+  
+  public int getEnrollmentCount() {
+    return enrollmentCount;
+  }
+
+  public void setEnrollmentCount(int enrollmentCount) {
+    this.enrollmentCount = enrollmentCount;
+  }
+
+  public int getSize() {
+    return size;
+  }
+
+  public void setSize(int size) {
+    this.size = size;
   }
 
   public String getCourseName() {
@@ -142,12 +171,20 @@ public class ClassDTO implements Serializable {
     this.instructorLastName = instructorLastName;
   }
 
-  public ClassFrequency getClassFrequency() {
+  /*public ClassFrequency getClassFrequency() {
     return classFrequency;
   }
 
   public void setClassFrequency(ClassFrequency classFrequency) {
     this.classFrequency = classFrequency;
+  }*/
+  
+  public List<Day> getDays() {
+    return days;
+  }
+
+  public void setDays(List<Day> days) {
+    this.days = days;
   }
 
   public LocalTime getStartTime() {

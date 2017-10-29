@@ -1,6 +1,9 @@
 package edu.psu.liontrail.service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 import javax.swing.ViewportLayout;
@@ -8,14 +11,17 @@ import javax.swing.ViewportLayout;
 import edu.psu.liontrail.data.ClassDTO;
 import edu.psu.liontrail.data.CreateClassDTO;
 import edu.psu.liontrail.enumeration.ClassFrequency;
+import edu.psu.liontrail.enumeration.Grade;
 import edu.psu.liontrail.exception.BuildingNotFoundException;
 import edu.psu.liontrail.exception.ValidationException;
 import edu.psu.liontrail.model.Building;
+import edu.psu.liontrail.model.ClassEnrollment;
 import edu.psu.liontrail.model.Course;
 import edu.psu.liontrail.model.Employee;
 import edu.psu.liontrail.model.LiontrailClass;
 import edu.psu.liontrail.model.Room;
 import edu.psu.liontrail.model.Semester;
+import edu.psu.liontrail.model.Student;
 import edu.psu.liontrail.model.User;
 import edu.psu.liontrail.store.ClassStore;
 import edu.psu.liontrail.util.DTOConveter;
@@ -40,6 +46,9 @@ public class ClassService {
   
   @Inject
   ClassStore classStore;
+  
+  @Inject
+  StudentService studentService;
   
   public LiontrailClass getClass(int id) {
     return classStore.getClassById(id);
@@ -112,8 +121,8 @@ public class ClassService {
       //TODO: verify that user has instructor role
     }
     
-    if (dto.getFrequency() == null) {
-      ex.addMessage("frequency is required");
+    if (dto.getDays() == null || dto.getDays().isEmpty()) {
+      ex.addMessage("frequency is required and cannot be empty");
     }
     if (dto.getStartTime() == null) {
       ex.addMessage("startTime is required");
@@ -131,7 +140,8 @@ public class ClassService {
     
     LiontrailClass ltClass = new LiontrailClass();
     ltClass.setCourse(course);
-    ltClass.setFrequency(dto.getFrequency());
+    //ltClass.setFrequency(dto.getFrequency());
+    ltClass.setDays(dto.getDays());
     ltClass.setInstructor(emp);
     ltClass.setOnline(dto.isOnline());
     ltClass.setRoom(room);
@@ -147,5 +157,71 @@ public class ClassService {
     ClassDTO responseDto = DTOConveter.toClassDTO(ltClass, building);
     
     return responseDto;
+  }
+  
+  public void addStudentToClass(int classId, int studentId) throws ValidationException {
+    ValidationException ex = new ValidationException();
+    LiontrailClass ltClass = getClass(classId);
+    if (ltClass == null) {
+      ex.addMessage("No class found with id: "+classId);
+    }
+    
+    Student student = studentService.getStudent(studentId);
+    if (student == null) {
+      ex.addMessage("No student found with id: "+studentId);
+    }
+    
+    if (!ex.getMessages().isEmpty()) {
+      throw ex;
+    }
+    
+    if (ltClass.getEnrollments() == null) {
+      ltClass.setEnrollments(new ArrayList<>());
+    }
+    if (ltClass.getEnrollments().size() >= ltClass.getSize()) {
+      throw new ValidationException("Class is full");
+    }
+    if (ltClass.getEnrollments().stream().anyMatch(r -> studentId == r.getStudent().getId())) {
+      throw new ValidationException("Student is already enrolled in class");
+    }
+    
+    classStore.addEnrollment(ltClass, student);
+  }
+  
+  public void removeStaudentFromClass(int classId, int studentId) throws ValidationException {
+    ValidationException ex = new ValidationException();
+    LiontrailClass ltClass = getClass(classId);
+    if (ltClass == null) {
+      ex.addMessage("No class found with id: "+classId);
+    }
+    
+    Student student = studentService.getStudent(studentId);
+    if (student == null) {
+      ex.addMessage("No student found with id: "+studentId);
+    }
+    
+    if (!ex.getMessages().isEmpty()) {
+      throw ex;
+    }
+    if (ltClass.getEnrollments() == null) {
+      ltClass.setEnrollments(new ArrayList<>());
+    }
+    
+    ClassEnrollment enrollment = ltClass.getEnrollments().stream()
+        .filter(r -> studentId == r.getStudent().getId()).findFirst()
+        .orElseThrow(() -> new ValidationException("Student not enrolled in class"));
+    if (!ltClass.getEnrollments().stream().anyMatch(r -> studentId == r.getStudent().getId())) {
+      throw new ValidationException("Student is not enrolled in class");
+    }
+    
+    classStore.deleteEnrollment(ltClass, enrollment.getId());
+  }
+  
+  public List<ClassDTO> getClassesForStudent(int studentId) {
+    List<LiontrailClass> classes = classStore.getClassByStudent(studentId);
+    List<ClassDTO> dtos = classes.stream()
+                            .map(c -> DTOConveter.toClassDTO(c, null))
+                            .collect(Collectors.toList());
+    return dtos;
   }
 }

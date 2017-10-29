@@ -9,6 +9,9 @@ last_exam_date,season,year) values (nextval('semester_id_seq'),'2017-06-01','201
 insert into auth_user(username, password) values('admin','jGl25bVBBBW96Qi9Te4V37Fnqchz/Eu4qB9vKrRIqRg=');
 insert into auth_user_role(username, role) values('admin','admin');
 
+insert into auth_user(username, password) values('abc1','jGl25bVBBBW96Qi9Te4V37Fnqchz/Eu4qB9vKrRIqRg=');
+insert into auth_user_role(username, role) values('abc1','admin');
+
 insert into department(id, name) values('ENGINEERING','College of Engineering');
 insert into department(id, name) values('ARTS','College of Arts');
 insert into department(id, name) values('BUSINESS','Smeal College of Business');
@@ -65,4 +68,7 @@ insert into room(id, building, number, type, capacity) values(nextval('room_id_s
 insert into room(id, building, number, type, capacity) values(nextval('room_id_seq'), 2, 102, 'CLASSROOM', 600);
 insert into room(id, building, number, type, capacity) values(nextval('room_id_seq'), 2, 103, 'CLASSROOM', 550);
 insert into room(id, building, number, type, capacity) values(nextval('room_id_seq'), 2, 104, 'CLASSROOM', 550);
+
+insert into liontrail_user(user_id,first_name,last_name,middle_name,username) values(nextval('user_id_seq'),'Albert','Charles','Bravo','abc1');
+insert into employee(user_id) values(1);
 
