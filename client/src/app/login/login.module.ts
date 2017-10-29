@@ -6,6 +6,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { LoginRoutingModule } from './login-routing.module';
 import { LoginComponent } from './login.component';
+import { ProfileRoutingModule } from './profile-routing.module';
+import { ProfileComponent } from './profile.component';
 
 @NgModule({
   imports: [
@@ -13,10 +15,12 @@ import { LoginComponent } from './login.component';
     ReactiveFormsModule,
     TranslateModule,
     NgbModule,
-    LoginRoutingModule
+    LoginRoutingModule,
+    ProfileRoutingModule
   ],
   declarations: [
-    LoginComponent
+    LoginComponent,
+    ProfileComponent
   ]
 })
 export class LoginModule { }

@@ -56,9 +56,10 @@ export class HttpService extends Http {
     let url: string;
 
     // Set auth headers
-    let headers = new Headers();
-    this.createAuthorizationHeader(headers);
-    options.headers = headers;
+    if(!options.headers) {
+      options.headers = new Headers();
+    }
+    this.createAuthorizationHeader(options.headers);
 
     if (typeof request === 'string') {
       url = request;

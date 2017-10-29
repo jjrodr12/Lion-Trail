@@ -1,12 +1,89 @@
 <div class="container-fluid">
   <ngb-tabset>
-    <ngb-tab title="Search">
+    <ngb-tab title="Catalog">
       <ng-template ngbTabContent>
+        <table class="table">
+          <thead>
+              <tr>
+                  <th>Course</th>
+                  <th>Description</th>
+                  <th>Level</th>
+                  <th>Credits</th>
+              </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngFor="let course of courses">
+              <tr>
+                <td>{{course.majorAbr}}{{course.number}}: {{course.name}}</td>
+                <td>{{course.description}}</td>
+                <td>{{course.majorLevel}}</td>
+                <td>{{course.credits}}</td>
+              </tr>
+            </ng-container>
+          </tbody>
+        </table>
+      </ng-template>
+    </ngb-tab>
+    <ngb-tab title="Course Search">
+      <ng-template ngbTabContent>
+        <p *ngFor="let alert of alerts">
+          <ngb-alert [type]="alert.type" (close)="closeAlert(alert)">{{ alert.message }}</ngb-alert>
+        </p>
+
+        <div ngbDropdown class="d-inline-block">
+          <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Majors</button>
+          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+            <ng-container *ngFor="let major of majors">
+              <button class="dropdown-item" (click)="searchByMajor(major.id)">{{major.name}}</button>
+            </ng-container>
+          </div>
+        </div>
+
+        <div *ngIf="searchResults.length > 0">
+          <h2>Results</h2>
+          <table class="table">
+            <thead>
+                <tr>
+                    <th>Course</th>
+                    <th>Description</th>
+                    <th>Level</th>
+                    <th>Credits</th>
+                </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngFor="let course of searchResults">
+                <tr>
+                  <td>{{course.majorAbr}}{{course.number}}: {{course.name}}</td>
+                  <td>{{course.description}}</td>
+                  <td>{{course.majorLevel}}</td>
+                  <td>{{course.credits}}</td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+        </div>
 
       </ng-template>
     </ngb-tab>
     <ngb-tab title="Add/Drop">
       <ng-template ngbTabContent>
+
+        <form [formGroup]="addForm" (ngSubmit)="addClassSubmit(addForm.value)">
+          <div class="form-group">
+            <label for="exampleInputEmail1">Add</label>
+            <input type="text" class="form-control" id="addClassInput" aria-describedby="emailHelp" placeholder="Class ID" formControlName="addClassId">
+            <small id="emailHelp" class="form-text text-muted">Input a class ID here.</small>
+          </div>
+          <button type="submit" [disabled]="!addForm.valid" class="btn btn-primary">Add</button>
+        </form>
+        <br/>
+        <form [formGroup]="dropForm" (ngSubmit)="dropClassSubmit(dropForm.value)">
+          <div class="form-group">
+            <label for="exampleInputPassword1">Drop</label>
+            <input type="text" class="form-control" id="dropClassInput" placeholder="Class ID" formControlName="dropClassId">
+          </div>
+          <button type="submit" [disabled]="!dropForm.valid" class="btn btn-primary">Drop</button>
+        </form>
 
       </ng-template>
     </ngb-tab>
@@ -18,3 +95,13 @@
     </ngb-tab>
   </ngb-tabset>
 </div>
+
+<ng-template #forminfo>
+  <div class="form-container">
+    <div class="row columns">
+        <h1>{{ name }}</h1>
+
+        <p>{{ description }}</p>
+    </div>
+  </div>
+</ng-template>
