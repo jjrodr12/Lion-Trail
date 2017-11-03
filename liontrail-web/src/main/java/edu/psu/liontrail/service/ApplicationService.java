@@ -113,6 +113,12 @@ public class ApplicationService {
   
   public Application createApplication(CreateApplicationDTO dto) throws ValidationException {
     Application app = convert(dto);
+    
+    List<Application> existing = applicationStore.getApplicationForStudent(dto.getStudentId());
+    if (existing != null && !existing.isEmpty()) {
+      throw new ValidationException("Application already exists for student: "+dto.getStudentId());
+    }
+    
     app.setStatus(ApplicationStatus.SUBMITTED);
     Application application = applicationStore.createApplication(app);
     return application;
