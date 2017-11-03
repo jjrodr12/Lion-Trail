@@ -1,7 +1,10 @@
 package edu.psu.liontrail.rest;
 
 import javax.validation.constraints.NotNull;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -11,6 +14,7 @@ import javax.ws.rs.core.Response;
 
 import edu.psu.liontrail.data.ApplicationDTO;
 import edu.psu.liontrail.data.CourseDTO;
+import edu.psu.liontrail.data.CreateApplicationDTO;
 import edu.psu.liontrail.enumeration.ApplicationStatus;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -37,6 +41,18 @@ public interface ApplicationResource {
   @Path("students")
   @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
   @ApiOperation(value = "Get Application By Student", code=200, response=ApplicationDTO.class)
-  Response getApplicationsByStudenta(@QueryParam("studentId") Integer studentId, @QueryParam("userId") String userId);
+  Response getApplicationsByStudent(@QueryParam("studentId") Integer studentId, @QueryParam("userId") String userId);
+  
+  @POST
+  @Path("create")
+  @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+  @ApiOperation(value = "Create Application", code=200, response=ApplicationDTO.class)
+  Response createApplication(CreateApplicationDTO dto);
+  
+  @PUT
+  @Path("id/{id}")
+  @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+  @ApiOperation(value = "Create Application", code=200, response=ApplicationDTO.class)
+  Response updateApplication(@PathParam("id") int applicationId, CreateApplicationDTO dto);
 
 }

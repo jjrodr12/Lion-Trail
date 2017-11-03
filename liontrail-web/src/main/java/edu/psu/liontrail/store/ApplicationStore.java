@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
+import edu.psu.liontrail.data.ApplicationDTO;
 import edu.psu.liontrail.enumeration.ApplicationStatus;
 import edu.psu.liontrail.model.Application;
 
@@ -43,5 +44,14 @@ public class ApplicationStore {
     TypedQuery<Application> query = em.createNamedQuery(Application.BY_STUDENT_USER_ID, Application.class);
     query.setParameter("userName", username);
     return query.getResultList();
+  }
+  
+  public Application createApplication(Application app) {
+    em.persist(app);
+    return app;
+  }
+  
+  public Application updateApplication(Application app) {
+    return em.merge(app);
   }
 }
