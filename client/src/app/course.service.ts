@@ -5,6 +5,11 @@ import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
+
+const routes = {
+  getCourseById: (id: number) => `/courses/id/${id}`
+};
+
 @Injectable()
 export class CourseService {
 
@@ -37,6 +42,12 @@ export class CourseService {
         endTime: '14:00'
       }
     ]);
+  }
+
+  getCourseById(id: number): Observable<string> {
+    return this.http.get(routes.getCourseById(id))
+      .map((res: Response) => res.json())
+      .catch(() => Observable.of('Error, could not load courses'));
   }
 
   getGpa(): Observable<any> {
