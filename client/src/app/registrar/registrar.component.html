@@ -19,6 +19,18 @@
                 <td>{{course.majorLevel}}</td>
                 <td>{{course.credits}}</td>
               </tr>
+              <tr *ngIf="course.prerequisites.length > 0">
+                <td></td>
+                <td>
+                  <b>Prerequisites:
+                    <span *ngFor="let prereq of course.prerequisites">
+                      {{prereq.majorAbr}}{{prereq.number}}
+                    </span>
+                  </b>
+                </td>
+                <td></td>
+                <td></td>
+              </tr>
             </ng-container>
           </tbody>
         </table>
