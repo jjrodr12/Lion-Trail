@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { Http, Response } from '@angular/http';
 
 export interface Credentials {
   // Customize received credentials here
@@ -24,7 +25,7 @@ export class AuthenticationService {
 
   private _credentials: Credentials;
 
-  constructor() {
+  constructor(private http: Http) {
     this._credentials = JSON.parse(sessionStorage.getItem(credentialsKey) || localStorage.getItem(credentialsKey));
   }
 
@@ -86,6 +87,12 @@ export class AuthenticationService {
       sessionStorage.removeItem(credentialsKey);
       localStorage.removeItem(credentialsKey);
     }
+  }
+
+  changePassword(userId: string, password: string) {
+    return this.http.put(`/resources/users/id/${userId}`, {body: password})
+      .map((res: Response) => res.json())
+      .catch(() => Observable.of('Error, could not change password'));
   }
 
 }
