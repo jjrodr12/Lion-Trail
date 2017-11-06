@@ -60,4 +60,10 @@ public class ClassStore {
     
     return query.getResultList();
   }
+  
+  public List<LiontrailClass> getClassesByCourse(int courseId) {
+    TypedQuery<LiontrailClass> query = em.createNamedQuery(LiontrailClass.BY_COURSE, LiontrailClass.class);
+    query.setParameter("courseId", courseId);
+    return query.getResultList();
+  }
 }
