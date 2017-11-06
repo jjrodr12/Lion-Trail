@@ -55,4 +55,23 @@ public class UserResourceImpl implements UserResource {
     }
   }
 
+  @Override
+  public Response getUser(Integer userId, String userName) {
+    try {
+      if (userId != null) {
+        User user = userService.getUser(userId).orElseThrow(() -> new UserNotFoundException("Unable to find user with id: "+userId));
+        return Response.ok().entity(user).build();
+      } else if (userName != null && !userName.isEmpty()) {
+        User user =  userService.getUserByUserName(userName).orElseThrow(() -> new UserNotFoundException("Unable to find user with userName: "+userName));
+        return Response.ok().entity(user).build();
+      } else {
+        ErrorMessage em = new ErrorMessage(Status.BAD_REQUEST, "userId or userName required");
+        return em.toResponse();
+      }
+    } catch (UserNotFoundException e) {
+      ErrorMessage em = new ErrorMessage(Status.NOT_FOUND, e.getMessage());
+      return em.toResponse();
+    }
+  }
+
 }
