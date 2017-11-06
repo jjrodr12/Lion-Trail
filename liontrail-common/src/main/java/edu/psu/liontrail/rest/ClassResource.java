@@ -61,6 +61,6 @@ public interface ClassResource {
   @Path("courses/{courseId}")
   @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
   @ApiOperation(value = "Get Classes for Course", code=200, response=CourseDTO.class, responseContainer="list")
-  Response getClassesForCourse(@PathParam("courseId") int courseId);
+  Response getClassesForCourse(@PathParam("courseId") int courseId, @QueryParam("semesterId") Integer semesterId);
 
 }

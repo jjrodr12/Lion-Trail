@@ -88,8 +88,13 @@ public class ClassResourceImpl implements ClassResource {
   }
 
   @Override
-  public Response getClassesForCourse(int courseId) {
-    List<LiontrailClass> classes = classService.getClassesForCourse(courseId);
+  public Response getClassesForCourse(int courseId, Integer semesterId) {
+    List<LiontrailClass> classes = null;
+    if (semesterId != null) {
+      classes = classService.getClassesForCourse(courseId, semesterId);
+    } else {
+      classes = classService.getClassesForCourse(courseId);
+    }
     if (classes == null || classes.isEmpty()) {
       ErrorMessage em = new ErrorMessage(Status.NOT_FOUND, "No classes found for courseId: "+courseId);
       return em.toResponse();

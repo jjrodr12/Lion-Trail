@@ -37,13 +37,15 @@ import edu.psu.liontrail.enumeration.Day;
 @NamedQueries({
   @NamedQuery(name=LiontrailClass.BY_SEMESTER, query = "SELECT c FROM LiontrailClass c WHERE c.semester.id = :semesterId"),
   @NamedQuery(name=LiontrailClass.BY_STUDENT, query = "SELECT c FROM LiontrailClass c INNER JOIN c.enrollments e WHERE e.student.id = :studentId"),
-  @NamedQuery(name=LiontrailClass.BY_COURSE, query="SELECT c FROM LiontrailClass c WHERE c.course.id = :courseId")
+  @NamedQuery(name=LiontrailClass.BY_COURSE, query="SELECT c FROM LiontrailClass c WHERE c.course.id = :courseId"),
+  @NamedQuery(name=LiontrailClass.BY_COURSE_SEMESTER, query="SELECT c FROM LiontrailClass c WHERE c.course.id = :courseId and c.semester.id = :semesterId")
 })
 public class LiontrailClass implements Serializable {
   
   public static final String BY_SEMESTER = "LiontrailClass.findBySemester";
   public static final String BY_STUDENT = "LiontrailClass.findByStudent";
   public static final String BY_COURSE = "LiontrailClass.FindByCourse";
+  public static final String BY_COURSE_SEMESTER = "LiontrailClass.FindByCourseAndSemester";
   
   private static final long serialVersionUID = 3642657966915293123L;
   

@@ -248,4 +248,8 @@ public ClassDTO updateClass(int classId, CreateClassDTO dto) throws ValidationEx
   public List<LiontrailClass> getClassesForCourse(int courseId) {
     return classStore.getClassesByCourse(courseId);
   }
+  
+  public List<LiontrailClass> getClassesForCourse(int courseId, int semesterId) {
+    return classStore.getClassesByCourse(courseId, semesterId);
+  }
 }
