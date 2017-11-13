@@ -13,6 +13,7 @@ const routes = {
   getCoursesByMajorId: (mid: number) => `/resources/courses/major/${mid}`,
   addStudentToClass: (sid: string, cid: number) => `/resources/classes/id/${cid}/${sid}`,
   dropStudentFromClass: (sid: string, cid: number) => `/resources/classes/id/${cid}/${sid}`,
+  getClasses: (sid: number, cid: number) => `/resources/classes/courses/${cid}?semesterId=${sid}`,
 };
 
 @Injectable()
@@ -87,6 +88,18 @@ export class RegistrarService {
 
   getGpa(): Observable<any> {
     return Observable.of(3.4);
+  }
+
+  getSemesters(): Observable<string> {
+    return this.http.get('/resources/semesters/all')
+      .map((res: Response) => res.json())
+      .catch(() => Observable.of('Error, could not load semesters'));
+  }
+
+  getClasses(semesterId: number, courseId: number): Observable<string> {
+    return this.http.get(routes.getClasses(semesterId, courseId))
+      .map((res: Response) => res.json())
+      .catch((res:Response) => Observable.of(res.json()));
   }
 
 }

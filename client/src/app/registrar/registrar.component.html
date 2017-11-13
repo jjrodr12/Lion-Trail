@@ -14,22 +14,24 @@
           <tbody>
             <ng-container *ngFor="let course of courses">
               <tr>
-                <td>{{course.majorAbr}}{{course.number}}: {{course.name}}</td>
-                <td>{{course.description}}</td>
+                <td>
+                  <a href="javascript:void(0)" (click)="clickCourse(classModal, course)">
+                    {{course.majorAbr}}{{course.number}}: {{course.name}}
+                  </a>
+                </td>
+                <td>
+                  {{course.description}}
+                  <span *ngIf="course.prerequisites.length > 0">
+                    <br/>
+                    <b>Prerequisites:
+                      <span *ngFor="let prereq of course.prerequisites">
+                        {{prereq.majorAbr}}{{prereq.number}}
+                      </span>
+                    </b>
+                  </span>
+                </td>
                 <td>{{course.majorLevel}}</td>
                 <td>{{course.credits}}</td>
-              </tr>
-              <tr *ngIf="course.prerequisites.length > 0">
-                <td></td>
-                <td>
-                  <b>Prerequisites:
-                    <span *ngFor="let prereq of course.prerequisites">
-                      {{prereq.majorAbr}}{{prereq.number}}
-                    </span>
-                  </b>
-                </td>
-                <td></td>
-                <td></td>
               </tr>
             </ng-container>
           </tbody>
@@ -65,8 +67,22 @@
             <tbody>
               <ng-container *ngFor="let course of searchResults">
                 <tr>
-                  <td>{{course.majorAbr}}{{course.number}}: {{course.name}}</td>
-                  <td>{{course.description}}</td>
+                  <td>
+                    <a href="javascript:void(0)" (click)="clickCourse(classModal, course)">
+                      {{course.majorAbr}}{{course.number}}: {{course.name}}
+                    </a>
+                  </td>
+                  <td>
+                    {{course.description}}
+                    <span *ngIf="course.prerequisites.length > 0">
+                      <br/>
+                      <b>Prerequisites:
+                        <span *ngFor="let prereq of course.prerequisites">
+                          {{prereq.majorAbr}}{{prereq.number}}
+                        </span>
+                      </b>
+                    </span>
+                  </td>
                   <td>{{course.majorLevel}}</td>
                   <td>{{course.credits}}</td>
                 </tr>
@@ -115,5 +131,49 @@
 
         <p>{{ description }}</p>
     </div>
+  </div>
+</ng-template>
+
+<ng-template #classModal let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">{{modalCourse.majorAbr}}{{modalCourse.number}}: {{modalCourse.name}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p *ngFor="let alert of classSearchAlerts">
+      <ngb-alert [type]="alert.type" (close)="closeClassSearchModalAlert(alert)">{{ alert.message }}</ngb-alert>
+    </p>
+    <p>{{modalCourse.description}}</p>
+    <br/>
+    <p>Search for classes by choosing a semester:</p>
+    <div ngbDropdown class="d-inline-block">
+      <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Semesters</button>
+      <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+        <ng-container *ngFor="let semester of semesters">
+          <button class="dropdown-item" (click)="getClasses(semester, modalCourse)">{{semester.season}} {{semester.year}}</button>
+        </ng-container>
+      </div>
+    </div>
+    <table *ngIf="classResults.length > 0" class="table">
+      <thead>
+          <tr>
+              <th>Class</th>
+              <th>Description</th>
+          </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let class of classResults">
+          <tr>
+            <td>{{class.name}}</td>
+            <td>{{class.Description}}</td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
   </div>
 </ng-template>
