@@ -16,7 +16,7 @@ import { AuthenticationService } from '../core/authentication/authentication.ser
 })
 export class ProfileComponent implements OnInit {
 
-  private passwordForm: FormGroup;
+  passwordForm: FormGroup;
 
   constructor(
     private authenticationService: AuthenticationService,
