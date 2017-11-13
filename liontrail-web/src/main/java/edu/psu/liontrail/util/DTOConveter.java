@@ -5,12 +5,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import edu.psu.liontrail.data.ClassDTO;
+import edu.psu.liontrail.data.ClassEnrollmentDTO;
 import edu.psu.liontrail.data.CourseDTO;
 import edu.psu.liontrail.data.MajorDTO;
 import edu.psu.liontrail.data.RequiredCourseDTO;
 import edu.psu.liontrail.data.RequiredCourseGroupDTO;
 import edu.psu.liontrail.enumeration.SemesterSeason;
 import edu.psu.liontrail.model.Building;
+import edu.psu.liontrail.model.ClassEnrollment;
 import edu.psu.liontrail.model.Course;
 import edu.psu.liontrail.model.Employee;
 import edu.psu.liontrail.model.LiontrailClass;
@@ -152,4 +154,12 @@ public class DTOConveter {
     return dto;
   }
 
+  public static ClassEnrollmentDTO toClassEnrollmentDTO(ClassEnrollment enrollment) {
+    ClassEnrollmentDTO dto = new ClassEnrollmentDTO();
+    dto.setId(enrollment.getId());
+    dto.setGrade(enrollment.getGrade());
+    dto.setClass_id(enrollment.getEnrolledClass().getId());
+    dto.setstudent_id(enrollment.getStudent().getId());
+    return dto;
+  }
 }
