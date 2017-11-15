@@ -51,7 +51,7 @@ public class Admission implements Serializable {
   @Column(name="cohort_size")
   private int cohortSize;
   
-  @ManyToMany
+  @ManyToMany(fetch=FetchType.EAGER)
   @JoinTable(name="admission_student",
   joinColumns=@JoinColumn(name="cohort", referencedColumnName="cohort_id"),
   inverseJoinColumns=@JoinColumn(name="student", referencedColumnName="user_id"))
