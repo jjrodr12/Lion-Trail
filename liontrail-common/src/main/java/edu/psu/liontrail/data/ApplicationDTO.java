@@ -7,6 +7,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import edu.psu.liontrail.enumeration.ApplicationStatus;
 import edu.psu.liontrail.enumeration.SemesterSeason;
 
 @XmlRootElement
@@ -47,6 +48,9 @@ public class ApplicationDTO implements Serializable {
   
   @XmlElement(name="essay")
   private String essay;
+  
+  @XmlElement
+  private ApplicationStatus status;
 
   public int getApplicationId() {
     return applicationId;
@@ -135,4 +139,14 @@ public class ApplicationDTO implements Serializable {
   public void setEssay(String essay) {
     this.essay = essay;
   }
+
+  public ApplicationStatus getStatus() {
+    return status;
+  }
+
+  public void setStatus(ApplicationStatus status) {
+    this.status = status;
+  }
+  
+  
 }

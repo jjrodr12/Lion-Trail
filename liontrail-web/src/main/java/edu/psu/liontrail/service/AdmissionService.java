@@ -7,7 +7,9 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import edu.psu.liontrail.data.AdmissionDTO;
+import edu.psu.liontrail.exception.ValidationException;
 import edu.psu.liontrail.model.Admission;
+import edu.psu.liontrail.model.Student;
 import edu.psu.liontrail.store.AdmissionStore;
 
 @Stateless
@@ -44,5 +46,9 @@ public class AdmissionService {
     }
     dto.setStudentIds(studentIds);
     return dto;
+  }
+  
+  public void addStudent(int admissionId, Student student) throws ValidationException {
+    admissionStore.addStudent(admissionId, student);
   }
 }

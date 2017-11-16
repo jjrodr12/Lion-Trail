@@ -9,6 +9,7 @@ import edu.psu.liontrail.data.ApplicationDTO;
 import edu.psu.liontrail.data.CreateApplicationDTO;
 import edu.psu.liontrail.enumeration.ApplicationStatus;
 import edu.psu.liontrail.exception.ValidationException;
+import edu.psu.liontrail.model.Admission;
 import edu.psu.liontrail.model.Application;
 import edu.psu.liontrail.model.Major;
 import edu.psu.liontrail.model.Semester;
@@ -29,9 +30,8 @@ public class ApplicationService {
   @Inject
   StudentService studentService;
   
-  public void createApplication(ApplicationDTO dto) {
-    
-  }
+  @Inject
+  AdmissionService admissionService;
   
   public Application getApplication(int applicationId) {
     return applicationStore.getApplicationById(applicationId);
@@ -155,8 +155,43 @@ public class ApplicationService {
     dto.setSemesterSeason(application.getSemester().getSeason());
     dto.setYear(application.getSemester().getYear());
     dto.setStudentId(application.getStudent().getId());
+    dto.setStatus(application.getStatus());
     
     return dto;
+  }
+  
+  public void acceptApplication(int applicationId) throws ValidationException {
+    Application application = applicationStore.getApplicationById(applicationId);
+    if (application == null) {
+      throw new ValidationException("No application found with id: " + applicationId);
+    }
+    if (ApplicationStatus.SUBMITTED != application.getStatus()) {
+      throw new ValidationException("Application is already "+application.getStatus());
+    }
+    Student student = application.getStudent();
+    Semester semester = application.getSemester();
+    Major major = application.getMajor();
+    
+    List<Admission> admissions = admissionService.getByMajorAndSemester(major.getId(), semester.getId());
+    if (admissions == null || admissions.isEmpty()) {
+      throw new ValidationException("Admission Cohort not found");
+    }
+    Admission admission = admissions.get(0);
+    admissionService.addStudent(admission.getCohortId(), student);
+    application.setStatus(ApplicationStatus.ACCEPTED);
+    applicationStore.updateApplication(application);
+  }
+  
+  public void rejectApplication(int applicationId) throws ValidationException {
+    Application application = applicationStore.getApplicationById(applicationId);
+    if (application == null) {
+      throw new ValidationException("No application found with id: " + applicationId);
+    }
+    if (ApplicationStatus.SUBMITTED != application.getStatus()) {
+      throw new ValidationException("Application is already "+application.getStatus());
+    }
+    application.setStatus(ApplicationStatus.REJECTED);
+    applicationStore.updateApplication(application);
   }
     
 

@@ -86,4 +86,26 @@ public class ApplicationResourceImpl implements ApplicationResource {
     }
   }
 
+  @Override
+  public Response acceptApplication(int applicationId) {
+    try {
+      applicationService.acceptApplication(applicationId);
+      return Response.accepted().build();
+    } catch (ValidationException e) {
+      ErrorMessage em = new ErrorMessage(Status.BAD_REQUEST, e.getMessage());
+      return em.toResponse();
+    }
+  }
+
+  @Override
+  public Response rejectApplication(int applicationId) {
+    try {
+      applicationService.rejectApplication(applicationId);
+      return Response.accepted().build();
+    } catch (ValidationException e) {
+      ErrorMessage em = new ErrorMessage(Status.BAD_REQUEST, e.getMessage());
+      return em.toResponse();
+    }
+  }
+
 }

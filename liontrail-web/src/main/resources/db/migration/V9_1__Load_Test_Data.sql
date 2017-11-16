@@ -80,3 +80,6 @@ insert into student(user_id) values(3);
 insert into application(id, essay, gpa, highschool, status, major_id, semester_id, student_id) 
 values(nextval('application_id_seq'), 'I think I should be accepted because I am good', 3.3, 'Midtown Highschool', 'SUBMITTED', 1, 1, 3);
 
+insert into admission(cohort_id, cohort_size, major_id, semetser_id) values(nextval('cohort_id_seq'), 25, 1, 1);
+
+
