@@ -1,4 +1,6 @@
 import { Input, Component, OnInit } from '@angular/core';
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+
 import { FormBuilder,
   FormGroup,
   FormControl,
@@ -24,15 +26,22 @@ export class RegistrarComponent implements OnInit {
   searchResults: any = [];
   private addForm: FormGroup;
   private dropForm: FormGroup;
+  closeResult: string;
+  modalCourse: Course;
+  semesters: any;
+  classResults: any = [];
 
   @Input()
   public alerts: Array<IAlert> = [];
-
   private backup: Array<IAlert>;
+
+  @Input()
+  public classSearchAlerts: Array<IAlert> = [];
 
   constructor(
     private registrarService: RegistrarService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private modalService: NgbModal
   ) {
     this.addForm = fb.group({
       'addClassId': [null, [Validators.required, isInteger]]
@@ -51,6 +60,52 @@ export class RegistrarComponent implements OnInit {
     this.registrarService.getAllMajors()
     .subscribe((response: any) => {
       this.majors = response;
+    });
+
+    this.registrarService.getSemesters()
+    .subscribe((response: any) => {
+      this.semesters = response;
+      console.log(this.semesters);
+    });
+  }
+
+  clickCourse(content: any, course: Course) {
+    console.log(course);
+    this.modalCourse = course;
+    this.modalService.open(content).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return  `with: ${reason}`;
+    }
+  }
+
+  getClasses(semester: any, course: Course) {
+    console.log(semester);
+    console.log(course);
+    this.registrarService.getClasses(semester.id, course.id)
+    .subscribe((response: any) => {
+      console.log(JSON.stringify(response));
+      if(response.errorMessage) {
+        console.log('err');
+        this.classSearchAlerts.push({
+          id: 1,
+          type: 'danger',
+          message: `No classes found for ${course.majorAbr}${course.number} in ${semester.season} ${semester.year}`,
+        });
+      }
+      else {
+        this.classResults = response;
+      }
     });
   }
 
@@ -89,6 +144,11 @@ export class RegistrarComponent implements OnInit {
     this.alerts.splice(index, 1);
   }
 
+  public closeClassSearchModalAlert(alert: IAlert) {
+    const index: number = this.classSearchAlerts.indexOf(alert);
+    this.classSearchAlerts.splice(index, 1);
+  }
+
   public reset() {
     this.alerts = this.backup.map((alert: IAlert) => Object.assign({}, alert));
   }
@@ -104,6 +164,7 @@ interface Course {
   majorLevel: string,
   majorName: string,
   name: string,
+  number: number,
   prerequisites?: Course[]
 }
 
