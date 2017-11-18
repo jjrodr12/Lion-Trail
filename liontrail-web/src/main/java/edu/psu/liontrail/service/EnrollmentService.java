@@ -35,7 +35,7 @@ public class EnrollmentService {
   @Inject
   EnrollmentStore enrollmentStore;
   
-  public ClassEnrollment getGradesById(int id) {
+  public List<ClassEnrollment> getGradesById(int id) {
     return enrollmentStore.getGradeById(id);
   }
 }

@@ -25,10 +25,10 @@ public class EnrollmentStore {
   }
   */
   
-  public ClassEnrollment getGradeById(int studentId) {
+  public List<ClassEnrollment> getGradeById(int studentId) {
     TypedQuery<ClassEnrollment> query = em.createNamedQuery(ClassEnrollment.BY_STUDENT, ClassEnrollment.class);
     query.setParameter("studentId", studentId);
     
-    return (ClassEnrollment) query.getResultList();
+    return query.getResultList();
   }
 }
