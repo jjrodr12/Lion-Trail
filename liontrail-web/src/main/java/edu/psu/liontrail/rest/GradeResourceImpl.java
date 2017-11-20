@@ -19,6 +19,7 @@ import edu.psu.liontrail.service.BuildingService;
 import edu.psu.liontrail.service.ClassService;
 import edu.psu.liontrail.service.EnrollmentService;
 import edu.psu.liontrail.util.DTOConveter;
+import edu.psu.liontrail.util.GpaCalc;
 
 public class GradeResourceImpl implements GradeResource {
   @Inject
@@ -33,16 +34,16 @@ public class GradeResourceImpl implements GradeResource {
     }
     List<ClassEnrollmentDTO> dtos = new ArrayList<>();
     GradeDTO grades = new GradeDTO();
-    //double gpas = CalculateGpa(dtos);
-   
+       
     for(ClassEnrollment e : enrollment ) {
       ClassEnrollmentDTO dto = DTOConveter.toClassEnrollmentDTO(e);
       dtos.add(dto);
     }
     grades.setClasses(dtos);
-    grades.setGpa(3.0);
-    //get the gpa via method and 
-    // set the grade.gpa to grades that we get.
+    
+    double calcGpa = GpaCalc.CalculateGpa();
+    grades.setGpa(calcGpa);
+     
     return Response.ok().entity(grades).build();
     
   }
