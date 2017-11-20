@@ -43,8 +43,10 @@ export class HttpService extends Http {
   // Create basic auth headers
   createAuthorizationHeader(headers: Headers) {
     this._credentials = JSON.parse(sessionStorage.getItem(credentialsKey) || localStorage.getItem(credentialsKey));
-    headers.append('Authorization', 'Basic ' +
-      btoa(this._credentials.username + ':' + this._credentials.token));
+    if(this._credentials) {
+      headers.append('Authorization', 'Basic ' +
+        btoa(this._credentials.username + ':' + this._credentials.token));
+    }
   }
 
   /**

@@ -35,6 +35,11 @@ export class ProfileComponent implements OnInit {
     return credentials ? credentials.username : null;
   }
 
+  get userFirstLastName(): string {
+    const userInfo = this.authenticationService.userInfo;
+    return userInfo ? userInfo.name.firstName + ' ' + userInfo.name.lastName : this.username;
+  }
+
   changePassword(password: string) {
     this.authenticationService.changePassword(this.username, password)
     .subscribe((response: any) => {

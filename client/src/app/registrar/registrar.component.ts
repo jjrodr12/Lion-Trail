@@ -9,6 +9,7 @@ import { FormBuilder,
   Validators
 } from '@angular/forms';
 import { RegistrarService } from '../registrar.service';
+import { AuthenticationService } from '../core/authentication/authentication.service';
 
 function isInteger(input: FormControl) {
   return Number.isInteger(Number(input.value)) ? null : {validInteger: true};
@@ -30,6 +31,7 @@ export class RegistrarComponent implements OnInit {
   modalCourse: Course;
   semesters: any;
   classResults: any = [];
+  private userId: number;
 
   @Input()
   public alerts: Array<IAlert> = [];
@@ -41,7 +43,8 @@ export class RegistrarComponent implements OnInit {
   constructor(
     private registrarService: RegistrarService,
     private fb: FormBuilder,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private authenticationService: AuthenticationService
   ) {
     this.addForm = fb.group({
       'addClassId': [null, [Validators.required, isInteger]]
@@ -67,6 +70,8 @@ export class RegistrarComponent implements OnInit {
       this.semesters = response;
       console.log(this.semesters);
     });
+
+    this.userId = this.authenticationService.userInfo.id;
   }
 
   clickCourse(content: any, course: Course) {
@@ -111,7 +116,7 @@ export class RegistrarComponent implements OnInit {
 
   addClassSubmit(form: any) {
     console.log(form);
-    this.registrarService.addStudentToClass('sad1', Number(form.addClassId))
+    this.registrarService.addStudentToClass(this.userId, Number(form.addClassId))
     .subscribe((response: any) => {
       console.log(response);
     });
@@ -119,7 +124,7 @@ export class RegistrarComponent implements OnInit {
 
   dropClassSubmit(form: any) {
     console.log(form);
-    this.registrarService.dropStudentFromClass('sad1', Number(form.addClassId));
+    this.registrarService.dropStudentFromClass(this.userId, Number(form.addClassId));
   }
 
   searchByMajor(majorId: number) {
