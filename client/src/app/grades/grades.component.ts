@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgFor } from '@angular/common';
 
 import { CalendarEvent } from 'angular-calendar';
-//import { colors } from '../demo-utils/colors'; //
+//import { colors } from '../demo-utils/colors';
 
 // Services
 import { GradesService } from '../grades.service';
