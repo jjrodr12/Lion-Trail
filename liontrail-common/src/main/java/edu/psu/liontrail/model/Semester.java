@@ -64,13 +64,13 @@ public class Semester implements Serializable {
   @XmlElement
   private int year;
   
-  @Column(name="adminssion_start")
+  @Column(name="admission_start")
   @NotNull
   @XmlElement
   @XmlJavaTypeAdapter(LocalDateAdapter.class)
   private LocalDate admissionStart;
   
-  @Column(name="adminssion_stop")
+  @Column(name="admission_stop")
   @NotNull
   @XmlElement
   @XmlJavaTypeAdapter(LocalDateAdapter.class)
