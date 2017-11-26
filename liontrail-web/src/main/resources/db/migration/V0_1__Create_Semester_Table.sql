@@ -1,7 +1,7 @@
 CREATE TABLE semester (
     id integer NOT NULL,
-    adminssion_start date NOT NULL,
-    adminssion_stop date NOT NULL,
+    admission_start date NOT NULL,
+    admission_stop date NOT NULL,
     class_registration_date date NOT NULL,
     drop_add_deadline_date date NOT NULL,
     first_class_date date NOT NULL,
