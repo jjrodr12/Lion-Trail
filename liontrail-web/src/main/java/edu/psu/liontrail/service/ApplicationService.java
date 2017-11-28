@@ -177,6 +177,10 @@ public class ApplicationService {
       throw new ValidationException("Admission Cohort not found");
     }
     Admission admission = admissions.get(0);
+    if (admission.getStudents().size() >= admission.getCohortSize()) {
+      throw new ValidationException("Cohort is full");
+    }
+    
     admissionService.addStudent(admission.getCohortId(), student);
     application.setStatus(ApplicationStatus.ACCEPTED);
     applicationStore.updateApplication(application);
