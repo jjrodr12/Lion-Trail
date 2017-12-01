@@ -11,8 +11,9 @@ const routes = {
   getAllCourses: () => '/resources/courses/all',
   getAllMajors: () => '/resources/majors/all',
   getCoursesByMajorId: (mid: number) => `/resources/courses/major/${mid}`,
-  addStudentToClass: (sid: string, cid: number) => `/resources/classes/id/${cid}/${sid}`,
-  dropStudentFromClass: (sid: string, cid: number) => `/resources/classes/id/${cid}/${sid}`,
+  addStudentToClass: (uid: number, cid: number) => `/resources/classes/id/${cid}/${uid}`,
+  dropStudentFromClass: (uid: number, cid: number) => `/resources/classes/id/${cid}/${uid}`,
+  getClasses: (sid: number, cid: number) => `/resources/classes/courses/${cid}?semesterId=${sid}`,
 };
 
 @Injectable()
@@ -73,20 +74,32 @@ export class RegistrarService {
       .catch((res:Response) => Observable.of(res.json()));
   }
 
-  addStudentToClass(studentId: string, classId: number): Observable<string> {
-    return this.http.put(routes.addStudentToClass(studentId, classId), '')
+  addStudentToClass(userId: number, classId: number): Observable<string> {
+    return this.http.put(routes.addStudentToClass(userId, classId), '')
       .map((res: Response) => res.json())
       .catch(() => Observable.of('Error, could not add student to class'));
   }
 
-  dropStudentFromClass(studentId: string, classId: number): Observable<string> {
-    return this.http.delete(routes.dropStudentFromClass(studentId, classId), '')
+  dropStudentFromClass(userId: number, classId: number): Observable<string> {
+    return this.http.delete(routes.dropStudentFromClass(userId, classId), '')
       .map((res: Response) => res.json())
       .catch(() => Observable.of('Error, could not load courses'));
   }
 
   getGpa(): Observable<any> {
     return Observable.of(3.4);
+  }
+
+  getSemesters(): Observable<string> {
+    return this.http.get('/resources/semesters/all')
+      .map((res: Response) => res.json())
+      .catch(() => Observable.of('Error, could not load semesters'));
+  }
+
+  getClasses(semesterId: number, courseId: number): Observable<string> {
+    return this.http.get(routes.getClasses(semesterId, courseId))
+      .map((res: Response) => res.json())
+      .catch((res:Response) => Observable.of(res.json()));
   }
 
 }

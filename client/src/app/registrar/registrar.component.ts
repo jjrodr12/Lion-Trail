@@ -1,4 +1,6 @@
 import { Input, Component, OnInit } from '@angular/core';
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+
 import { FormBuilder,
   FormGroup,
   FormControl,
@@ -7,6 +9,7 @@ import { FormBuilder,
   Validators
 } from '@angular/forms';
 import { RegistrarService } from '../registrar.service';
+import { AuthenticationService } from '../core/authentication/authentication.service';
 
 function isInteger(input: FormControl) {
   return Number.isInteger(Number(input.value)) ? null : {validInteger: true};
@@ -24,15 +27,24 @@ export class RegistrarComponent implements OnInit {
   searchResults: any = [];
   private addForm: FormGroup;
   private dropForm: FormGroup;
+  closeResult: string;
+  modalCourse: Course;
+  semesters: any;
+  classResults: any = [];
+  private userId: number;
 
   @Input()
   public alerts: Array<IAlert> = [];
-
   private backup: Array<IAlert>;
+
+  @Input()
+  public classSearchAlerts: Array<IAlert> = [];
 
   constructor(
     private registrarService: RegistrarService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private modalService: NgbModal,
+    private authenticationService: AuthenticationService
   ) {
     this.addForm = fb.group({
       'addClassId': [null, [Validators.required, isInteger]]
@@ -52,11 +64,59 @@ export class RegistrarComponent implements OnInit {
     .subscribe((response: any) => {
       this.majors = response;
     });
+
+    this.registrarService.getSemesters()
+    .subscribe((response: any) => {
+      this.semesters = response;
+      console.log(this.semesters);
+    });
+
+    this.userId = this.authenticationService.userInfo.id;
+  }
+
+  clickCourse(content: any, course: Course) {
+    console.log(course);
+    this.modalCourse = course;
+    this.modalService.open(content).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return  `with: ${reason}`;
+    }
+  }
+
+  getClasses(semester: any, course: Course) {
+    console.log(semester);
+    console.log(course);
+    this.registrarService.getClasses(semester.id, course.id)
+    .subscribe((response: any) => {
+      console.log(JSON.stringify(response));
+      if(response.errorMessage) {
+        console.log('err');
+        this.classSearchAlerts.push({
+          id: 1,
+          type: 'danger',
+          message: `No classes found for ${course.majorAbr}${course.number} in ${semester.season} ${semester.year}`,
+        });
+      }
+      else {
+        this.classResults = response;
+      }
+    });
   }
 
   addClassSubmit(form: any) {
     console.log(form);
-    this.registrarService.addStudentToClass('sad1', Number(form.addClassId))
+    this.registrarService.addStudentToClass(this.userId, Number(form.addClassId))
     .subscribe((response: any) => {
       console.log(response);
     });
@@ -64,7 +124,7 @@ export class RegistrarComponent implements OnInit {
 
   dropClassSubmit(form: any) {
     console.log(form);
-    this.registrarService.dropStudentFromClass('sad1', Number(form.addClassId));
+    this.registrarService.dropStudentFromClass(this.userId, Number(form.addClassId));
   }
 
   searchByMajor(majorId: number) {
@@ -89,6 +149,11 @@ export class RegistrarComponent implements OnInit {
     this.alerts.splice(index, 1);
   }
 
+  public closeClassSearchModalAlert(alert: IAlert) {
+    const index: number = this.classSearchAlerts.indexOf(alert);
+    this.classSearchAlerts.splice(index, 1);
+  }
+
   public reset() {
     this.alerts = this.backup.map((alert: IAlert) => Object.assign({}, alert));
   }
@@ -104,6 +169,7 @@ interface Course {
   majorLevel: string,
   majorName: string,
   name: string,
+  number: number,
   prerequisites?: Course[]
 }
 

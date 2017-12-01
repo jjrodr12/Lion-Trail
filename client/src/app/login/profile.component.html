@@ -1,3 +1,13 @@
-<p>
-  profile works!
-</p>
+<div class="container-fluid">
+  <h3>
+    Welcome, {{userFirstLastName}}!
+  </h3>
+  <br/>
+  <form [formGroup]="passwordForm" (ngSubmit)="changePassword(passwordForm.value)">
+    <div class="form-group">
+      <label for="exampleInputEmail1">Change Password</label>
+      <input type="text" class="form-control" id="passwordInput" aria-describedby="emailHelp" placeholder="Password" formControlName="addClassId">
+    </div>
+    <button type="submit" [disabled]="!passwordForm.valid" class="btn btn-primary">Submit</button>
+  </form>
+</div>

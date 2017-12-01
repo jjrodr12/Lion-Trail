@@ -244,4 +244,12 @@ public ClassDTO updateClass(int classId, CreateClassDTO dto) throws ValidationEx
                             .collect(Collectors.toList());
     return dtos;
   }
+  
+  public List<LiontrailClass> getClassesForCourse(int courseId) {
+    return classStore.getClassesByCourse(courseId);
+  }
+  
+  public List<LiontrailClass> getClassesForCourse(int courseId, int semesterId) {
+    return classStore.getClassesByCourse(courseId, semesterId);
+  }
 }

@@ -54,5 +54,14 @@ public interface ApplicationResource {
   @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
   @ApiOperation(value = "Create Application", code=200, response=ApplicationDTO.class)
   Response updateApplication(@PathParam("id") int applicationId, CreateApplicationDTO dto);
+  
+  @PUT
+  @Path("accept/{applicationId}")
+  @ApiOperation(value = "Accept Application", code=202)
+  Response acceptApplication(@PathParam("applicationId") int applicationId);
 
+  @PUT
+  @Path("reject/{applicationId}")
+  @ApiOperation(value = "Reject Application", code=202)
+  Response rejectApplication(@PathParam("applicationId") int applicationId);
 }

@@ -19,6 +19,15 @@
 
   <security-constraint>
     <web-resource-collection>
+      <web-resource-name>CreateUser</web-resource-name>
+      <description>allow unauthenticated users to create a user</description>
+      <url-pattern>/resources/users/create</url-pattern>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+  </security-constraint>
+
+  <security-constraint>
+    <web-resource-collection>
       <web-resource-name>HtmlAuth</web-resource-name>
       <description>application security constraints</description>
       <url-pattern>/resources/*</url-pattern>

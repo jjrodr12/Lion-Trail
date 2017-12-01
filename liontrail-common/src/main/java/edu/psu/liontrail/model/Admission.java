@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -19,9 +21,16 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name="admission")
+@NamedQueries({
+  @NamedQuery(name=Admission.BY_MAJOR_SEMESTER, query="SELECT a FROM Admission a where a.major.id = :majorId AND a.semeser.id = :semesterId"),
+  @NamedQuery(name=Admission.BY_STUDENT, query="SELECT a FROM Admission a INNER JOIN a.students s WHERE s.id = :studentId")
+})
 public class Admission implements Serializable {
 
   private static final long serialVersionUID = 7876124618829632052L;
+  
+  public static final String BY_MAJOR_SEMESTER = "Admission.findByMajorAnndSemester";
+  public static final String BY_STUDENT = "Admission.findByStudent";
 
   @Id
   @Column(name="cohort_id")
@@ -42,7 +51,7 @@ public class Admission implements Serializable {
   @Column(name="cohort_size")
   private int cohortSize;
   
-  @ManyToMany
+  @ManyToMany(fetch=FetchType.EAGER)
   @JoinTable(name="admission_student",
   joinColumns=@JoinColumn(name="cohort", referencedColumnName="cohort_id"),
   inverseJoinColumns=@JoinColumn(name="student", referencedColumnName="user_id"))
