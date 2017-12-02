@@ -38,6 +38,7 @@
         </table>
       </ng-template>
     </ngb-tab>
+
     <ngb-tab title="Course Search">
       <ng-template ngbTabContent>
         <p *ngFor="let alert of alerts">
@@ -152,22 +153,24 @@
       <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Semesters</button>
       <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
         <ng-container *ngFor="let semester of semesters">
-          <button class="dropdown-item" (click)="getClasses(semester, modalCourse)">{{semester.season}} {{semester.year}}</button>
+          <button class="dropdown-item" (click)="getCourseClasses(semester, modalCourse)">{{semester.season}} {{semester.year}}</button>
         </ng-container>
       </div>
     </div>
-    <table *ngIf="classResults.length > 0" class="table">
+    <table *ngIf="courseClassResults.length > 0" class="table">
       <thead>
           <tr>
-              <th>Class</th>
-              <th>Description</th>
+              <th>ID</th>
+              <th>Days</th>
+              <th>Time</th>
           </tr>
       </thead>
       <tbody>
-        <ng-container *ngFor="let class of classResults">
+        <ng-container *ngFor="let class of courseClassResults">
           <tr>
-            <td>{{class.name}}</td>
-            <td>{{class.Description}}</td>
+            <td>{{class.classId}}</td>
+            <td>{{class.days.toString()}}</td>
+            <td>{{class.startTime}} - {{class.stopTime}}</td>
           </tr>
         </ng-container>
       </tbody>

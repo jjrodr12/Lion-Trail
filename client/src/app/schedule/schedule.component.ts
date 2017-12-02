@@ -11,6 +11,10 @@ import { NgFor } from '@angular/common';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import {
+  Observable
+} from 'rxjs/Rx';
+
+import {
   startOfDay,
   endOfDay,
   subDays,
@@ -18,12 +22,16 @@ import {
   endOfMonth,
   isSameDay,
   isSameMonth,
-  addHours
+  addHours,
+  startOfMonth,
+  startOfWeek,
+  endOfWeek
 } from 'date-fns';
+import { RRule } from 'rrule';
 
 // Services
-import { ScheduleService } from '../schedule.service';
-import { CourseService } from '../course.service';
+import { RegistrarService } from '../registrar.service';
+import { AuthenticationService }  from '../core/authentication/authentication.service';
 
 // angular-calendar
 import {
@@ -31,6 +39,8 @@ import {
   CalendarEventAction,
   CalendarEventTimesChangedEvent
 } from 'angular-calendar';
+
+import * as _ from 'lodash';
 
 const colors: any = {
   red: {
@@ -57,6 +67,8 @@ export class ScheduleComponent implements OnInit {
 
   semesters: Semester[];
   courses: Course[];
+  classes: Class[];
+  filteredClasses: Class[];
 
   view: string = 'month';
 
@@ -71,8 +83,8 @@ export class ScheduleComponent implements OnInit {
   activeDayIsOpen: boolean = true;
 
   constructor(
-    private scheduleService: ScheduleService,
-    private courseService: CourseService,
+    private registrarService: RegistrarService,
+    private authenticationService: AuthenticationService,
     private modal: NgbModal
   ) { }
 
@@ -90,10 +102,20 @@ export class ScheduleComponent implements OnInit {
     }
   }
 
-  ngOnInit() {
-    this.scheduleService.getSemesters()
+  getAllSemesters() {
+    return this.registrarService.getSemesters()
     .subscribe((semesters: any) => {
-      this.semesters = semesters;
+
+    });
+  }
+
+  ngOnInit() {
+    Observable.forkJoin(
+      this.registrarService.getSemesters(),
+      this.registrarService.getStudentClasses(this.authenticationService.userInfo.id)
+    ).subscribe((results: any) => {
+      console.log(results);
+      this.semesters = results[0];
       this.semesters.forEach(semester => {
         let prefix = semester.season.charAt(0).toUpperCase() + semester.season.slice(1).toLowerCase();
         this.events.push(
@@ -135,23 +157,86 @@ export class ScheduleComponent implements OnInit {
           }
         );
       });
-    });
 
-    this.courseService.getCourses()
-    .subscribe((courses: any) => {
-      console.log(courses);
-      this.courses = courses;
-      this.courses.forEach(course => {
-        // Fake it for now, we may have to readjust anyway later on
-        this.events.push(
-          {
-            title: course.id,
-            color: colors.blue,
-            start: new Date()
+      this.classes = results[1];
+      var recurringEvents: RecurringEvent[] = [];
+      this.classes.forEach(sClass => {
+        recurringEvents.push({
+          title: sClass.courseAbbreviation + sClass.courseNumber,
+          color: colors.blue,
+          start: this.getSemesterFirstClassDate(sClass.semesterSeason, sClass.semesterYear),
+          until: this.getSemesterLastClassDate(sClass.semesterSeason, sClass.semesterYear),
+          rrule: {
+            freq: RRule.WEEKLY,
+            byweekday: [
+              RRule.MO
+            ]
           }
+        });
+      });
+
+      const startOfPeriod: any = {
+        month: startOfMonth,
+        week: startOfWeek,
+        day: startOfDay
+      };
+
+      const endOfPeriod: any = {
+        month: endOfMonth,
+        week: endOfWeek,
+        day: endOfDay
+      };
+
+      recurringEvents.forEach(event => {
+        const rule: RRule = new RRule(
+          Object.assign({}, event.rrule, {
+            dtstart: event.start,
+            until: event.until
+          })
         );
+
+        rule.all().forEach(date => {
+          this.events.push(
+            Object.assign({}, event, {
+              start: new Date(date)
+            })
+          );
+        });
       });
     });
+  }
+
+  getSemesterFirstClassDate(season: string, year: number): Date {
+    var date = new Date();
+    this.semesters.forEach(semester => {
+      if(semester.season == season && semester.year == year) {
+        date = new Date(semester.firstClassDate);
+        return date;
+      }
+    });
+    return date;
+  }
+
+   getSemesterLastClassDate(season: string, year: number): Date {
+    var date = new Date();
+    this.semesters.forEach(semester => {
+      if(semester.season == season && semester.year == year) {
+        date = new Date(semester.lastClassDate);
+        return date;
+      }
+    });
+    return date;
+  }
+
+  filterClassesForSemester(semester: Semester) {
+    if(this.classes) {
+      return this.classes.filter(sClass => {
+        return sClass.semesterSeason == semester.season && sClass.semesterYear == semester.year;
+      });
+    }
+    else {
+      return [];
+    }
   }
 }
 
@@ -174,4 +259,40 @@ interface Course {
   days: string[],
   startTime: string,
   endTime: string
+}
+
+interface Class {
+  buildingId: number,
+  buildingName?: string,
+  classId: number,
+  courseAbbreviation: string,
+  courseId: number,
+  courseName: string,
+  courseNumber: number,
+  days: string[],
+  enrollmentCount: number,
+  instructorFirstName: string,
+  instructorId: number,
+  instructorLastName: string,
+  online: boolean,
+  roomId: number,
+  roomNumber: number,
+  semesterSeason: string,
+  semesterYear: number,
+  size: number,
+  startTime: string,
+  stopTime: string
+}
+
+interface RecurringEvent {
+  title: string;
+  color: any;
+  start: Date;
+  until: Date;
+  rrule?: {
+    freq: RRule.Frequency;
+    bymonth?: number;
+    bymonthday?: number;
+    byweekday?: RRule.Weekday[];
+  };
 }

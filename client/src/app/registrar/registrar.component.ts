@@ -30,7 +30,7 @@ export class RegistrarComponent implements OnInit {
   closeResult: string;
   modalCourse: Course;
   semesters: any;
-  classResults: any = [];
+  courseClassResults: any = [];
   private userId: number;
 
   @Input()
@@ -94,10 +94,8 @@ export class RegistrarComponent implements OnInit {
     }
   }
 
-  getClasses(semester: any, course: Course) {
-    console.log(semester);
-    console.log(course);
-    this.registrarService.getClasses(semester.id, course.id)
+  getCourseClasses(semester: any, course: Course) {
+    this.registrarService.getCourseClasses(semester.id, course.id)
     .subscribe((response: any) => {
       console.log(JSON.stringify(response));
       if(response.errorMessage) {
@@ -109,7 +107,7 @@ export class RegistrarComponent implements OnInit {
         });
       }
       else {
-        this.classResults = response;
+        this.courseClassResults = response;
       }
     });
   }
@@ -124,7 +122,10 @@ export class RegistrarComponent implements OnInit {
 
   dropClassSubmit(form: any) {
     console.log(form);
-    this.registrarService.dropStudentFromClass(this.userId, Number(form.addClassId));
+    this.registrarService.dropStudentFromClass(this.userId, Number(form.dropClassId))
+    .subscribe((response: any) => {
+      console.log(response);
+    });
   }
 
   searchByMajor(majorId: number) {

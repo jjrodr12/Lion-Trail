@@ -7,19 +7,27 @@ import { Observable } from 'rxjs/Observable';
 
 
 const routes = {
+  getSemesters: () => '/resources/semesters/all',
   getCourseById: (id: number) => `/courses/id/${id}`,
   getAllCourses: () => '/resources/courses/all',
   getAllMajors: () => '/resources/majors/all',
   getCoursesByMajorId: (mid: number) => `/resources/courses/major/${mid}`,
   addStudentToClass: (uid: number, cid: number) => `/resources/classes/id/${cid}/${uid}`,
   dropStudentFromClass: (uid: number, cid: number) => `/resources/classes/id/${cid}/${uid}`,
-  getClasses: (sid: number, cid: number) => `/resources/classes/courses/${cid}?semesterId=${sid}`,
+  getCourseClasses: (sid: number, cid: number) => `/resources/classes/courses/${cid}?semesterId=${sid}`,
+  getStudentClasses: (sid: number) => `/resources/classes/student/${sid}`
 };
 
 @Injectable()
 export class RegistrarService {
 
   constructor(private http: Http) { }
+
+  getSemesters(): Observable<string> {
+    return this.http.get(routes.getSemesters())
+      .map((res: Response) => res.json())
+      .catch(() => Observable.of('Error, could not load semesters'));
+  }
 
   getCourses(): Observable<any> {
     return Observable.of([
@@ -90,14 +98,14 @@ export class RegistrarService {
     return Observable.of(3.4);
   }
 
-  getSemesters(): Observable<string> {
-    return this.http.get('/resources/semesters/all')
+  getCourseClasses(semesterId: number, courseId: number): Observable<string> {
+    return this.http.get(routes.getCourseClasses(semesterId, courseId))
       .map((res: Response) => res.json())
-      .catch(() => Observable.of('Error, could not load semesters'));
+      .catch((res:Response) => Observable.of(res.json()));
   }
 
-  getClasses(semesterId: number, courseId: number): Observable<string> {
-    return this.http.get(routes.getClasses(semesterId, courseId))
+  getStudentClasses(studentId: number): Observable<string> {
+    return this.http.get(routes.getStudentClasses(studentId))
       .map((res: Response) => res.json())
       .catch((res:Response) => Observable.of(res.json()));
   }
