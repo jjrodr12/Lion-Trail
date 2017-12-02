@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.SequenceGenerator;
@@ -25,9 +27,14 @@ import edu.psu.liontrail.enumeration.Grade;
 @Table(name="class_enrollment", uniqueConstraints= {
     @UniqueConstraint(columnNames= {"class_id","student_id"})
 })
+@NamedQueries({
+    @NamedQuery(name = ClassEnrollment.BY_STUDENT, query = "SELECT e FROM ClassEnrollment e where e.student.id = :studentId") 
+    })
+
 public class ClassEnrollment implements Serializable {
 
   private static final long serialVersionUID = 4501491151912021524L;
+  public static final String BY_STUDENT = "ClassEnrollment.findByStudent";
   
   @Id
   @Column(name = "id")
