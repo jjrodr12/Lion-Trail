@@ -125,6 +125,7 @@ public class DTOConveter {
       dto.setCourseAbbreviation(major == null ? null : major.getAbbreviation());
       dto.setCourseId(course.getId());
       dto.setCourseName(course.getName());
+      dto.setCourseNumber(course.getNumber());
     }
     
     Employee emp = ltClass.getInstructor();
