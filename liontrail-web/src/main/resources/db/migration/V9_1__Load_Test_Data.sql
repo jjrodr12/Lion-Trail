@@ -535,15 +535,16 @@ insert into admission(cohort_id, cohort_size, major_id, semetser_id) values(next
 
 
 -- Classes
+	-- FALL 2017
 insert into class(id, semester_id, course_id, instructor_id, start_time, stop_time, room, online, size)
 	values(nextval('class_id_seq'), 1, 1, 1, '02:30', '03:30', 1, true, 20);
 insert into class_day(class_id, day) values (1, 'TUESDAY');
-	insert into class_day(class_id, day) values (1, 'THURSDAY');
+insert into class_day(class_id, day) values (1, 'THURSDAY');
 
 insert into class(id, semester_id, course_id, instructor_id, start_time, stop_time, room, online, size)
 	values(nextval('class_id_seq'), 1, 1, 1, '02:30', '03:30', 1, true, 20);
 insert into class_day(class_id, day) values (2, 'MONDAY');
-	insert into class_day(class_id, day) values (2, 'WEDNESDAY');
+insert into class_day(class_id, day) values (2, 'WEDNESDAY');
 
 insert into class(id, semester_id, course_id, instructor_id, start_time, stop_time, room, online, size)
 	values(nextval('class_id_seq'), 1, 2, 1, '02:30', '05:30', 1, true, 20);
@@ -552,7 +553,7 @@ insert into class_day(class_id, day) values (3, 'WEDNESDAY');
 insert into class(id, semester_id, course_id, instructor_id, start_time, stop_time, room, online, size)
 	values(nextval('class_id_seq'), 1, 3, 1, '01:30', '02:30', 1, true, 20);
 insert into class_day(class_id, day) values (4, 'WEDNESDAY');
-	insert into class_day(class_id, day) values (4, 'FRIDAY');
+insert into class_day(class_id, day) values (4, 'FRIDAY');
 
 insert into class(id, semester_id, course_id, instructor_id, start_time, stop_time, room, online, size)
 	values(nextval('class_id_seq'), 1, 4, 1, '05:00', '08:00', 1, true, 20);
@@ -574,6 +575,123 @@ insert into class(id, semester_id, course_id, instructor_id, start_time, stop_ti
 	values(nextval('class_id_seq'), 1, 5, 1, '12:00', '03:00', 1, true, 20);
 insert into class_day(class_id, day) values (9, 'TUESDAY');
 
+insert into class(id, semester_id, course_id, instructor_id, start_time, stop_time, room, online, size)
+	values(nextval('class_id_seq'), 1, 6, 1, '1:00', '2:00', 1, true, 20);
+insert into class_day(class_id, day) values (10, 'MONDAY');
+insert into class_day(class_id, day) values (10, 'WEDNESDAY');
+
+insert into class(id, semester_id, course_id, instructor_id, start_time, stop_time, room, online, size)
+	values(nextval('class_id_seq'), 1, 6, 1, '1:00', '2:00', 1, true, 20);
+insert into class_day(class_id, day) values (11, 'MONDAY');
+insert into class_day(class_id, day) values (11, 'TUESDAY');
+
+insert into class(id, semester_id, course_id, instructor_id, start_time, stop_time, room, online, size)
+	values(nextval('class_id_seq'), 1, 6, 1, '1:00', '2:00', 1, true, 20);
+insert into class_day(class_id, day) values (12, 'WEDNESDAY');
+insert into class_day(class_id, day) values (12, 'THURSDAY');
+
+insert into class(id, semester_id, course_id, instructor_id, start_time, stop_time, room, online, size)
+	values(nextval('class_id_seq'), 1, 7, 1, '4:00', '5:00', 1, true, 20);
+insert into class_day(class_id, day) values (13, 'TUESDAY');
+
+insert into class(id, semester_id, course_id, instructor_id, start_time, stop_time, room, online, size)
+	values(nextval('class_id_seq'), 1, 7, 1, '4:00', '5:00', 1, true, 20);
+insert into class_day(class_id, day) values (14, 'THURSDAY');
+
+insert into class(id, semester_id, course_id, instructor_id, start_time, stop_time, room, online, size)
+	values(nextval('class_id_seq'), 1, 8, 1, '5:00', '6:00', 1, true, 20);
+insert into class_day(class_id, day) values (15, 'MONDAY');
+insert into class_day(class_id, day) values (15, 'FRIDAY');
+
+	-- SPRING 2018
+insert into class(id, semester_id, course_id, instructor_id, start_time, stop_time, room, online, size)
+	values(nextval('class_id_seq'), 2, 1, 1, '02:30', '03:30', 1, true, 20);
+insert into class_day(class_id, day) values (16, 'TUESDAY');
+insert into class_day(class_id, day) values (17, 'THURSDAY');
+
+insert into class(id, semester_id, course_id, instructor_id, start_time, stop_time, room, online, size)
+	values(nextval('class_id_seq'), 2, 1, 1, '02:30', '03:30', 1, true, 20);
+insert into class_day(class_id, day) values (18, 'MONDAY');
+insert into class_day(class_id, day) values (18, 'WEDNESDAY');
+
+insert into class(id, semester_id, course_id, instructor_id, start_time, stop_time, room, online, size)
+	values(nextval('class_id_seq'), 2, 2, 1, '02:30', '05:30', 1, true, 20);
+insert into class_day(class_id, day) values (19, 'WEDNESDAY');
+
+insert into class(id, semester_id, course_id, instructor_id, start_time, stop_time, room, online, size)
+	values(nextval('class_id_seq'), 2, 3, 1, '01:30', '02:30', 1, true, 20);
+insert into class_day(class_id, day) values (20, 'WEDNESDAY');
+insert into class_day(class_id, day) values (20, 'FRIDAY');
+
+insert into class(id, semester_id, course_id, instructor_id, start_time, stop_time, room, online, size)
+	values(nextval('class_id_seq'), 2, 4, 1, '05:00', '08:00', 1, true, 20);
+insert into class_day(class_id, day) values (21, 'FRIDAY');
+
+insert into class(id, semester_id, course_id, instructor_id, start_time, stop_time, room, online, size)
+	values(nextval('class_id_seq'), 2, 4, 1, '05:00', '08:00', 1, true, 20);
+insert into class_day(class_id, day) values (22, 'FRIDAY');
+
+insert into class(id, semester_id, course_id, instructor_id, start_time, stop_time, room, online, size)
+	values(nextval('class_id_seq'), 2, 4, 1, '05:00', '08:00', 1, true, 20);
+insert into class_day(class_id, day) values (23, 'FRIDAY');
+
+insert into class(id, semester_id, course_id, instructor_id, start_time, stop_time, room, online, size)
+	values(nextval('class_id_seq'), 2, 5, 1, '12:00', '03:00', 1, true, 20);
+insert into class_day(class_id, day) values (24, 'MONDAY');
+
+insert into class(id, semester_id, course_id, instructor_id, start_time, stop_time, room, online, size)
+	values(nextval('class_id_seq'), 2, 5, 1, '12:00', '03:00', 1, true, 20);
+insert into class_day(class_id, day) values (25, 'TUESDAY');
+
+insert into class(id, semester_id, course_id, instructor_id, start_time, stop_time, room, online, size)
+	values(nextval('class_id_seq'), 2, 6, 1, '1:00', '2:00', 1, true, 20);
+insert into class_day(class_id, day) values (26, 'MONDAY');
+insert into class_day(class_id, day) values (26, 'WEDNESDAY');
+
+insert into class(id, semester_id, course_id, instructor_id, start_time, stop_time, room, online, size)
+	values(nextval('class_id_seq'), 2, 6, 1, '1:00', '2:00', 1, true, 20);
+insert into class_day(class_id, day) values (27, 'MONDAY');
+insert into class_day(class_id, day) values (27, 'TUESDAY');
+
+insert into class(id, semester_id, course_id, instructor_id, start_time, stop_time, room, online, size)
+	values(nextval('class_id_seq'), 2, 6, 1, '1:00', '2:00', 1, true, 20);
+insert into class_day(class_id, day) values (28, 'WEDNESDAY');
+insert into class_day(class_id, day) values (28, 'THURSDAY');
+
+insert into class(id, semester_id, course_id, instructor_id, start_time, stop_time, room, online, size)
+	values(nextval('class_id_seq'), 2, 7, 1, '4:00', '5:00', 1, true, 20);
+insert into class_day(class_id, day) values (29, 'TUESDAY');
+
+insert into class(id, semester_id, course_id, instructor_id, start_time, stop_time, room, online, size)
+	values(nextval('class_id_seq'), 2, 7, 1, '4:00', '5:00', 1, true, 20);
+insert into class_day(class_id, day) values (30, 'THURSDAY');
+
+insert into class(id, semester_id, course_id, instructor_id, start_time, stop_time, room, online, size)
+	values(nextval('class_id_seq'), 2, 8, 1, '5:00', '6:00', 1, true, 20);
+insert into class_day(class_id, day) values (31, 'MONDAY');
+insert into class_day(class_id, day) values (31, 'FRIDAY');
+
 -- Class Enrollment
 insert into class_enrollment(id, class_id, student_id, grade)
- values(nextval('class_enrollment_id_seq'), 1, 5, '');
+  values(nextval('class_enrollment_id_seq'), 1, 5, '');
+
+insert into class_enrollment(id, class_id, student_id, grade)
+  values(nextval('class_enrollment_id_seq'), 3, 5, '');
+
+insert into class_enrollment(id, class_id, student_id, grade)
+  values(nextval('class_enrollment_id_seq'), 4, 5, '');
+
+insert into class_enrollment(id, class_id, student_id, grade)
+  values(nextval('class_enrollment_id_seq'), 6, 5, '');
+
+insert into class_enrollment(id, class_id, student_id, grade)
+  values(nextval('class_enrollment_id_seq'), 13, 5, '');
+
+insert into class_enrollment(id, class_id, student_id, grade)
+  values(nextval('class_enrollment_id_seq'), 16, 5, 'A');
+
+insert into class_enrollment(id, class_id, student_id, grade)
+  values(nextval('class_enrollment_id_seq'), 27, 5, 'A');
+
+insert into class_enrollment(id, class_id, student_id, grade)
+	values(nextval('class_enrollment_id_seq'), 30, 5, 'A');
