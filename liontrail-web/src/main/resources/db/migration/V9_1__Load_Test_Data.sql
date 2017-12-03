@@ -2,7 +2,7 @@
 insert into semester(id,admission_start,admission_stop,
 class_registration_date,drop_add_deadline_date,first_class_date,
 first_exam_date,last_class_date,last_exam_date,
-season,year) 
+season,year)
 values (nextval('semester_id_seq'),'2017-01-01','2017-06-28',
 '2017-07-20','2017-09-08','2017-08-21',
 '2017-12-11','2017-12-08','2017-12-15',
@@ -11,7 +11,7 @@ values (nextval('semester_id_seq'),'2017-01-01','2017-06-28',
 insert into semester(id,admission_start,admission_stop,
 class_registration_date,drop_add_deadline_date,first_class_date,
 first_exam_date,last_class_date,last_exam_date,
-season,year) 
+season,year)
 values (nextval('semester_id_seq'),'2017-06-01','2017-11-28',
 '2018-01-05','2018-02-21','2018-01-21',
 '2018-06-11','2018-06-08','2018-06-15',
@@ -20,7 +20,7 @@ values (nextval('semester_id_seq'),'2017-06-01','2017-11-28',
 insert into semester(id,admission_start,admission_stop,
 class_registration_date,drop_add_deadline_date,first_class_date,
 first_exam_date,last_class_date,last_exam_date,
-season,year) 
+season,year)
 values (nextval('semester_id_seq'),'2018-01-21','2018-03-31',
 '2018-04-05','2018-07-10','2018-05-26',
 '2018-07-25','2018-07-21','2018-07-31',
@@ -30,7 +30,7 @@ values (nextval('semester_id_seq'),'2018-01-21','2018-03-31',
 insert into semester(id,admission_start,admission_stop,
 class_registration_date,drop_add_deadline_date,first_class_date,
 first_exam_date,last_class_date,last_exam_date,
-season,year) 
+season,year)
 values (nextval('semester_id_seq'),'2018-01-01','2018-06-28',
 '2018-07-20','2018-09-08','2018-08-21',
 '2018-12-11','2018-12-08','2018-12-15',
@@ -39,7 +39,7 @@ values (nextval('semester_id_seq'),'2018-01-01','2018-06-28',
 insert into semester(id,admission_start,admission_stop,
 class_registration_date,drop_add_deadline_date,first_class_date,
 first_exam_date,last_class_date,last_exam_date,
-season,year) 
+season,year)
 values (nextval('semester_id_seq'),'2018-06-01','2018-11-28',
 '2019-01-05','2019-02-21','2019-01-21',
 '2019-06-11','2019-06-08','2019-06-15',
@@ -48,7 +48,7 @@ values (nextval('semester_id_seq'),'2018-06-01','2018-11-28',
 insert into semester(id,admission_start,admission_stop,
 class_registration_date,drop_add_deadline_date,first_class_date,
 first_exam_date,last_class_date,last_exam_date,
-season,year) 
+season,year)
 values (nextval('semester_id_seq'),'2019-01-21','2019-03-31',
 '2019-04-05','2019-07-10','2019-05-26',
 '2019-07-25','2019-07-21','2019-07-31',
@@ -58,7 +58,7 @@ values (nextval('semester_id_seq'),'2019-01-21','2019-03-31',
 insert into semester(id,admission_start,admission_stop,
 class_registration_date,drop_add_deadline_date,first_class_date,
 first_exam_date,last_class_date,last_exam_date,
-season,year) 
+season,year)
 values (nextval('semester_id_seq'),'2019-01-01','2019-06-28',
 '2019-07-20','2019-09-08','2019-08-21',
 '2019-12-11','2019-12-08','2019-12-15',
@@ -67,7 +67,7 @@ values (nextval('semester_id_seq'),'2019-01-01','2019-06-28',
 insert into semester(id,admission_start,admission_stop,
 class_registration_date,drop_add_deadline_date,first_class_date,
 first_exam_date,last_class_date,last_exam_date,
-season,year) 
+season,year)
 values (nextval('semester_id_seq'),'2019-06-01','2019-11-28',
 '2020-01-05','2020-02-21','2020-01-21',
 '2020-06-11','2020-06-08','2020-06-15',
@@ -76,7 +76,7 @@ values (nextval('semester_id_seq'),'2019-06-01','2019-11-28',
 insert into semester(id,admission_start,admission_stop,
 class_registration_date,drop_add_deadline_date,first_class_date,
 first_exam_date,last_class_date,last_exam_date,
-season,year) 
+season,year)
 values (nextval('semester_id_seq'),'2020-01-21','2020-03-31',
 '2020-04-05','20200-07-10','2020-05-26',
 '2020-07-25','2020-07-21','2020-07-31',
@@ -109,7 +109,7 @@ insert into major(id, abbreviation, degree_level, name, department_id)
     values(nextval('major_id_seq'), 'CMPSCI', 'BS', 'Computer Science', 'ENGINEERING');
 insert into major(id, abbreviation, degree_level, name, department_id)
     values(nextval('major_id_seq'), 'EE', 'BS', 'Electrical Engineering', 'ENGINEERING');
-	
+
 --ARTS
 insert into major(id, abbreviation, degree_level, name, department_id)
     values(nextval('major_id_seq'), 'PAINT', 'BS', 'Painting', 'ARTS');
@@ -118,14 +118,14 @@ insert into major(id, abbreviation, degree_level, name, department_id)
 insert into major(id, abbreviation, degree_level, name, department_id)
     values(nextval('major_id_seq'), 'POTT', 'BS', 'Pottery', 'ARTS');
 
---BUSINESS	
+--BUSINESS
 insert into major(id, abbreviation, degree_level, name, department_id)
     values(nextval('major_id_seq'), 'BUS', 'BS', 'Business', 'BUSINESS');
 insert into major(id, abbreviation, degree_level, name, department_id)
     values(nextval('major_id_seq'), 'FIN', 'BS', 'Finance', 'BUSINESS');
 insert into major(id, abbreviation, degree_level, name, department_id)
     values(nextval('major_id_seq'), 'MKT', 'BS', 'Marketing', 'BUSINESS');
-	
+
 --MEDICINE
 insert into major(id, abbreviation, degree_level, name, department_id)
     values(nextval('major_id_seq'), 'MED', 'MD', 'Medicine', 'MEDICINE');
@@ -152,8 +152,8 @@ insert into course(id, major_id, number, credits, name, description)
 insert into course(id, major_id, number, credits, name, description)
 	values(nextval('course_id_seq'), 1, 210, 3, 'Object Oriented Programming',
 	'This course provides an introduction to Object Oriented Programming');
-	
-insert into course_prerequisites(parent_course, required_course) values(2, 1);	
+
+insert into course_prerequisites(parent_course, required_course) values(2, 1);
 insert into course_prerequisites(parent_course, required_course) values(3, 2);
 
 insert into major_course(major_id,course_id) values (1,1);
@@ -165,7 +165,7 @@ insert into major_group(id, size, major) values(nextval('major_group_id_seq'), 3
 insert into major_group_course(group_id,course_id) values(1,1);
 insert into major_group_course(group_id,course_id) values(1,2);
 insert into major_group_course(group_id,course_id) values(1,3);
-	
+
 --SWENG-G
 insert into course(id, major_id, number, credits, name, description)
 	values(nextval('course_id_seq'), 2, 501, 3, 'Advance applications of Software Engineering',
@@ -176,10 +176,10 @@ insert into course(id, major_id, number, credits, name, description)
 insert into course(id, major_id, number, credits, name, description)
 	values(nextval('course_id_seq'), 2, 610, 3, 'Object Oriented Design',
 	'This course provides an introduction to Object Oriented Programming');
-	
-insert into course_prerequisites(parent_course, required_course) values(4, 3);	
+
+insert into course_prerequisites(parent_course, required_course) values(4, 3);
 insert into course_prerequisites(parent_course, required_course) values(5, 4);
-insert into course_prerequisites(parent_course, required_course) values(6, 5);	
+insert into course_prerequisites(parent_course, required_course) values(6, 5);
 
 insert into major_course(major_id,course_id) values (2,4);
 insert into major_course(major_id,course_id) values (2,5);
@@ -201,9 +201,9 @@ insert into course(id, major_id, number, credits, name, description)
 insert into course(id, major_id, number, credits, name, description)
 	values(nextval('course_id_seq'), 3, 310, 3, 'Algorithims',
 	'Provides an overview to common algorithims and their analysis');
-		
+
 insert into course_prerequisites(parent_course, required_course) values(3, 8);
-insert into course_prerequisites(parent_course, required_course) values(3, 9);	
+insert into course_prerequisites(parent_course, required_course) values(3, 9);
 
 insert into major_course(major_id,course_id) values (3,7);
 insert into major_course(major_id,course_id) values (3,8);
@@ -214,7 +214,7 @@ insert into major_group(id, size, major) values(nextval('major_group_id_seq'), 3
 insert into major_group_course(group_id,course_id) values(2,7);
 insert into major_group_course(group_id,course_id) values(2,8);
 insert into major_group_course(group_id,course_id) values(2,9);
-	
+
 --EE
 insert into course(id, major_id, number, credits, name, description)
 	values(nextval('course_id_seq'), 4, 110, 3, 'Electronic Priniciples',
@@ -225,9 +225,9 @@ insert into course(id, major_id, number, credits, name, description)
 insert into course(id, major_id, number, credits, name, description)
 	values(nextval('course_id_seq'), 4, 340, 3, 'Power Systems Analysis',
 	'In depth evaluation of power systems.');
-	
+
 insert into course_prerequisites(parent_course, required_course) values(11, 10);
-insert into course_prerequisites(parent_course, required_course) values(12, 11);	
+insert into course_prerequisites(parent_course, required_course) values(12, 11);
 
 insert into major_course(major_id,course_id) values (4,10);
 insert into major_course(major_id,course_id) values (4,11);
@@ -249,9 +249,9 @@ insert into course(id, major_id, number, credits, name, description)
 insert into course(id, major_id, number, credits, name, description)
 	values(nextval('course_id_seq'), 5, 350, 3, 'Underwater Painting',
 	'This class aims to teach students how to paint while submerged in water.');
-	
+
 insert into course_prerequisites(parent_course, required_course) values(14, 13);
-insert into course_prerequisites(parent_course, required_course) values(15, 14);	
+insert into course_prerequisites(parent_course, required_course) values(15, 14);
 
 insert into major_course(major_id,course_id) values (5,13);
 insert into major_course(major_id,course_id) values (5,14);
@@ -273,9 +273,9 @@ insert into course(id, major_id, number, credits, name, description)
 insert into course(id, major_id, number, credits, name, description)
 	values(nextval('course_id_seq'), 6, 350, 3, 'Selfies',
 	'This class aims to teach students how to take pictures of themselves.');
-	
+
 insert into course_prerequisites(parent_course, required_course) values(17, 16);
-insert into course_prerequisites(parent_course, required_course) values(18, 17);	
+insert into course_prerequisites(parent_course, required_course) values(18, 17);
 
 insert into major_course(major_id,course_id) values (6,16);
 insert into major_course(major_id,course_id) values (6,17);
@@ -297,9 +297,9 @@ insert into course(id, major_id, number, credits, name, description)
 insert into course(id, major_id, number, credits, name, description)
 	values(nextval('course_id_seq'), 7, 410, 3, 'Pottery Studo',
 	'This class allows students to explore the medium of Pottery and showcase their work.');
-	
+
 insert into course_prerequisites(parent_course, required_course) values(20, 19);
-insert into course_prerequisites(parent_course, required_course) values(21, 20);	
+insert into course_prerequisites(parent_course, required_course) values(21, 20);
 
 insert into major_course(major_id,course_id) values (7,19);
 insert into major_course(major_id,course_id) values (7,20);
@@ -321,9 +321,9 @@ insert into course(id, major_id, number, credits, name, description)
 insert into course(id, major_id, number, credits, name, description)
 	values(nextval('course_id_seq'), 8, 351, 3, 'Management',
 	'Project based course covering concepts in management.');
-	
+
 insert into course_prerequisites(parent_course, required_course) values(23, 22);
-insert into course_prerequisites(parent_course, required_course) values(24, 23);	
+insert into course_prerequisites(parent_course, required_course) values(24, 23);
 
 insert into major_course(major_id,course_id) values (8,22);
 insert into major_course(major_id,course_id) values (8,23);
@@ -344,11 +344,11 @@ insert into course(id, major_id, number, credits, name, description)
 	'Numerical methods used in modern day finance.');
 insert into course(id, major_id, number, credits, name, description)
 	values(nextval('course_id_seq'), 9, 351, 3, 'Advance Excel',
-	'Excel is a a mainstay in finance and with ne features continues to be a required tool 
+	'Excel is a a mainstay in finance and with ne features continues to be a required tool
 	for every professional in finance today.');
-	
+
 insert into course_prerequisites(parent_course, required_course) values(26, 25);
-insert into course_prerequisites(parent_course, required_course) values(27, 26);	
+insert into course_prerequisites(parent_course, required_course) values(27, 26);
 
 insert into major_course(major_id,course_id) values (9,25);
 insert into major_course(major_id,course_id) values (9,26);
@@ -359,7 +359,7 @@ insert into major_group(id, size, major) values(nextval('major_group_id_seq'), 3
 insert into major_group_course(group_id,course_id) values(8,25);
 insert into major_group_course(group_id,course_id) values(8,26);
 insert into major_group_course(group_id,course_id) values(8,27);
-	
+
 --MKT
 insert into course(id, major_id, number, credits, name, description)
 	values(nextval('course_id_seq'), 10, 110, 3, 'Intro to Marketing',
@@ -370,9 +370,9 @@ insert into course(id, major_id, number, credits, name, description)
 insert into course(id, major_id, number, credits, name, description)
 	values(nextval('course_id_seq'), 10, 351, 3, 'Business to Busineess Marketing.',
 	'Overview of techniques used in B2B marketing stargeties.');
-	
+
 insert into course_prerequisites(parent_course, required_course) values(29, 28);
-insert into course_prerequisites(parent_course, required_course) values(30, 29);	
+insert into course_prerequisites(parent_course, required_course) values(30, 29);
 
 insert into major_course(major_id,course_id) values (10,28);
 insert into major_course(major_id,course_id) values (10,29);
@@ -394,9 +394,9 @@ insert into course(id, major_id, number, credits, name, description)
 insert into course(id, major_id, number, credits, name, description)
 	values(nextval('course_id_seq'), 11, 751, 3, 'Clinical internship',
 	'This course allows the student to earn coursework credit while gaining clinical experience.');
-	
+
 insert into course_prerequisites(parent_course, required_course) values(32, 31);
-insert into course_prerequisites(parent_course, required_course) values(33, 32);	
+insert into course_prerequisites(parent_course, required_course) values(33, 32);
 
 
 insert into major_group(id, size, major) values(nextval('major_group_id_seq'), 3, 11);
@@ -415,7 +415,7 @@ insert into course(id, major_id, number, credits, name, description)
 insert into course(id, major_id, number, credits, name, description)
 	values(nextval('course_id_seq'), 12, 751, 3, 'Legal Practicum',
 	'This course allows the student to earn coursework credit while gaining legal experience.');
-	
+
 insert into course_prerequisites(parent_course, required_course) values(35, 34);
 insert into course_prerequisites(parent_course, required_course) values(36, 35);
 
@@ -423,7 +423,7 @@ insert into major_group(id, size, major) values(nextval('major_group_id_seq'), 3
 
 insert into major_group_course(group_id,course_id) values(11,34);
 insert into major_group_course(group_id,course_id) values(11,35);
-insert into major_group_course(group_id,course_id) values(11,36);	
+insert into major_group_course(group_id,course_id) values(11,36);
 
 --APM
 insert into course(id, major_id, number, credits, name, description)
@@ -434,10 +434,10 @@ insert into course(id, major_id, number, credits, name, description)
 	'This course explore computing used to solve applied problems');
 insert into course(id, major_id, number, credits, name, description)
 	values(nextval('course_id_seq'), 13, 451, 3, 'Numerical Analysis',
-	'Numerical analysis is the study of algorithms that use numerical approximation 
-	(as opposed to general symbolic manipulations) for the problems of mathematical 
+	'Numerical analysis is the study of algorithms that use numerical approximation
+	(as opposed to general symbolic manipulations) for the problems of mathematical
 	analysis (as distinguished from discrete mathematics).');
-	
+
 insert into course_prerequisites(parent_course, required_course) values(38, 37);
 insert into course_prerequisites(parent_course, required_course) values(39, 38);
 
@@ -457,10 +457,10 @@ insert into course(id, major_id, number, credits, name, description)
 	'is the branch of mathematics concerned with probability.');
 insert into course(id, major_id, number, credits, name, description)
 	values(nextval('course_id_seq'), 14, 451, 3, 'Dynamic Systems.',
-	'A study of the nature and behavior of solutions of linear and nonlinear systems 
-	of differential and difference equations through mathematical analysis and the use of available 
+	'A study of the nature and behavior of solutions of linear and nonlinear systems
+	of differential and difference equations through mathematical analysis and the use of available
 	menu-driven PC software.');
-	
+
 insert into course_prerequisites(parent_course, required_course) values(41, 40);
 insert into course_prerequisites(parent_course, required_course) values(42, 41);
 
@@ -477,13 +477,13 @@ insert into course(id, major_id, number, credits, name, description)
 	'In depth coverage of computional methods for numerical problem solving.');
 insert into course(id, major_id, number, credits, name, description)
 	values(nextval('course_id_seq'), 15, 631, 3, 'Nonlinear Phenomena',
-	'which, in contrast to a linear system, cannot be explained by a 
-	mathematical relationship of proportionality (that is, a linear 
+	'which, in contrast to a linear system, cannot be explained by a
+	mathematical relationship of proportionality (that is, a linear
 	relationship between two variables). ');
 insert into course(id, major_id, number, credits, name, description)
 	values(nextval('course_id_seq'), 15, 651, 3, 'Advance Probability Theory',
 	'is the branch of mathematics concerned with probability-GR.');
-	
+
 insert into course_prerequisites(parent_course, required_course) values(43, 38);
 insert into course_prerequisites(parent_course, required_course) values(44, 42);
 insert into course_prerequisites(parent_course, required_course) values(45, 41);
@@ -526,11 +526,42 @@ insert into liontrail_user(user_id,first_name,last_name,middle_name,username) va
 insert into employee(user_id) values(4);
 
 insert into liontrail_user(user_id,first_name,last_name,middle_name,username) values(nextval('user_id_seq'),'Robert','Student','Test','rts1');
-insert into employee(user_id) values(5);
+insert into student(user_id) values(5);
 
-insert into application(id, essay, gpa, highschool, status, major_id, semester_id, student_id) 
+insert into application(id, essay, gpa, highschool, status, major_id, semester_id, student_id)
 values(nextval('application_id_seq'), 'I think I should be accepted because I am good', 3.3, 'Midtown Highschool', 'SUBMITTED', 1, 1, 3);
 
 insert into admission(cohort_id, cohort_size, major_id, semetser_id) values(nextval('cohort_id_seq'), 25, 1, 1);
 
 
+-- Classes
+insert into class(id, semester_id, course_id, instructor_id, start_time, stop_time, room, online, size)
+	values(nextval('class_id_seq'), 1, 1, 1, '02:30', '03:30', 1, true, 20);
+insert into class_day(class_id, day) values (1, 'TUESDAY');
+	insert into class_day(class_id, day) values (1, 'THURSDAY');
+
+insert into class(id, semester_id, course_id, instructor_id, start_time, stop_time, room, online, size)
+	values(nextval('class_id_seq'), 1, 1, 1, '02:30', '03:30', 1, true, 20);
+insert into class_day(class_id, day) values (2, 'MONDAY');
+	insert into class_day(class_id, day) values (2, 'WEDNESDAY');
+
+insert into class(id, semester_id, course_id, instructor_id, start_time, stop_time, room, online, size)
+	values(nextval('class_id_seq'), 1, 2, 1, '02:30', '05:30', 1, true, 20);
+insert into class_day(class_id, day) values (3, 'WEDNESDAY');
+
+insert into class(id, semester_id, course_id, instructor_id, start_time, stop_time, room, online, size)
+	values(nextval('class_id_seq'), 1, 3, 1, '01:30', '02:30', 1, true, 20);
+insert into class_day(class_id, day) values (4, 'WEDNESDAY');
+	insert into class_day(class_id, day) values (4, 'FRIDAY');
+
+insert into class(id, semester_id, course_id, instructor_id, start_time, stop_time, room, online, size)
+	values(nextval('class_id_seq'), 1, 4, 1, '05:00', '08:00', 1, true, 20);
+insert into class_day(class_id, day) values (5, 'FRIDAY');
+
+insert into class(id, semester_id, course_id, instructor_id, start_time, stop_time, room, online, size)
+	values(nextval('class_id_seq'), 1, 5, 1, '12:00', '03:00', 1, true, 20);
+insert into class_day(class_id, day) values (6, 'MONDAY');
+
+-- Class Enrollment
+insert into class_enrollment(id, class_id, student_id, grade)
+ values(nextval('class_enrollment_id_seq'), 1, 5, '');
