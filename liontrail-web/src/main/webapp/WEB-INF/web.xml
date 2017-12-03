@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+  version="3.0">
+
+  <!-- <servlet>
+    <servlet-name>Jersey2Config</servlet-name>
+    <servlet-class>io.swagger.jaxrs.config.DefaultJaxrsConfig</servlet-class>
+    <init-param>
+      <param-name>api.version</param-name>
+      <param-value>1.0.0</param-value>
+    </init-param>
+    <init-param>
+      <param-name>swagger.api.basepath</param-name>
+      <param-value>http://localhost:8080/api</param-value>
+    </init-param>
+    <load-on-startup>2</load-on-startup>
+  </servlet> -->
+
+  <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>CreateUser</web-resource-name>
+      <description>allow unauthenticated users to create a user</description>
+      <url-pattern>/resources/users/create</url-pattern>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+  </security-constraint>
+
+  <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>HtmlAuth</web-resource-name>
+      <description>application security constraints</description>
+      <url-pattern>/resources/*</url-pattern>
+      <http-method>DELETE</http-method>
+      <http-method>GET</http-method>
+      <http-method>POST</http-method>
+      <http-method>PUT</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <!-- <role-name>admin</role-name> -->
+      <role-name>*</role-name>
+    </auth-constraint>
+  </security-constraint>
+  <login-config>
+    <auth-method>BASIC</auth-method>
+    <realm-name>liontrailDomain</realm-name>
+  </login-config>
+  <security-role>
+    <role-name>*</role-name>
+  </security-role>
+
+</web-app>
