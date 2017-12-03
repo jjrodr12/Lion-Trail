@@ -518,6 +518,9 @@ insert into employee(user_id) values(2);
 insert into liontrail_user(user_id,first_name,last_name,middle_name,username) values(nextval('user_id_seq'),'First','Student','One','fos1');
 insert into student(user_id) values(3);
 
+insert into liontrail_user(user_id,first_name,last_name,middle_name,username) values(nextval('user_id_seq'),'Admin','Admin','Admin','admin');
+insert into employee(user_id) values(4);
+
 insert into application(id, essay, gpa, highschool, status, major_id, semester_id, student_id) 
 values(nextval('application_id_seq'), 'I think I should be accepted because I am good', 3.3, 'Midtown Highschool', 'SUBMITTED', 1, 1, 3);
 
