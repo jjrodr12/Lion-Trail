@@ -161,6 +161,7 @@
     <table *ngIf="courseClassResults.length > 0" class="table">
       <thead>
           <tr>
+              <th>ID</th>
               <th>Day/Time</th>
               <th>Location</th>
               <th>Instructor</th>
@@ -171,6 +172,7 @@
       <tbody>
         <ng-container *ngFor="let class of courseClassResults">
           <tr>
+            <td>{{class.classId}}</td>
             <td>{{class.days.toString()}}<br/>{{class.startTime}} to {{class.stopTime}}</td>
             <td>{{class.buildingName}} {{class.roomNumber}}</td>
             <td>{{class.instructorLastName}}, {{class.instructorFirstName}}</td>
