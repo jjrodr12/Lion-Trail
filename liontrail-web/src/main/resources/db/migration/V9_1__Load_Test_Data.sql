@@ -89,6 +89,10 @@ insert into auth_user_role(username, role) values('admin','admin');
 insert into auth_user(username, password) values('abc1','jGl25bVBBBW96Qi9Te4V37Fnqchz/Eu4qB9vKrRIqRg=');
 insert into auth_user_role(username, role) values('abc1','admin');
 
+insert into auth_user(username, password) values('rts1','XohImNooBHFR0OVvjcYpJ3NgPQ1qq73WKhHvch0VQtg=');
+insert into auth_user_role(username, role) values('rts1','student');
+
+
 insert into department(id, name) values('ENGINEERING','College of Engineering');
 insert into department(id, name) values('ARTS','College of Arts');
 insert into department(id, name) values('BUSINESS','Smeal College of Business');
@@ -520,6 +524,9 @@ insert into student(user_id) values(3);
 
 insert into liontrail_user(user_id,first_name,last_name,middle_name,username) values(nextval('user_id_seq'),'Admin','Admin','Admin','admin');
 insert into employee(user_id) values(4);
+
+insert into liontrail_user(user_id,first_name,last_name,middle_name,username) values(nextval('user_id_seq'),'Robert','Student','Test','rts1');
+insert into employee(user_id) values(5);
 
 insert into application(id, essay, gpa, highschool, status, major_id, semester_id, student_id) 
 values(nextval('application_id_seq'), 'I think I should be accepted because I am good', 3.3, 'Midtown Highschool', 'SUBMITTED', 1, 1, 3);
