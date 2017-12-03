@@ -13,14 +13,20 @@
                 <thead>
                   <tr>
                     <th>Course</th>
-                    <th>Name</th>
+                    <th>Day/Time</th>
+                    <th>Location</th>
+                    <th>Instructor</th>
+                    <th>Enrolled</th>
                   </tr>
                 </thead>
                 <tbody>
                   <ng-container *ngFor="let class of filteredClasses">
                     <tr>
-                      <td>{{class.courseAbbreviation}}</td>
-                      <td>{{class.courseName}}</td>
+                      <td>{{class.courseAbbreviation}}{{class.courseNumber}}: {{class.courseName}}</td>
+                      <td>{{class.days.toString()}}<br/>{{class.startTime}} to {{class.stopTime}}</td>
+                      <td>{{class.buildingName}} {{class.roomNumber}}</td>
+                      <td>{{class.instructorLastName}}, {{class.instructorFirstName}}</td>
+                      <td>{{class.enrollmentCount}} / {{class.size}}</td>
                     </tr>
                   </ng-container>
                 </tbody>

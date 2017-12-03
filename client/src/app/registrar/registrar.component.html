@@ -97,28 +97,26 @@
     <ngb-tab title="Add/Drop">
       <ng-template ngbTabContent>
 
-        <form [formGroup]="addForm" (ngSubmit)="addClassSubmit(addForm.value)">
+        <p *ngFor="let alert of addDropAlerts">
+          <ngb-alert [type]="alert.type" (close)="closeAddDropAlert(alert)">{{ alert.message }}</ngb-alert>
+        </p>
+
+        <form [formGroup]="addForm" (ngSubmit)="addClassSubmit(addForm.value.addClassId)">
           <div class="form-group">
-            <label for="exampleInputEmail1">Add</label>
+            <label for="Add Class ID">Add</label>
             <input type="text" class="form-control" id="addClassInput" aria-describedby="emailHelp" placeholder="Class ID" formControlName="addClassId">
             <small id="emailHelp" class="form-text text-muted">Input a class ID here.</small>
           </div>
           <button type="submit" [disabled]="!addForm.valid" class="btn btn-primary">Add</button>
         </form>
         <br/>
-        <form [formGroup]="dropForm" (ngSubmit)="dropClassSubmit(dropForm.value)">
+        <form [formGroup]="dropForm" (ngSubmit)="dropClassSubmit(dropForm.value.dropClassId)">
           <div class="form-group">
-            <label for="exampleInputPassword1">Drop</label>
+            <label for="Drop Class ID">Drop</label>
             <input type="text" class="form-control" id="dropClassInput" placeholder="Class ID" formControlName="dropClassId">
           </div>
           <button type="submit" [disabled]="!dropForm.valid" class="btn btn-primary">Drop</button>
         </form>
-
-      </ng-template>
-    </ngb-tab>
-
-    <ngb-tab title="Entrance to Major">
-      <ng-template ngbTabContent>
 
       </ng-template>
     </ngb-tab>
@@ -143,11 +141,14 @@
     </button>
   </div>
   <div class="modal-body">
+    <p>{{modalCourse.description}}</p>
+    <br/>
+    <p *ngFor="let alert of addDropAlerts">
+      <ngb-alert *ngIf="!alertTimedOut(alert)" [type]="alert.type" (close)="closeAddDropAlert(alert)">{{ alert.message }}</ngb-alert>
+    </p>
     <p *ngFor="let alert of classSearchAlerts">
       <ngb-alert [type]="alert.type" (close)="closeClassSearchModalAlert(alert)">{{ alert.message }}</ngb-alert>
     </p>
-    <p>{{modalCourse.description}}</p>
-    <br/>
     <p>Search for classes by choosing a semester:</p>
     <div ngbDropdown class="d-inline-block">
       <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Semesters</button>
@@ -160,17 +161,28 @@
     <table *ngIf="courseClassResults.length > 0" class="table">
       <thead>
           <tr>
-              <th>ID</th>
-              <th>Days</th>
-              <th>Time</th>
+              <th>Day/Time</th>
+              <th>Location</th>
+              <th>Instructor</th>
+              <th>Enrolled</th>
+              <th>Add/Drop</th>
           </tr>
       </thead>
       <tbody>
         <ng-container *ngFor="let class of courseClassResults">
           <tr>
-            <td>{{class.classId}}</td>
-            <td>{{class.days.toString()}}</td>
-            <td>{{class.startTime}} - {{class.stopTime}}</td>
+            <td>{{class.days.toString()}}<br/>{{class.startTime}} to {{class.stopTime}}</td>
+            <td>{{class.buildingName}} {{class.roomNumber}}</td>
+            <td>{{class.instructorLastName}}, {{class.instructorFirstName}}</td>
+            <td>{{class.enrollmentCount}} / {{class.size}}</td>
+            <td>
+              <button class="btn btn-success" (click)="addClassSubmit(class.classId)">
+                <span class="fa fa-plus" aria-hidden="true"></span>
+              </button>
+              <button class="btn btn-danger" (click)="dropClassSubmit(class.classId)">
+                <span class="fa fa-minus" aria-hidden="true"></span>
+              </button>
+            </td>
           </tr>
         </ng-container>
       </tbody>

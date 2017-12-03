@@ -41,10 +41,6 @@ export class LoginComponent implements OnInit {
       })
       .subscribe(credentials => {
         log.debug(`${credentials.username} successfully logged in`);
-        // this.authenticationService.getUserId(credentials.username)
-        // .subscribe(response => {
-        //   console.log(response);
-        // });
         this.router.navigate(['/'], { replaceUrl: true });
       }, error => {
         log.debug(`Login error: ${error}`);

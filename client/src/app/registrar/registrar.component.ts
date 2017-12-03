@@ -38,6 +38,9 @@ export class RegistrarComponent implements OnInit {
   private backup: Array<IAlert>;
 
   @Input()
+  public addDropAlerts: Array<IAlert> = [];
+
+  @Input()
   public classSearchAlerts: Array<IAlert> = [];
 
   constructor(
@@ -68,16 +71,14 @@ export class RegistrarComponent implements OnInit {
     this.registrarService.getSemesters()
     .subscribe((response: any) => {
       this.semesters = response;
-      console.log(this.semesters);
     });
 
     this.userId = this.authenticationService.userInfo.id;
   }
 
   clickCourse(content: any, course: Course) {
-    console.log(course);
     this.modalCourse = course;
-    this.modalService.open(content).result.then((result) => {
+    this.modalService.open(content, {size: 'lg'}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
@@ -97,13 +98,12 @@ export class RegistrarComponent implements OnInit {
   getCourseClasses(semester: any, course: Course) {
     this.registrarService.getCourseClasses(semester.id, course.id)
     .subscribe((response: any) => {
-      console.log(JSON.stringify(response));
       if(response.errorMessage) {
-        console.log('err');
         this.classSearchAlerts.push({
           id: 1,
           type: 'danger',
           message: `No classes found for ${course.majorAbr}${course.number} in ${semester.season} ${semester.year}`,
+          exp: this.getAlertTimeout()
         });
       }
       else {
@@ -112,20 +112,64 @@ export class RegistrarComponent implements OnInit {
     });
   }
 
-  addClassSubmit(form: any) {
-    console.log(form);
-    this.registrarService.addStudentToClass(this.userId, Number(form.addClassId))
+  private getAlertTimeout() {
+    let t = new Date();
+    t.setSeconds(t.getSeconds() + 5);
+    return t;
+  }
+
+  addClassSubmit(addClassId: any) {
+    this.registrarService.addStudentToClass(this.userId, Number(addClassId))
     .subscribe((response: any) => {
-      console.log(response);
+      this.addDropAlerts.push({
+        id: this.addDropAlerts.length + 1,
+        type: 'success',
+        message: 'Successfully added class with ID ' + addClassId + ' to schedule.',
+        exp: this.getAlertTimeout()
+      });
+    }, e => {
+      let t = new Date();
+      t.setSeconds(t.getSeconds() + 5);
+      this.addDropAlerts.push({
+        id: this.addDropAlerts.length + 1,
+        type: 'danger',
+        message: e,
+        exp: this.getAlertTimeout()
+      });
     });
   }
 
-  dropClassSubmit(form: any) {
-    console.log(form);
-    this.registrarService.dropStudentFromClass(this.userId, Number(form.dropClassId))
+  dropClassSubmit(dropClassId: any) {
+    this.registrarService.dropStudentFromClass(this.userId, Number(dropClassId))
     .subscribe((response: any) => {
-      console.log(response);
+      this.addDropAlerts.push({
+        id: this.addDropAlerts.length + 1,
+        type: 'success',
+        message: 'Successfully dropped class with ID ' + dropClassId + ' from schedule.',
+        exp: this.getAlertTimeout()
+      });
+    }, e => {
+      this.addDropAlerts.push({
+        id: this.addDropAlerts.length + 1,
+        type: 'danger',
+        message: e,
+        exp: this.getAlertTimeout()
+      });
     });
+  }
+
+  closeAddDropAlert(alert: IAlert) {
+    const index: number = this.addDropAlerts.indexOf(alert);
+    this.addDropAlerts.splice(index, 1);
+  }
+
+  alertTimedOut(alert: IAlert) {
+    if(alert.exp) {
+      return alert.exp.getTime() - new Date().getTime() < 0;
+    }
+    else {
+      return false;
+    }
   }
 
   searchByMajor(majorId: number) {
@@ -136,6 +180,7 @@ export class RegistrarComponent implements OnInit {
           id: 1,
           type: 'danger',
           message: response.errorMessage,
+          exp: this.getAlertTimeout()
         });
       }
       else {
@@ -196,4 +241,5 @@ export interface IAlert {
   id: number;
   type: string;
   message: string;
+  exp?: Date;
 }

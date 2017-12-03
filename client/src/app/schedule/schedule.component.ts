@@ -161,16 +161,18 @@ export class ScheduleComponent implements OnInit {
       this.classes = results[1];
       var recurringEvents: RecurringEvent[] = [];
       this.classes.forEach(sClass => {
+        let weekdays: any = [];
+        sClass.days.forEach(day => {
+          weekdays.push(RRule[day]);
+        });
         recurringEvents.push({
           title: sClass.courseAbbreviation + sClass.courseNumber,
           color: colors.blue,
-          start: this.getSemesterFirstClassDate(sClass.semesterSeason, sClass.semesterYear),
-          until: this.getSemesterLastClassDate(sClass.semesterSeason, sClass.semesterYear),
+          start: this.getSemesterFirstClassDate(sClass.semesterSeason, sClass.semesterYear, sClass.startTime),
+          until: this.getSemesterLastClassDate(sClass.semesterSeason, sClass.semesterYear, sClass.stopTime),
           rrule: {
             freq: RRule.WEEKLY,
-            byweekday: [
-              RRule.MO
-            ]
+            byweekday: weekdays
           }
         });
       });
@@ -206,25 +208,37 @@ export class ScheduleComponent implements OnInit {
     });
   }
 
-  getSemesterFirstClassDate(season: string, year: number): Date {
+  getSemesterFirstClassDate(season: string, year: number, startTime?: string): Date {
     var date = new Date();
     this.semesters.forEach(semester => {
       if(semester.season == season && semester.year == year) {
         date = new Date(semester.firstClassDate);
-        return date;
       }
     });
+
+    if(startTime) {
+      let timeSplit = startTime.split(':');
+      date.setHours(parseInt(timeSplit[0]));
+      date.setMinutes(parseInt(timeSplit[1]));
+    }
+
     return date;
   }
 
-   getSemesterLastClassDate(season: string, year: number): Date {
+   getSemesterLastClassDate(season: string, year: number, stopTime?: string): Date {
     var date = new Date();
     this.semesters.forEach(semester => {
       if(semester.season == season && semester.year == year) {
         date = new Date(semester.lastClassDate);
-        return date;
       }
     });
+
+    if(stopTime) {
+      let timeSplit = stopTime.split(':');
+      date.setHours(parseInt(timeSplit[0]));
+      date.setMinutes(parseInt(timeSplit[1]));
+    }
+
     return date;
   }
 

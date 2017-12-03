@@ -3,10 +3,10 @@
     Welcome, {{userFirstLastName}}!
   </h3>
   <br/>
-  <form [formGroup]="passwordForm" (ngSubmit)="changePassword(passwordForm.value)">
+  <form [formGroup]="passwordForm" (ngSubmit)="changePassword(passwordForm.value.password)">
     <div class="form-group">
       <label for="exampleInputEmail1">Change Password</label>
-      <input type="text" class="form-control" id="passwordInput" aria-describedby="emailHelp" placeholder="Password" formControlName="addClassId">
+      <input type="text" class="form-control" id="passwordInput" aria-describedby="emailHelp" placeholder="Password" formControlName="password">
     </div>
     <button type="submit" [disabled]="!passwordForm.valid" class="btn btn-primary">Submit</button>
   </form>

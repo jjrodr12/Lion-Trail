@@ -7,6 +7,8 @@ import { FormBuilder,
   Validators
 } from '@angular/forms';
 
+import { Router } from '@angular/router';
+
 import { AuthenticationService } from '../core/authentication/authentication.service';
 
 @Component({
@@ -20,10 +22,11 @@ export class ProfileComponent implements OnInit {
 
   constructor(
     private authenticationService: AuthenticationService,
+    private router: Router,
     private fb: FormBuilder
   ) {
      this.passwordForm = fb.group({
-      'addClassId': [null, [Validators.required]]
+      'password': [null, [Validators.required]]
     });
   }
 
@@ -41,10 +44,12 @@ export class ProfileComponent implements OnInit {
   }
 
   changePassword(password: string) {
-    this.authenticationService.changePassword(this.username, password)
+    this.authenticationService.changePassword(password)
     .subscribe((response: any) => {
-      console.log(response);
-    });
+      console.log('Success!');
+      this.authenticationService.logout();
+      this.router.navigate(['/login'], { replaceUrl: true });
+    }, e => alert(e));
   }
 
 }

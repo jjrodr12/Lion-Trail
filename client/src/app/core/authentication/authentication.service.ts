@@ -48,21 +48,13 @@ export class AuthenticationService {
    * @return {Observable<Credentials>} The user credentials.
    */
   login(context: LoginContext): Observable<Credentials> {
-    // Replace by proper authentication call
     console.log(context);
     const data = {
       username: context.username,
       token: context.password
     };
-
-
     this.setCredentials(data, context.remember);
-
-    this.getUserData(context.username).subscribe((info: any) => {
-      this.setUserData(info, context.remember);
-    });
-
-    return Observable.of(data);
+    return this.getUserData(context.username, context.remember);
   }
 
   /**
@@ -115,15 +107,13 @@ export class AuthenticationService {
     }
   }
 
-  private getUserData(username: string) {
+  private getUserData(username: string, remember?: boolean) {
     return this.http.get(`/resources/users?userName=${username}`)
-      .map((res: Response) => {
-        // const storage = remember ? localStorage : sessionStorage;
-        // storage.setItem(credentialsKey, JSON.stringify(credentials));
-        console.log(res);
-        return res.json();
-      })
-      .catch(() => Observable.of('Error, could not load user ID'));
+    .map((res: Response) => {
+      this.setUserData(res.json(), remember);
+      return res.json();
+    })
+    .catch(e => Observable.throw('Error, could not load user ID'));
   }
 
   private setUserData(userData?: UserData, remember?: boolean) {
@@ -132,16 +122,24 @@ export class AuthenticationService {
     if(userData) {
       const storage = remember ? localStorage : sessionStorage;
       storage.setItem(userDataKey, JSON.stringify(userData));
+      console.log(this._userData);
     } else {
       sessionStorage.removeItem(userDataKey);
       localStorage.removeItem(userDataKey);
     }
   }
 
-  changePassword(userId: string, password: string) {
-    return this.http.put(`/resources/users/id/${userId}`, {body: password})
-      .map((res: Response) => res.json())
-      .catch(() => Observable.of('Error, could not change password'));
+  changePassword(password: string) {
+    return this.http.put(`/resources/users/id/${this._userData.id}`, password)
+    .map((res: Response) => {
+      if(res.status !== 202) {
+        return Observable.throw('Error: ' + res.json().errorMessage[0]);
+      }
+      return Observable.of('success');
+    })
+    .catch(e => {
+      return Observable.throw('Error: ' + e.json().errorMessage[0]);
+    });
   }
 
 }

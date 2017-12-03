@@ -41,6 +41,12 @@ export class GradesComponent implements OnInit {
     });
   }
 
+  filterCourses(semester: Semester) {
+    return this.courses.filter(course => {
+      return course.semesterSeason === semester.season && course.semesterYear == semester.year;
+    });
+  }
+
 }
 
 interface Semester {

@@ -84,14 +84,28 @@ export class RegistrarService {
 
   addStudentToClass(userId: number, classId: number): Observable<string> {
     return this.http.put(routes.addStudentToClass(userId, classId), '')
-      .map((res: Response) => res.json())
-      .catch(() => Observable.of('Error, could not add student to class'));
+    .map((res: Response) => {
+      if(res.status !== 202) {
+        return Observable.throw('Error: ' + res.json().errorMessage[0]);
+      }
+      return Observable.of('success');
+    })
+    .catch(e => {
+      return Observable.throw('Error: ' + e.json().errorMessage[0]);
+    });
   }
 
   dropStudentFromClass(userId: number, classId: number): Observable<string> {
     return this.http.delete(routes.dropStudentFromClass(userId, classId), '')
-      .map((res: Response) => res.json())
-      .catch(() => Observable.of('Error, could not load courses'));
+    .map((res: Response) => {
+      if(res.status !== 202) {
+        return Observable.throw('Error: ' + res.json().errorMessage[0]);
+      }
+      return Observable.of('success');
+    })
+    .catch(e => {
+      return Observable.throw('Error: ' + e.json().errorMessage[0]);
+    });
   }
 
   getGpa(): Observable<any> {
